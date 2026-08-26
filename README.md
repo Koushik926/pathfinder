@@ -1,0 +1,182 @@
+# PathFinder
+
+**AI-powered personalized learning path recommender.**
+Describe a goal in your own words; PathFinder profiles what you already know,
+finds the skill gaps that stand between you and that goal, and generates an
+ordered roadmap of courses, projects and assessments — explaining every
+recommendation from the arithmetic that produced it.
+
+Built for HCLTech Round 2 by **Critical Path**, REVA University.
+
+---
+
+## Quick start
+
+Two commands. **No API key required** — PathFinder is fully functional offline.
+
+```bash
+# 1. Backend (Python 3.10+)
+cd backend
+python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
+pip install -e .
+python -m app.seed.build          # compiles the catalog (already committed, safe to re-run)
+
+# 2. Frontend (Node 18+)
+cd ../frontend
+npm install && npm run build
+
+# 3. Run — serves API *and* UI on one port
+cd ../backend
+uvicorn app.main:app --port 8000
+```
+
+Open **http://localhost:8000**. Interactive API docs at **/docs**.
+
+### Development mode (hot reload)
+
+```bash
+cd backend  && uvicorn app.main:app --reload --port 8000
+cd frontend && npm run dev        # http://localhost:5173, proxies /api
+```
+
+### Optional: enable Claude
+
+PathFinder runs entirely on local models. Setting an API key upgrades *wording
+and intent extraction only* — it never changes what is recommended.
+
+```bash
+cp .env.example .env      # add ANTHROPIC_API_KEY
+cd backend && pip install -e ".[llm]"
+```
+
+With no key the header reads **Offline mode** and template explanations are used.
+Every LLM call fails soft: no key, no package, no network, rate limit, or a
+malformed response all fall back silently to the deterministic path.
+
+### Tests
+
+```bash
+cd backend && pip install -e ".[dev]" && pytest -q      # 67 tests, ~2s
+```
+
+---
+
+## What it does
+
+| Requirement | Where it lives |
+|---|---|
+| Conversational interface | `backend/app/ml/conversation.py` — slot-filling dialogue, works offline |
+| Learner profiling engine | `backend/app/ml/profiler.py` — noisy-OR mastery with recency decay |
+| Recommendation engine | `backend/app/ml/recommender.py` — six-signal hybrid ranker |
+| Learning path generator | `backend/app/ml/planner.py` — greedy submodular coverage over a prerequisite DAG |
+| Explanation assistant | `backend/app/ml/explain.py` — explanations derived from ranker attributions |
+| Progress dashboard | `frontend/src/components/Dashboard.jsx` — skill radar, gaps, milestones, next actions |
+
+---
+
+## How the recommendation works
+
+```
+  learner goal (free text)
+        │
+        ▼
+  ┌───────────────┐   TF-IDF (word 1-2gram + char 3-5gram) → SVD 128d
+  │ Semantic space│   items · skills · roles · goals share one space
+  └───────┬───────┘
+          ▼
+  ┌───────────────┐   noisy-OR over completions, discounted by
+  │   Profiler    │   depth × recency × assessment score
+  └───────┬───────┘
+          ▼  mastery vector
+  ┌───────────────┐   target(role) − mastery, weighted by importance
+  │  Gap engine   │
+  └───────┬───────┘
+          ▼  weighted gap vector
+  ┌───────────────────────────────────────────┐
+  │ Hybrid ranker                             │
+  │  0.38 gap coverage    0.12 level fit      │
+  │  0.18 semantic match  0.10 quality prior  │
+  │  0.14 item-item CF    0.08 modality fit   │
+  └───────┬───────────────────────────────────┘
+          ▼  scored candidates + per-component attribution
+  ┌───────────────┐   greedy submodular max-coverage under a time budget,
+  │    Planner    │   simulated mastery gain after each pick,
+  │               │   prerequisite closure → topological sort → milestones
+  └───────┬───────┘
+          ▼
+   roadmap + explanations + schedule
+```
+
+Full design rationale, including why each choice was made and what was
+rejected, is in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
+
+---
+
+## Data
+
+The catalog is curated and committed, so results are reproducible and the demo
+never depends on a network call.
+
+| | |
+|---|---|
+| Items | **238** — 190 courses, 27 projects, 21 assessments |
+| Skills | **116** across 13 categories |
+| Career roles | **22** target skill profiles |
+| Prerequisite graph | validated acyclic at build time, max depth **9** |
+| Interaction log | 4,000 synthetic sessions (fixed seed) for collaborative filtering |
+
+Sources are real providers (Coursera, edX, freeCodeCamp, NPTEL, DeepLearning.AI,
+Hugging Face, AWS, and others); items authored for this project are marked
+`PathFinder Labs`. Rebuild with `python -m app.seed.build` — the build fails
+loudly on a dangling prerequisite, an unknown skill, a duplicate id or a cycle.
+
+> **On the interaction log:** we have no real enrolment data, so the
+> collaborative-filtering component is fitted on a *simulated* one, generated
+> from a fixed seed. It is a genuine item-item CF model over genuine
+> co-occurrence structure, but the co-occurrences are synthetic. It contributes
+> 14% of the ranking weight; the other 86% uses no simulated data.
+
+---
+
+## API
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `/api/meta` | Catalog stats, model dimensions, LLM status |
+| `POST` | `/api/session` | Start a session |
+| `POST` | `/api/session/{id}/chat` | One conversational turn |
+| `PUT` | `/api/session/{id}/profile` | Set the profile directly (form alternative to chat) |
+| `GET` | `/api/session/{id}/path` | Generate / fetch the roadmap |
+| `GET` | `/api/session/{id}/explain/{item}` | Why this item was recommended |
+| `GET` | `/api/session/{id}/dashboard` | Progress, skill coverage, next actions |
+| `POST` | `/api/session/{id}/feedback` | Completion, reaction, or pace change |
+| `GET` | `/api/catalog/search?q=` | Semantic catalog search |
+
+---
+
+## Project layout
+
+```
+backend/
+  app/
+    seed/          catalog source of truth (pipe-delimited) + build script
+    data/          compiled JSON artefacts
+    ml/            embeddings, profiler, gap, graph, recommender,
+                   planner, explain, feedback, conversation
+    api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
+    llm.py         optional Claude integration, fails soft everywhere
+  tests/           67 tests
+frontend/
+  src/components/  Chat, Roadmap, Dashboard, Primitives
+docs/              architecture, demo script
+```
+
+## Deployment
+
+`render.yaml` and `Dockerfile` are included; see
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
+## Team
+
+**Critical Path** — REVA University
+R Koushik · Chethan H S · Khushi Katwe · Sandeep N · Chethan Kumar H M
