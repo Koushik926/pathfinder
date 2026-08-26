@@ -34,11 +34,15 @@ LEVEL_PATTERNS = [
     (1, r"\b(beginner|just starting|complete beginner|new to|starting out|no experience|fresher|first year|never|from scratch)\b"),
 ]
 
+# Suffixes are matched explicitly: a bare \bvideo\b misses "videos", and
+# \bwatch\b misses "watching", which is how learners actually phrase this.
+_S = r"(?:s|es)?"
+_ING = r"(?:ing|es|ed|s)?"
 MODALITY_PATTERNS = {
-    "video": r"\b(video|lecture|watch|youtube)\b",
-    "interactive": r"\b(interactive|hands.?on|practice|exercises|coding along)\b",
-    "reading": r"\b(read|reading|book|text|article|docs)\b",
-    "project": r"\b(project|build|building|portfolio)\b",
+    "video": rf"\b(?:video{_S}|lecture{_S}|watch{_ING}|youtube)\b",
+    "interactive": rf"\b(?:interactive|hands.?on|practic{_ING}|practice{_S}|exercise{_S}|coding along)\b",
+    "reading": rf"\b(?:read{_ING}|book{_S}|article{_S}|docs|documentation)\b",
+    "project": rf"\b(?:project{_S}|build{_ING}|portfolio{_S})\b",
 }
 
 ASK = {

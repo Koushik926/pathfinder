@@ -26,3 +26,7 @@ include = ["app*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# numpy 2.x on macOS Accelerate emits spurious BLAS matmul warnings on finite
+# input (reproducible with random data). test_catalog asserts the matrices are
+# actually finite, so silencing these keeps real warnings visible.
+filterwarnings = ["ignore:.*encountered in matmul.*:RuntimeWarning"]
