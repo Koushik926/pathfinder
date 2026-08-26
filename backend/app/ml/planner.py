@@ -91,6 +91,7 @@ class LearningPath:
     total_hours: int
     total_weeks: float
     coverage: float          # fraction of initial weighted gap closed
+    gap_count: int           # total unmet skills, before gap_summary truncation
     readiness_before: float
     readiness_after: float
     gap_summary: list[dict]
@@ -358,6 +359,7 @@ def generate_path(
         total_hours=total_hours,
         total_weeks=round(total_hours / max(1.0, profile.hours_per_week), 1),
         coverage=round(covered_mass / initial_mass, 4) if initial_mass else 0.0,
+        gap_count=len(gaps),
         readiness_before=readiness_before,
         readiness_after=readiness_after,
         gap_summary=[
