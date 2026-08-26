@@ -47,7 +47,7 @@ SKILLS = [
     ("discrete-math",      "Discrete Mathematics",       "Mathematics",  ["combinatorics", "graph theory", "logic", "proofs"]),
 
     # --- Data ---------------------------------------------------------------
-    ("data-analysis",      "Data Analysis",              "Data",         ["pandas", "eda", "exploratory analysis", "numpy"]),
+    ("data-analysis",      "Data Analysis",              "Data",         ["pandas", "eda", "exploratory analysis", "numpy", "analyse data", "analyze data", "work with data"]),
     ("data-viz",           "Data Visualization",         "Data",         ["matplotlib", "seaborn", "plotly", "charts"]),
     ("data-cleaning",      "Data Wrangling",             "Data",         ["cleaning", "missing values", "etl basics", "preprocessing"]),
     ("feature-eng",        "Feature Engineering",        "Data",         ["feature selection", "encoding", "scaling"]),
@@ -59,7 +59,7 @@ SKILLS = [
     ("dbt-modeling",       "Analytics Engineering",      "Data",         ["dbt", "data modeling", "star schema"]),
 
     # --- Machine learning ---------------------------------------------------
-    ("ml-foundations",     "ML Foundations",             "Machine Learning", ["machine learning", "supervised", "unsupervised", "ml basics"]),
+    ("ml-foundations",     "ML Foundations",             "Machine Learning", ["machine learning", "supervised", "unsupervised", "ml basics", "ml", "learn ai"]),
     ("regression",         "Regression Models",          "Machine Learning", ["linear regression", "logistic regression"]),
     ("classification",     "Classification",             "Machine Learning", ["decision tree", "random forest", "svm", "knn"]),
     ("ensemble-methods",   "Ensemble Methods",           "Machine Learning", ["xgboost", "gradient boosting", "lightgbm", "bagging"]),
@@ -67,7 +67,7 @@ SKILLS = [
     ("model-eval",         "Model Evaluation",           "Machine Learning", ["cross validation", "roc auc", "confusion matrix", "overfitting"]),
     ("recsys",             "Recommender Systems",        "Machine Learning", ["collaborative filtering", "matrix factorisation", "recommendation"]),
     ("time-series",        "Time Series Forecasting",    "Machine Learning", ["arima", "forecasting", "prophet", "seasonality"]),
-    ("deep-learning",      "Deep Learning",              "Machine Learning", ["neural networks", "backpropagation", "dnn"]),
+    ("deep-learning",      "Deep Learning",              "Machine Learning", ["neural networks", "backpropagation", "dnn", "ai", "artificial intelligence"]),
     ("pytorch",            "PyTorch",                    "Machine Learning", ["torch", "tensors"]),
     ("tensorflow",         "TensorFlow & Keras",         "Machine Learning", ["keras", "tf"]),
     ("cnn",                "Convolutional Networks",     "Machine Learning", ["cnn", "image classification", "resnet"]),
@@ -80,7 +80,7 @@ SKILLS = [
     ("responsible-ai",     "Responsible AI",             "Machine Learning", ["fairness", "bias", "explainability", "ai ethics", "shap"]),
 
     # --- Generative AI ------------------------------------------------------
-    ("llm-foundations",    "LLM Foundations",            "Generative AI", ["large language models", "gpt", "claude", "foundation models"]),
+    ("llm-foundations",    "LLM Foundations",            "Generative AI", ["large language models", "gpt", "claude", "foundation models", "chatgpt", "llms", "chatbot"]),
     ("prompt-engineering", "Prompt Engineering",         "Generative AI", ["prompting", "few shot", "chain of thought"]),
     ("rag",                "Retrieval-Augmented Gen.",   "Generative AI", ["rag", "vector search", "embeddings retrieval"]),
     ("vector-databases",   "Vector Databases",           "Generative AI", ["pinecone", "faiss", "chroma", "pgvector"]),
@@ -90,7 +90,7 @@ SKILLS = [
     ("diffusion-models",   "Diffusion & Image Gen.",     "Generative AI", ["stable diffusion", "text to image", "gan"]),
 
     # --- Web development ----------------------------------------------------
-    ("html-css",           "HTML & CSS",                 "Web",          ["markup", "stylesheets", "flexbox", "grid"]),
+    ("html-css",           "HTML & CSS",                 "Web",          ["markup", "stylesheets", "flexbox", "grid", "web design", "make websites", "build websites", "webpage"]),
     ("responsive-design",  "Responsive Design",          "Web",          ["mobile first", "media queries", "tailwind"]),
     ("react",              "React",                      "Web",          ["reactjs", "hooks", "jsx", "components"]),
     ("nextjs",             "Next.js",                    "Web",          ["ssr", "app router", "react framework"]),
@@ -106,7 +106,7 @@ SKILLS = [
     ("websockets",         "Realtime & WebSockets",      "Web",          ["socket.io", "sse", "realtime"]),
 
     # --- Mobile -------------------------------------------------------------
-    ("android-dev",        "Android Development",        "Mobile",       ["kotlin", "android studio", "jetpack compose"]),
+    ("android-dev",        "Android Development",        "Mobile",       ["kotlin", "android studio", "jetpack compose", "android apps", "mobile apps"]),
     ("ios-dev",            "iOS Development",            "Mobile",       ["swift", "swiftui", "xcode"]),
     ("react-native",       "Cross-platform Mobile",      "Mobile",       ["react native", "flutter", "expo"]),
 
@@ -122,17 +122,17 @@ SKILLS = [
     ("cloud-architecture", "Cloud Architecture",         "Cloud & DevOps", ["well architected", "cloud native", "serverless design"]),
 
     # --- Security -----------------------------------------------------------
-    ("security-basics",    "Security Fundamentals",      "Security",     ["cia triad", "threat model", "infosec"]),
+    ("security-basics",    "Security Fundamentals",      "Security",     ["cia triad", "threat model", "infosec", "cyber security", "cybersecurity", "security"]),
     ("cryptography",       "Cryptography",               "Security",     ["encryption", "hashing", "tls", "pki"]),
     ("web-security",       "Web Application Security",   "Security",     ["owasp", "xss", "sql injection", "csrf"]),
-    ("pentesting",         "Penetration Testing",        "Security",     ["ethical hacking", "kali", "burp suite", "red team"]),
+    ("pentesting",         "Penetration Testing",        "Security",     ["ethical hacking", "kali", "burp suite", "red team", "hacking", "hacker", "break into systems", "offensive security"]),
     ("network-security",   "Network Security",           "Security",     ["firewall", "ids", "vpn", "packet analysis"]),
     ("cloud-security",     "Cloud Security",             "Security",     ["iam", "least privilege", "cspm"]),
     ("forensics",          "Digital Forensics",          "Security",     ["incident response", "malware analysis", "blue team"]),
 
     # --- Product, design & career ------------------------------------------
     ("ux-research",        "UX Research",                "Product & Design", ["user research", "interviews", "usability testing"]),
-    ("ui-design",          "UI Design",                  "Product & Design", ["figma", "visual design", "design systems"]),
+    ("ui-design",          "UI Design",                  "Product & Design", ["figma", "visual design", "design systems", "design apps", "make things look good", "visual"]),
     ("product-thinking",   "Product Management",         "Product & Design", ["roadmap", "prioritisation", "prd", "product sense"]),
     ("agile-scrum",        "Agile & Scrum",              "Product & Design", ["sprint", "kanban", "standup", "jira"]),
     ("tech-writing",       "Technical Writing",          "Product & Design", ["documentation", "readme", "api docs"]),
@@ -144,7 +144,7 @@ SKILLS = [
     ("blockchain",         "Blockchain & Web3",          "Emerging",     ["solidity", "smart contracts", "ethereum", "web3"]),
     ("iot-embedded",       "IoT & Embedded Systems",     "Emerging",     ["arduino", "raspberry pi", "microcontroller", "esp32"]),
     ("quantum-computing",  "Quantum Computing",          "Emerging",     ["qiskit", "qubits", "quantum algorithms"]),
-    ("game-dev",           "Game Development",           "Emerging",     ["unity", "unreal", "godot", "game engine"]),
+    ("game-dev",           "Game Development",           "Emerging",     ["unity", "unreal", "godot", "game engine", "make games", "video games"]),
     ("ar-vr",              "AR / VR",                    "Emerging",     ["augmented reality", "virtual reality", "xr", "metaverse"]),
     ("robotics",           "Robotics",                   "Emerging",     ["ros", "slam", "motion planning"]),
 ]

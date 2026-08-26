@@ -338,7 +338,10 @@
    "pandas",
    "eda",
    "exploratory analysis",
-   "numpy"
+   "numpy",
+   "analyse data",
+   "analyze data",
+   "work with data"
   ],
   "category": "Data",
   "id": "data-analysis",
@@ -444,7 +447,9 @@
    "machine learning",
    "supervised",
    "unsupervised",
-   "ml basics"
+   "ml basics",
+   "ml",
+   "learn ai"
   ],
   "category": "Machine Learning",
   "id": "ml-foundations",
@@ -528,7 +533,9 @@
   "aliases": [
    "neural networks",
    "backpropagation",
-   "dnn"
+   "dnn",
+   "ai",
+   "artificial intelligence"
   ],
   "category": "Machine Learning",
   "id": "deep-learning",
@@ -643,7 +650,10 @@
    "large language models",
    "gpt",
    "claude",
-   "foundation models"
+   "foundation models",
+   "chatgpt",
+   "llms",
+   "chatbot"
   ],
   "category": "Generative AI",
   "id": "llm-foundations",
@@ -727,7 +737,11 @@
    "markup",
    "stylesheets",
    "flexbox",
-   "grid"
+   "grid",
+   "web design",
+   "make websites",
+   "build websites",
+   "webpage"
   ],
   "category": "Web",
   "id": "html-css",
@@ -869,7 +883,9 @@
   "aliases": [
    "kotlin",
    "android studio",
-   "jetpack compose"
+   "jetpack compose",
+   "android apps",
+   "mobile apps"
   ],
   "category": "Mobile",
   "id": "android-dev",
@@ -994,7 +1010,10 @@
   "aliases": [
    "cia triad",
    "threat model",
-   "infosec"
+   "infosec",
+   "cyber security",
+   "cybersecurity",
+   "security"
   ],
   "category": "Security",
   "id": "security-basics",
@@ -1027,7 +1046,11 @@
    "ethical hacking",
    "kali",
    "burp suite",
-   "red team"
+   "red team",
+   "hacking",
+   "hacker",
+   "break into systems",
+   "offensive security"
   ],
   "category": "Security",
   "id": "pentesting",
@@ -1078,7 +1101,10 @@
   "aliases": [
    "figma",
    "visual design",
-   "design systems"
+   "design systems",
+   "design apps",
+   "make things look good",
+   "visual"
   ],
   "category": "Product & Design",
   "id": "ui-design",
@@ -1184,7 +1210,9 @@
    "unity",
    "unreal",
    "godot",
-   "game engine"
+   "game engine",
+   "make games",
+   "video games"
   ],
   "category": "Emerging",
   "id": "game-dev",

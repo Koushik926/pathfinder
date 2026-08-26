@@ -21,7 +21,7 @@ ROLES = [
       "responsible-ai": 0.45}),
 
     ("ml-engineer", "Machine Learning Engineer", "Data & AI",
-     ["ml engineer", "machine learning engineer", "mle", "ai engineer"],
+     ["ml engineer", "machine learning engineer", "mle", "ai engineer", "ai engineer", "work in ai"],
      {"python-basics": 0.9, "python-advanced": 0.7, "ml-foundations": 0.9, "deep-learning": 0.8,
       "pytorch": 0.7, "model-eval": 0.8, "feature-eng": 0.7, "mlops": 0.9, "docker": 0.75,
       "rest-api": 0.65, "ci-cd": 0.6, "sql": 0.6, "linear-algebra": 0.6, "testing": 0.6,
@@ -41,7 +41,7 @@ ROLES = [
       "distributed-systems": 0.5}),
 
     ("genai-engineer", "Generative AI Engineer", "Data & AI",
-     ["genai", "gen ai engineer", "llm engineer", "ai application developer", "llm developer"],
+     ["genai", "gen ai engineer", "llm engineer", "ai application developer", "llm developer", "build chatbots", "ai apps", "work with llms"],
      {"python-basics": 0.85, "python-advanced": 0.65, "llm-foundations": 0.9,
       "prompt-engineering": 0.85, "rag": 0.9, "vector-databases": 0.75, "agents": 0.8,
       "llm-evaluation": 0.7, "finetuning": 0.55, "transformers": 0.6, "rest-api": 0.7,
@@ -60,7 +60,7 @@ ROLES = [
       "data-cleaning": 0.5}),
 
     ("frontend-dev", "Frontend Developer", "Engineering",
-     ["frontend", "front end developer", "ui developer", "react developer"],
+     ["frontend", "front end developer", "ui developer", "react developer", "make websites", "build websites", "web design"],
      {"html-css": 0.9, "javascript": 0.95, "typescript": 0.7, "react": 0.9,
       "responsive-design": 0.85, "state-management": 0.7, "accessibility": 0.65,
       "web-performance": 0.65, "testing": 0.6, "git": 0.8, "rest-api": 0.6, "ui-design": 0.5}),
@@ -105,7 +105,7 @@ ROLES = [
       "cloud-security": 0.6, "bash-shell": 0.6, "observability": 0.5}),
 
     ("pentester", "Penetration Tester", "Security",
-     ["ethical hacker", "pentester", "red team", "offensive security", "bug bounty"],
+     ["ethical hacker", "pentester", "red team", "offensive security", "bug bounty", "hacking", "hacker", "cyber security"],
      {"pentesting": 0.95, "web-security": 0.9, "networking": 0.75, "linux-admin": 0.8,
       "bash-shell": 0.7, "security-basics": 0.8, "cryptography": 0.55,
       "python-basics": 0.6, "network-security": 0.65}),
