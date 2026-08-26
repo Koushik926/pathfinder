@@ -1,0 +1,4598 @@
+[
+ {
+  "depth": 0,
+  "hours": 18,
+  "id": "py-101",
+  "kind": "course",
+  "learners": 2400000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Coursera",
+  "rating": 4.8,
+  "skills": {
+   "python-basics": 0.55
+  },
+  "title": "Python for Everybody: Getting Started"
+ },
+ {
+  "depth": 1,
+  "hours": 22,
+  "id": "py-102",
+  "kind": "course",
+  "learners": 1300000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "py-101"
+  ],
+  "provider": "Udemy",
+  "rating": 4.7,
+  "skills": {
+   "bash-shell": 0.2,
+   "python-basics": 0.5
+  },
+  "title": "Automate the Boring Stuff with Python"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "py-103",
+  "kind": "course",
+  "learners": 900000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "py-101"
+  ],
+  "provider": "Coursera",
+  "rating": 4.8,
+  "skills": {
+   "dsa-basics": 0.35,
+   "python-basics": 0.4
+  },
+  "title": "Python Data Structures"
+ },
+ {
+  "depth": 2,
+  "hours": 25,
+  "id": "py-104",
+  "kind": "course",
+  "learners": 610000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "py-103"
+  ],
+  "provider": "freeCodeCamp",
+  "rating": 4.6,
+  "skills": {
+   "oop": 0.3,
+   "python-advanced": 0.5,
+   "python-basics": 0.3
+  },
+  "title": "Intermediate Python"
+ },
+ {
+  "depth": 3,
+  "hours": 30,
+  "id": "py-105",
+  "kind": "course",
+  "learners": 120000,
+  "level": 3,
+  "modality": "reading",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "O'Reilly",
+  "rating": 4.9,
+  "skills": {
+   "clean-code": 0.3,
+   "python-advanced": 0.75
+  },
+  "title": "Fluent Python Patterns"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "py-106",
+  "kind": "course",
+  "learners": 88000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "Talk Python",
+  "rating": 4.7,
+  "skills": {
+   "python-advanced": 0.6,
+   "websockets": 0.2
+  },
+  "title": "Async Python with asyncio"
+ },
+ {
+  "depth": 3,
+  "hours": 12,
+  "id": "py-107",
+  "kind": "course",
+  "learners": 140000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "Test & Code",
+  "rating": 4.7,
+  "skills": {
+   "python-basics": 0.2,
+   "testing": 0.65
+  },
+  "title": "Python Testing with pytest"
+ },
+ {
+  "depth": 2,
+  "hours": 10,
+  "id": "py-p01",
+  "kind": "project",
+  "learners": 42000,
+  "level": 1,
+  "modality": "project",
+  "prereqs": [
+   "py-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "bash-shell": 0.25,
+   "python-basics": 0.4
+  },
+  "title": "Project: Build a CLI Expense Tracker"
+ },
+ {
+  "depth": 3,
+  "hours": 16,
+  "id": "py-p02",
+  "kind": "project",
+  "learners": 31000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "data-cleaning": 0.35,
+   "python-advanced": 0.4,
+   "rest-api": 0.2
+  },
+  "title": "Project: REST Scraper & Data Reporter"
+ },
+ {
+  "depth": 2,
+  "hours": 2,
+  "id": "py-a01",
+  "kind": "assessment",
+  "learners": 96000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "py-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "python-basics": 0.3
+  },
+  "title": "Assessment: Python Proficiency Check"
+ },
+ {
+  "depth": 4,
+  "hours": 2,
+  "id": "py-a02",
+  "kind": "assessment",
+  "learners": 27000,
+  "level": 3,
+  "modality": "interactive",
+  "prereqs": [
+   "py-105"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "python-advanced": 0.35
+  },
+  "title": "Assessment: Advanced Python & Idioms"
+ },
+ {
+  "depth": 0,
+  "hours": 30,
+  "id": "js-101",
+  "kind": "course",
+  "learners": 1800000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [],
+  "provider": "freeCodeCamp",
+  "rating": 4.8,
+  "skills": {
+   "dsa-basics": 0.25,
+   "javascript": 0.55
+  },
+  "title": "JavaScript Algorithms and Data Structures"
+ },
+ {
+  "depth": 1,
+  "hours": 22,
+  "id": "js-102",
+  "kind": "course",
+  "learners": 420000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "js-101"
+  ],
+  "provider": "Udemy",
+  "rating": 4.7,
+  "skills": {
+   "javascript": 0.6
+  },
+  "title": "Modern JavaScript from the Beginning"
+ },
+ {
+  "depth": 2,
+  "hours": 18,
+  "id": "js-103",
+  "kind": "course",
+  "learners": 380000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "js-102"
+  ],
+  "provider": "Udemy",
+  "rating": 4.7,
+  "skills": {
+   "functional-prog": 0.25,
+   "javascript": 0.55
+  },
+  "title": "JavaScript: Understanding the Weird Parts"
+ },
+ {
+  "depth": 3,
+  "hours": 16,
+  "id": "js-104",
+  "kind": "course",
+  "learners": 210000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "Frontend Masters",
+  "rating": 4.8,
+  "skills": {
+   "javascript": 0.2,
+   "typescript": 0.7
+  },
+  "title": "TypeScript Deep Dive"
+ },
+ {
+  "depth": 3,
+  "hours": 12,
+  "id": "js-105",
+  "kind": "course",
+  "learners": 130000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "Frontend Masters",
+  "rating": 4.7,
+  "skills": {
+   "javascript": 0.2,
+   "testing": 0.6
+  },
+  "title": "Testing JavaScript with Jest & Vitest"
+ },
+ {
+  "depth": 3,
+  "hours": 2,
+  "id": "js-a01",
+  "kind": "assessment",
+  "learners": 74000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "javascript": 0.3
+  },
+  "title": "Assessment: JavaScript Core Concepts"
+ },
+ {
+  "depth": 0,
+  "hours": 28,
+  "id": "java-101",
+  "kind": "course",
+  "learners": 540000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "java": 0.55,
+   "oop": 0.3
+  },
+  "title": "Java Programming: Solving Problems"
+ },
+ {
+  "depth": 1,
+  "hours": 26,
+  "id": "java-102",
+  "kind": "course",
+  "learners": 380000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "java-101"
+  ],
+  "provider": "Coursera",
+  "rating": 4.7,
+  "skills": {
+   "java": 0.4,
+   "oop": 0.6
+  },
+  "title": "Object-Oriented Programming in Java"
+ },
+ {
+  "depth": 2,
+  "hours": 24,
+  "id": "java-103",
+  "kind": "course",
+  "learners": 290000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "java-102"
+  ],
+  "provider": "Udemy",
+  "rating": 4.6,
+  "skills": {
+   "fastapi-backend": 0.15,
+   "java": 0.3,
+   "rest-api": 0.45
+  },
+  "title": "Spring Boot Essentials"
+ },
+ {
+  "depth": 0,
+  "hours": 26,
+  "id": "cpp-101",
+  "kind": "course",
+  "learners": 310000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "edX",
+  "rating": 4.5,
+  "skills": {
+   "cpp": 0.55,
+   "oop": 0.25
+  },
+  "title": "C++ Fundamentals"
+ },
+ {
+  "depth": 4,
+  "hours": 40,
+  "id": "cpp-102",
+  "kind": "course",
+  "learners": 160000,
+  "level": 3,
+  "modality": "interactive",
+  "prereqs": [
+   "cpp-101",
+   "dsa-102"
+  ],
+  "provider": "CodeChef",
+  "rating": 4.7,
+  "skills": {
+   "algorithms": 0.35,
+   "cpp": 0.4,
+   "dsa-advanced": 0.55
+  },
+  "title": "Competitive Programming in C++"
+ },
+ {
+  "depth": 0,
+  "hours": 24,
+  "id": "c-101",
+  "kind": "course",
+  "learners": 270000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "NPTEL",
+  "rating": 4.5,
+  "skills": {
+   "c-lang": 0.6,
+   "os-concepts": 0.15
+  },
+  "title": "C Programming and Memory"
+ },
+ {
+  "depth": 3,
+  "hours": 20,
+  "id": "go-101",
+  "kind": "course",
+  "learners": 145000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "Udemy",
+  "rating": 4.6,
+  "skills": {
+   "go-lang": 0.65,
+   "networking": 0.15
+  },
+  "title": "Go: The Complete Guide"
+ },
+ {
+  "depth": 1,
+  "hours": 35,
+  "id": "rust-101",
+  "kind": "course",
+  "learners": 200000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "c-101"
+  ],
+  "provider": "rust-lang.org",
+  "rating": 4.9,
+  "skills": {
+   "functional-prog": 0.2,
+   "rust": 0.7
+  },
+  "title": "Rust Programming: The Book"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "git-101",
+  "kind": "course",
+  "learners": 880000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "freeCodeCamp",
+  "rating": 4.7,
+  "skills": {
+   "git": 0.65
+  },
+  "title": "Git & GitHub Fundamentals"
+ },
+ {
+  "depth": 1,
+  "hours": 10,
+  "id": "git-102",
+  "kind": "course",
+  "learners": 95000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "git-101"
+  ],
+  "provider": "Frontend Masters",
+  "rating": 4.8,
+  "skills": {
+   "debugging": 0.2,
+   "git": 0.5
+  },
+  "title": "Advanced Git: Rebase, Bisect, Hooks"
+ },
+ {
+  "depth": 0,
+  "hours": 12,
+  "id": "sh-101",
+  "kind": "course",
+  "learners": 460000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "MIT",
+  "rating": 4.9,
+  "skills": {
+   "bash-shell": 0.6,
+   "debugging": 0.25,
+   "git": 0.3,
+   "linux-admin": 0.25
+  },
+  "title": "The Missing Semester of Your CS Education"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "cc-101",
+  "kind": "course",
+  "learners": 175000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "Pluralsight",
+  "rating": 4.6,
+  "skills": {
+   "clean-code": 0.7,
+   "oop": 0.25,
+   "testing": 0.2
+  },
+  "title": "Clean Code & Refactoring Principles"
+ },
+ {
+  "depth": 3,
+  "hours": 9,
+  "id": "dbg-101",
+  "kind": "course",
+  "learners": 52000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "debugging": 0.65,
+   "testing": 0.2
+  },
+  "title": "Debugging & Profiling in Practice"
+ },
+ {
+  "depth": 0,
+  "hours": 16,
+  "id": "sql-101",
+  "kind": "course",
+  "learners": 950000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "db-design": 0.2,
+   "sql": 0.6
+  },
+  "title": "SQL for Data Science"
+ },
+ {
+  "depth": 1,
+  "hours": 12,
+  "id": "sql-102",
+  "kind": "course",
+  "learners": 310000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sql-101"
+  ],
+  "provider": "Mode Analytics",
+  "rating": 4.7,
+  "skills": {
+   "data-analysis": 0.2,
+   "sql": 0.55
+  },
+  "title": "Intermediate SQL: Window Functions"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "sql-103",
+  "kind": "course",
+  "learners": 220000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "sql-101"
+  ],
+  "provider": "NPTEL",
+  "rating": 4.5,
+  "skills": {
+   "db-design": 0.7,
+   "sql": 0.25
+  },
+  "title": "Database Design & Normalisation"
+ },
+ {
+  "depth": 2,
+  "hours": 10,
+  "id": "sql-104",
+  "kind": "course",
+  "learners": 84000,
+  "level": 3,
+  "modality": "reading",
+  "prereqs": [
+   "sql-103"
+  ],
+  "provider": "Use The Index",
+  "rating": 4.8,
+  "skills": {
+   "db-design": 0.45,
+   "debugging": 0.2,
+   "sql": 0.35
+  },
+  "title": "Query Performance & Indexing"
+ },
+ {
+  "depth": 2,
+  "hours": 2,
+  "id": "sql-a01",
+  "kind": "assessment",
+  "learners": 118000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sql-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "sql": 0.3
+  },
+  "title": "Assessment: SQL Query Challenge"
+ },
+ {
+  "depth": 2,
+  "hours": 30,
+  "id": "dsa-101",
+  "kind": "course",
+  "learners": 720000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "py-103"
+  ],
+  "provider": "freeCodeCamp",
+  "rating": 4.8,
+  "skills": {
+   "algorithms": 0.25,
+   "dsa-basics": 0.65
+  },
+  "title": "Data Structures Easy to Advanced"
+ },
+ {
+  "depth": 3,
+  "hours": 34,
+  "id": "dsa-102",
+  "kind": "course",
+  "learners": 640000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "dsa-101"
+  ],
+  "provider": "Coursera",
+  "rating": 4.9,
+  "skills": {
+   "algorithms": 0.7,
+   "dsa-basics": 0.3
+  },
+  "title": "Algorithms Part I"
+ },
+ {
+  "depth": 4,
+  "hours": 34,
+  "id": "dsa-103",
+  "kind": "course",
+  "learners": 380000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dsa-102"
+  ],
+  "provider": "Coursera",
+  "rating": 4.9,
+  "skills": {
+   "algorithms": 0.35,
+   "dsa-advanced": 0.65
+  },
+  "title": "Algorithms Part II: Graphs & Strings"
+ },
+ {
+  "depth": 4,
+  "hours": 24,
+  "id": "dsa-104",
+  "kind": "course",
+  "learners": 210000,
+  "level": 3,
+  "modality": "interactive",
+  "prereqs": [
+   "dsa-102"
+  ],
+  "provider": "AlgoExpert",
+  "rating": 4.7,
+  "skills": {
+   "algorithms": 0.25,
+   "dsa-advanced": 0.7
+  },
+  "title": "Dynamic Programming Patterns"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "dsa-p01",
+  "kind": "project",
+  "learners": 38000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "dsa-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "dsa-basics": 0.45,
+   "oop": 0.3,
+   "testing": 0.2
+  },
+  "title": "Project: Build Your Own Data Structures"
+ },
+ {
+  "depth": 4,
+  "hours": 3,
+  "id": "dsa-a01",
+  "kind": "assessment",
+  "learners": 205000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "dsa-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "algorithms": 0.3,
+   "dsa-basics": 0.3
+  },
+  "title": "Assessment: DSA Timed Mock Test"
+ },
+ {
+  "depth": 1,
+  "hours": 30,
+  "id": "os-101",
+  "kind": "course",
+  "learners": 190000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "c-101"
+  ],
+  "provider": "Wisconsin",
+  "rating": 4.9,
+  "skills": {
+   "c-lang": 0.2,
+   "os-concepts": 0.75
+  },
+  "title": "Operating Systems: Three Easy Pieces"
+ },
+ {
+  "depth": 0,
+  "hours": 28,
+  "id": "net-101",
+  "kind": "course",
+  "learners": 260000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "NPTEL",
+  "rating": 4.6,
+  "skills": {
+   "networking": 0.75
+  },
+  "title": "Computer Networking: A Top-Down Approach"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "net-102",
+  "kind": "course",
+  "learners": 61000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "networking": 0.4,
+   "rest-api": 0.2
+  },
+  "title": "HTTP, DNS & The Modern Web Stack"
+ },
+ {
+  "depth": 2,
+  "hours": 32,
+  "id": "ds-101",
+  "kind": "course",
+  "learners": 120000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "os-101",
+   "net-101"
+  ],
+  "provider": "MIT OCW",
+  "rating": 4.8,
+  "skills": {
+   "distributed-systems": 0.75,
+   "networking": 0.25
+  },
+  "title": "Distributed Systems Fundamentals"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "sysd-101",
+  "kind": "course",
+  "learners": 540000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "net-101"
+  ],
+  "provider": "GitHub",
+  "rating": 4.8,
+  "skills": {
+   "db-design": 0.2,
+   "distributed-systems": 0.3,
+   "system-design": 0.6
+  },
+  "title": "System Design Primer"
+ },
+ {
+  "depth": 2,
+  "hours": 26,
+  "id": "sysd-102",
+  "kind": "course",
+  "learners": 290000,
+  "level": 3,
+  "modality": "interactive",
+  "prereqs": [
+   "sysd-101"
+  ],
+  "provider": "Educative",
+  "rating": 4.7,
+  "skills": {
+   "cloud-architecture": 0.25,
+   "distributed-systems": 0.4,
+   "system-design": 0.75
+  },
+  "title": "Grokking Modern System Design"
+ },
+ {
+  "depth": 3,
+  "hours": 3,
+  "id": "sysd-a01",
+  "kind": "assessment",
+  "learners": 66000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "sysd-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "system-design": 0.35
+  },
+  "title": "Assessment: System Design Mock Interview"
+ },
+ {
+  "depth": 2,
+  "hours": 40,
+  "id": "comp-101",
+  "kind": "course",
+  "learners": 95000,
+  "level": 3,
+  "modality": "reading",
+  "prereqs": [
+   "java-102"
+  ],
+  "provider": "craftinginterpreters",
+  "rating": 4.9,
+  "skills": {
+   "clean-code": 0.2,
+   "compilers": 0.8,
+   "cpp": 0.2
+  },
+  "title": "Crafting Interpreters"
+ },
+ {
+  "depth": 0,
+  "hours": 20,
+  "id": "math-101",
+  "kind": "course",
+  "learners": 480000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Imperial/Coursera",
+  "rating": 4.7,
+  "skills": {
+   "linear-algebra": 0.7
+  },
+  "title": "Linear Algebra for Machine Learning"
+ },
+ {
+  "depth": 0,
+  "hours": 6,
+  "id": "math-102",
+  "kind": "course",
+  "learners": 1100000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "3Blue1Brown",
+  "rating": 4.9,
+  "skills": {
+   "linear-algebra": 0.45
+  },
+  "title": "Essence of Linear Algebra"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "math-103",
+  "kind": "course",
+  "learners": 300000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "math-101"
+  ],
+  "provider": "Imperial/Coursera",
+  "rating": 4.6,
+  "skills": {
+   "calculus": 0.7,
+   "optimization": 0.25
+  },
+  "title": "Multivariate Calculus for ML"
+ },
+ {
+  "depth": 0,
+  "hours": 24,
+  "id": "math-104",
+  "kind": "course",
+  "learners": 420000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "edX",
+  "rating": 4.6,
+  "skills": {
+   "probability": 0.6,
+   "statistics": 0.5
+  },
+  "title": "Probability & Statistics for Data Science"
+ },
+ {
+  "depth": 1,
+  "hours": 22,
+  "id": "math-105",
+  "kind": "course",
+  "learners": 260000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "math-104"
+  ],
+  "provider": "Coursera",
+  "rating": 4.5,
+  "skills": {
+   "probability": 0.35,
+   "statistics": 0.7
+  },
+  "title": "Statistical Inference"
+ },
+ {
+  "depth": 2,
+  "hours": 30,
+  "id": "math-106",
+  "kind": "course",
+  "learners": 88000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "math-103"
+  ],
+  "provider": "Stanford",
+  "rating": 4.8,
+  "skills": {
+   "calculus": 0.3,
+   "linear-algebra": 0.3,
+   "optimization": 0.8
+  },
+  "title": "Convex Optimization"
+ },
+ {
+  "depth": 0,
+  "hours": 26,
+  "id": "math-107",
+  "kind": "course",
+  "learners": 240000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "NPTEL",
+  "rating": 4.5,
+  "skills": {
+   "algorithms": 0.2,
+   "discrete-math": 0.75
+  },
+  "title": "Discrete Mathematics"
+ },
+ {
+  "depth": 1,
+  "hours": 2,
+  "id": "math-a01",
+  "kind": "assessment",
+  "learners": 130000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "math-101",
+   "math-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "calculus": 0.2,
+   "linear-algebra": 0.25,
+   "probability": 0.25
+  },
+  "title": "Assessment: Math Readiness for ML"
+ },
+ {
+  "depth": 2,
+  "hours": 20,
+  "id": "da-101",
+  "kind": "course",
+  "learners": 830000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "py-103"
+  ],
+  "provider": "freeCodeCamp",
+  "rating": 4.7,
+  "skills": {
+   "data-analysis": 0.6,
+   "python-basics": 0.2
+  },
+  "title": "Data Analysis with Python"
+ },
+ {
+  "depth": 3,
+  "hours": 10,
+  "id": "da-102",
+  "kind": "course",
+  "learners": 690000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "da-101"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.8,
+  "skills": {
+   "data-analysis": 0.55,
+   "data-cleaning": 0.3
+  },
+  "title": "Pandas in Depth"
+ },
+ {
+  "depth": 4,
+  "hours": 12,
+  "id": "da-103",
+  "kind": "course",
+  "learners": 410000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "da-102"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.7,
+  "skills": {
+   "data-cleaning": 0.7,
+   "feature-eng": 0.25
+  },
+  "title": "Data Cleaning & Preprocessing"
+ },
+ {
+  "depth": 4,
+  "hours": 14,
+  "id": "da-104",
+  "kind": "course",
+  "learners": 350000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "da-102"
+  ],
+  "provider": "DataCamp",
+  "rating": 4.6,
+  "skills": {
+   "data-analysis": 0.5,
+   "data-viz": 0.4,
+   "statistics": 0.25
+  },
+  "title": "Exploratory Data Analysis in Practice"
+ },
+ {
+  "depth": 3,
+  "hours": 12,
+  "id": "da-105",
+  "kind": "course",
+  "learners": 400000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "da-101"
+  ],
+  "provider": "DataCamp",
+  "rating": 4.6,
+  "skills": {
+   "data-viz": 0.7
+  },
+  "title": "Data Visualization with Matplotlib/Seaborn"
+ },
+ {
+  "depth": 4,
+  "hours": 10,
+  "id": "da-106",
+  "kind": "course",
+  "learners": 280000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "da-105"
+  ],
+  "provider": "Coursera",
+  "rating": 4.7,
+  "skills": {
+   "communication": 0.5,
+   "data-viz": 0.4
+  },
+  "title": "Storytelling with Data"
+ },
+ {
+  "depth": 1,
+  "hours": 16,
+  "id": "da-107",
+  "kind": "course",
+  "learners": 520000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [
+   "excel-101"
+  ],
+  "provider": "Microsoft Learn",
+  "rating": 4.6,
+  "skills": {
+   "bi-tools": 0.7,
+   "data-viz": 0.3
+  },
+  "title": "Power BI for Business Analytics"
+ },
+ {
+  "depth": 1,
+  "hours": 14,
+  "id": "da-108",
+  "kind": "course",
+  "learners": 340000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "excel-101"
+  ],
+  "provider": "Coursera",
+  "rating": 4.5,
+  "skills": {
+   "bi-tools": 0.65,
+   "data-viz": 0.3
+  },
+  "title": "Tableau Desktop Essentials"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "excel-101",
+  "kind": "course",
+  "learners": 600000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [],
+  "provider": "Microsoft Learn",
+  "rating": 4.4,
+  "skills": {
+   "data-analysis": 0.15,
+   "excel-sheets": 0.7
+  },
+  "title": "Spreadsheets for Analysts"
+ },
+ {
+  "depth": 5,
+  "hours": 14,
+  "id": "da-p01",
+  "kind": "project",
+  "learners": 58000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "da-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "data-analysis": 0.45,
+   "data-cleaning": 0.3,
+   "data-viz": 0.35
+  },
+  "title": "Project: End-to-End EDA on Public Data"
+ },
+ {
+  "depth": 2,
+  "hours": 16,
+  "id": "da-p02",
+  "kind": "project",
+  "learners": 34000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "da-107"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "bi-tools": 0.5,
+   "communication": 0.2,
+   "data-viz": 0.4
+  },
+  "title": "Project: Build an Interactive BI Dashboard"
+ },
+ {
+  "depth": 5,
+  "hours": 2,
+  "id": "da-a01",
+  "kind": "assessment",
+  "learners": 87000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "da-104",
+   "sql-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "data-analysis": 0.3,
+   "data-viz": 0.2,
+   "sql": 0.25
+  },
+  "title": "Assessment: Data Analyst Skills Audit"
+ },
+ {
+  "depth": 3,
+  "hours": 22,
+  "id": "de-101",
+  "kind": "course",
+  "learners": 300000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "sql-102",
+   "py-104"
+  ],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "data-engineering": 0.65,
+   "sql": 0.25
+  },
+  "title": "Data Engineering Foundations"
+ },
+ {
+  "depth": 4,
+  "hours": 20,
+  "id": "de-102",
+  "kind": "course",
+  "learners": 150000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "de-101"
+  ],
+  "provider": "Udacity",
+  "rating": 4.6,
+  "skills": {
+   "data-engineering": 0.6,
+   "python-advanced": 0.25
+  },
+  "title": "Building ETL Pipelines with Airflow"
+ },
+ {
+  "depth": 2,
+  "hours": 14,
+  "id": "de-103",
+  "kind": "course",
+  "learners": 190000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sql-103"
+  ],
+  "provider": "dbt Labs",
+  "rating": 4.7,
+  "skills": {
+   "data-engineering": 0.25,
+   "dbt-modeling": 0.7,
+   "sql": 0.35
+  },
+  "title": "Analytics Engineering with dbt"
+ },
+ {
+  "depth": 4,
+  "hours": 26,
+  "id": "de-104",
+  "kind": "course",
+  "learners": 210000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "de-101"
+  ],
+  "provider": "edX",
+  "rating": 4.5,
+  "skills": {
+   "big-data": 0.7,
+   "data-engineering": 0.3,
+   "python-advanced": 0.2
+  },
+  "title": "Big Data with Apache Spark"
+ },
+ {
+  "depth": 5,
+  "hours": 18,
+  "id": "de-105",
+  "kind": "course",
+  "learners": 130000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "de-102"
+  ],
+  "provider": "Confluent",
+  "rating": 4.6,
+  "skills": {
+   "distributed-systems": 0.25,
+   "streaming-data": 0.7
+  },
+  "title": "Streaming Data with Kafka"
+ },
+ {
+  "depth": 4,
+  "hours": 16,
+  "id": "de-106",
+  "kind": "course",
+  "learners": 175000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "de-101"
+  ],
+  "provider": "Google Cloud",
+  "rating": 4.5,
+  "skills": {
+   "cloud-architecture": 0.3,
+   "data-engineering": 0.45,
+   "sql": 0.2
+  },
+  "title": "Data Warehousing on the Cloud"
+ },
+ {
+  "depth": 6,
+  "hours": 24,
+  "id": "de-p01",
+  "kind": "project",
+  "learners": 26000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "de-105"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "data-engineering": 0.5,
+   "docker": 0.25,
+   "streaming-data": 0.4
+  },
+  "title": "Project: Batch + Streaming Pipeline"
+ },
+ {
+  "depth": 2,
+  "hours": 40,
+  "id": "ml-101",
+  "kind": "course",
+  "learners": 1500000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "py-103",
+   "math-101"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.9,
+  "skills": {
+   "classification": 0.4,
+   "ml-foundations": 0.7,
+   "regression": 0.5
+  },
+  "title": "Machine Learning Specialization"
+ },
+ {
+  "depth": 4,
+  "hours": 8,
+  "id": "ml-102",
+  "kind": "course",
+  "learners": 780000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "da-102"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.7,
+  "skills": {
+   "classification": 0.3,
+   "ml-foundations": 0.45
+  },
+  "title": "Intro to Machine Learning"
+ },
+ {
+  "depth": 5,
+  "hours": 16,
+  "id": "ml-103",
+  "kind": "course",
+  "learners": 420000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-102"
+  ],
+  "provider": "DataCamp",
+  "rating": 4.6,
+  "skills": {
+   "classification": 0.55,
+   "model-eval": 0.35,
+   "regression": 0.5
+  },
+  "title": "Supervised Learning with scikit-learn"
+ },
+ {
+  "depth": 6,
+  "hours": 10,
+  "id": "ml-104",
+  "kind": "course",
+  "learners": 330000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.7,
+  "skills": {
+   "data-cleaning": 0.3,
+   "feature-eng": 0.7
+  },
+  "title": "Feature Engineering for ML"
+ },
+ {
+  "depth": 6,
+  "hours": 12,
+  "id": "ml-105",
+  "kind": "course",
+  "learners": 240000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "Udacity",
+  "rating": 4.6,
+  "skills": {
+   "model-eval": 0.75,
+   "statistics": 0.25
+  },
+  "title": "Model Evaluation & Validation"
+ },
+ {
+  "depth": 7,
+  "hours": 12,
+  "id": "ml-106",
+  "kind": "course",
+  "learners": 310000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-105"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.8,
+  "skills": {
+   "classification": 0.3,
+   "ensemble-methods": 0.75,
+   "model-eval": 0.25
+  },
+  "title": "Ensemble Methods & Gradient Boosting"
+ },
+ {
+  "depth": 6,
+  "hours": 14,
+  "id": "ml-107",
+  "kind": "course",
+  "learners": 260000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "clustering": 0.75,
+   "linear-algebra": 0.25
+  },
+  "title": "Unsupervised Learning & Clustering"
+ },
+ {
+  "depth": 6,
+  "hours": 12,
+  "id": "ml-108",
+  "kind": "course",
+  "learners": 200000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-103",
+   "math-105"
+  ],
+  "provider": "Kaggle Learn",
+  "rating": 4.6,
+  "skills": {
+   "statistics": 0.3,
+   "time-series": 0.75
+  },
+  "title": "Time Series Forecasting"
+ },
+ {
+  "depth": 7,
+  "hours": 20,
+  "id": "ml-109",
+  "kind": "course",
+  "learners": 180000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "ml-107"
+  ],
+  "provider": "Coursera",
+  "rating": 4.7,
+  "skills": {
+   "linear-algebra": 0.3,
+   "ml-foundations": 0.25,
+   "recsys": 0.8
+  },
+  "title": "Recommender Systems"
+ },
+ {
+  "depth": 7,
+  "hours": 10,
+  "id": "ml-110",
+  "kind": "course",
+  "learners": 165000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "ml-105"
+  ],
+  "provider": "Google Cloud",
+  "rating": 4.7,
+  "skills": {
+   "model-eval": 0.25,
+   "responsible-ai": 0.75
+  },
+  "title": "Responsible AI & Model Explainability"
+ },
+ {
+  "depth": 7,
+  "hours": 20,
+  "id": "ml-p01",
+  "kind": "project",
+  "learners": 72000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "ml-105"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "feature-eng": 0.35,
+   "ml-foundations": 0.4,
+   "model-eval": 0.35
+  },
+  "title": "Project: Predictive Model End-to-End"
+ },
+ {
+  "depth": 8,
+  "hours": 30,
+  "id": "ml-p02",
+  "kind": "project",
+  "learners": 145000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "ml-106"
+  ],
+  "provider": "Kaggle",
+  "rating": 4.8,
+  "skills": {
+   "ensemble-methods": 0.45,
+   "feature-eng": 0.45,
+   "model-eval": 0.35
+  },
+  "title": "Project: Kaggle Competition Sprint"
+ },
+ {
+  "depth": 6,
+  "hours": 2,
+  "id": "ml-a01",
+  "kind": "assessment",
+  "learners": 156000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "ml-foundations": 0.3,
+   "model-eval": 0.25
+  },
+  "title": "Assessment: ML Fundamentals Quiz"
+ },
+ {
+  "depth": 3,
+  "hours": 50,
+  "id": "dl-101",
+  "kind": "course",
+  "learners": 1100000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-101",
+   "math-103"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.9,
+  "skills": {
+   "cnn": 0.4,
+   "deep-learning": 0.75,
+   "optimization": 0.25,
+   "rnn-seq": 0.4
+  },
+  "title": "Deep Learning Specialization"
+ },
+ {
+  "depth": 6,
+  "hours": 35,
+  "id": "dl-102",
+  "kind": "course",
+  "learners": 620000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "fast.ai",
+  "rating": 4.9,
+  "skills": {
+   "cnn": 0.35,
+   "deep-learning": 0.6,
+   "pytorch": 0.45
+  },
+  "title": "Practical Deep Learning for Coders"
+ },
+ {
+  "depth": 6,
+  "hours": 14,
+  "id": "dl-103",
+  "kind": "course",
+  "learners": 380000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "Microsoft Learn",
+  "rating": 4.7,
+  "skills": {
+   "deep-learning": 0.3,
+   "pytorch": 0.75
+  },
+  "title": "PyTorch Fundamentals"
+ },
+ {
+  "depth": 6,
+  "hours": 28,
+  "id": "dl-104",
+  "kind": "course",
+  "learners": 340000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.7,
+  "skills": {
+   "cnn": 0.3,
+   "deep-learning": 0.35,
+   "tensorflow": 0.75
+  },
+  "title": "TensorFlow Developer Certificate Prep"
+ },
+ {
+  "depth": 4,
+  "hours": 22,
+  "id": "dl-105",
+  "kind": "course",
+  "learners": 420000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dl-101"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.9,
+  "skills": {
+   "cnn": 0.8,
+   "computer-vision": 0.4,
+   "deep-learning": 0.3
+  },
+  "title": "Convolutional Neural Networks"
+ },
+ {
+  "depth": 4,
+  "hours": 22,
+  "id": "dl-106",
+  "kind": "course",
+  "learners": 380000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dl-101"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.8,
+  "skills": {
+   "deep-learning": 0.3,
+   "nlp": 0.35,
+   "rnn-seq": 0.8
+  },
+  "title": "Sequence Models"
+ },
+ {
+  "depth": 7,
+  "hours": 18,
+  "id": "dl-107",
+  "kind": "course",
+  "learners": 290000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dl-103",
+   "dl-106"
+  ],
+  "provider": "Karpathy",
+  "rating": 4.9,
+  "skills": {
+   "deep-learning": 0.3,
+   "pytorch": 0.4,
+   "transformers": 0.8
+  },
+  "title": "Attention & Transformers from Scratch"
+ },
+ {
+  "depth": 4,
+  "hours": 2,
+  "id": "dl-a01",
+  "kind": "assessment",
+  "learners": 71000,
+  "level": 3,
+  "modality": "interactive",
+  "prereqs": [
+   "dl-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "cnn": 0.2,
+   "deep-learning": 0.3,
+   "rnn-seq": 0.2
+  },
+  "title": "Assessment: Deep Learning Concepts"
+ },
+ {
+  "depth": 4,
+  "hours": 40,
+  "id": "nlp-101",
+  "kind": "course",
+  "learners": 320000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "dl-101"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.7,
+  "skills": {
+   "nlp": 0.75,
+   "rnn-seq": 0.35,
+   "transformers": 0.3
+  },
+  "title": "Natural Language Processing Specialization"
+ },
+ {
+  "depth": 3,
+  "hours": 10,
+  "id": "nlp-102",
+  "kind": "course",
+  "learners": 210000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "spaCy",
+  "rating": 4.6,
+  "skills": {
+   "data-cleaning": 0.2,
+   "nlp": 0.5
+  },
+  "title": "NLP with spaCy & Classical Methods"
+ },
+ {
+  "depth": 7,
+  "hours": 20,
+  "id": "nlp-103",
+  "kind": "course",
+  "learners": 450000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "dl-103"
+  ],
+  "provider": "Hugging Face",
+  "rating": 4.8,
+  "skills": {
+   "nlp": 0.45,
+   "pytorch": 0.3,
+   "transformers": 0.65
+  },
+  "title": "Hugging Face Transformers Course"
+ },
+ {
+  "depth": 3,
+  "hours": 18,
+  "id": "cv-101",
+  "kind": "course",
+  "learners": 230000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "PyImageSearch",
+  "rating": 4.6,
+  "skills": {
+   "computer-vision": 0.7,
+   "python-advanced": 0.2
+  },
+  "title": "Computer Vision with OpenCV"
+ },
+ {
+  "depth": 5,
+  "hours": 22,
+  "id": "cv-102",
+  "kind": "course",
+  "learners": 170000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dl-105"
+  ],
+  "provider": "Coursera",
+  "rating": 4.7,
+  "skills": {
+   "cnn": 0.45,
+   "computer-vision": 0.6,
+   "deep-learning": 0.25
+  },
+  "title": "Object Detection & Segmentation"
+ },
+ {
+  "depth": 3,
+  "hours": 40,
+  "id": "rl-101",
+  "kind": "course",
+  "learners": 190000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "ml-101",
+   "math-104"
+  ],
+  "provider": "Alberta/Coursera",
+  "rating": 4.7,
+  "skills": {
+   "optimization": 0.25,
+   "probability": 0.3,
+   "reinforcement-learn": 0.8
+  },
+  "title": "Reinforcement Learning Specialization"
+ },
+ {
+  "depth": 7,
+  "hours": 20,
+  "id": "mlops-101",
+  "kind": "course",
+  "learners": 260000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-105"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.7,
+  "skills": {
+   "ml-foundations": 0.2,
+   "mlops": 0.7
+  },
+  "title": "MLOps Fundamentals"
+ },
+ {
+  "depth": 8,
+  "hours": 10,
+  "id": "mlops-102",
+  "kind": "course",
+  "learners": 68000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "mlops-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "mlops": 0.55,
+   "testing": 0.2
+  },
+  "title": "Experiment Tracking with MLflow"
+ },
+ {
+  "depth": 8,
+  "hours": 16,
+  "id": "mlops-103",
+  "kind": "course",
+  "learners": 195000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "mlops-101",
+   "py-104"
+  ],
+  "provider": "Udemy",
+  "rating": 4.7,
+  "skills": {
+   "docker": 0.4,
+   "fastapi-backend": 0.35,
+   "mlops": 0.5,
+   "rest-api": 0.25
+  },
+  "title": "Deploying ML Models with Docker & FastAPI"
+ },
+ {
+  "depth": 9,
+  "hours": 12,
+  "id": "mlops-104",
+  "kind": "course",
+  "learners": 54000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "mlops-103"
+  ],
+  "provider": "Evidently AI",
+  "rating": 4.6,
+  "skills": {
+   "mlops": 0.6,
+   "model-eval": 0.25,
+   "observability": 0.3
+  },
+  "title": "Model Monitoring & Drift Detection"
+ },
+ {
+  "depth": 9,
+  "hours": 26,
+  "id": "mlops-p01",
+  "kind": "project",
+  "learners": 41000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "mlops-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "ci-cd": 0.3,
+   "docker": 0.35,
+   "mlops": 0.5,
+   "rest-api": 0.25
+  },
+  "title": "Project: Ship an ML Service to Production"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "gen-101",
+  "kind": "course",
+  "learners": 720000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "DeepLearning.AI",
+  "rating": 4.8,
+  "skills": {
+   "llm-foundations": 0.5,
+   "prompt-engineering": 0.3
+  },
+  "title": "Generative AI for Everyone"
+ },
+ {
+  "depth": 1,
+  "hours": 6,
+  "id": "gen-102",
+  "kind": "course",
+  "learners": 680000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "gen-101"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.8,
+  "skills": {
+   "llm-foundations": 0.25,
+   "prompt-engineering": 0.7
+  },
+  "title": "Prompt Engineering for Developers"
+ },
+ {
+  "depth": 1,
+  "hours": 10,
+  "id": "gen-103",
+  "kind": "course",
+  "learners": 540000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "gen-101"
+  ],
+  "provider": "Karpathy",
+  "rating": 4.9,
+  "skills": {
+   "llm-foundations": 0.7,
+   "transformers": 0.4
+  },
+  "title": "How LLMs Actually Work"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "gen-104",
+  "kind": "course",
+  "learners": 310000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-102",
+   "py-104"
+  ],
+  "provider": "LangChain",
+  "rating": 4.7,
+  "skills": {
+   "llm-foundations": 0.25,
+   "rag": 0.7,
+   "vector-databases": 0.45
+  },
+  "title": "Building RAG Applications"
+ },
+ {
+  "depth": 2,
+  "hours": 10,
+  "id": "gen-105",
+  "kind": "course",
+  "learners": 185000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-102"
+  ],
+  "provider": "Pinecone",
+  "rating": 4.6,
+  "skills": {
+   "rag": 0.35,
+   "vector-databases": 0.7
+  },
+  "title": "Vector Databases & Semantic Search"
+ },
+ {
+  "depth": 4,
+  "hours": 16,
+  "id": "gen-106",
+  "kind": "course",
+  "learners": 260000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-104"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.8,
+  "skills": {
+   "agents": 0.75,
+   "prompt-engineering": 0.3,
+   "rest-api": 0.25
+  },
+  "title": "Building AI Agents with Tool Use"
+ },
+ {
+  "depth": 8,
+  "hours": 18,
+  "id": "gen-107",
+  "kind": "course",
+  "learners": 175000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "nlp-103"
+  ],
+  "provider": "Hugging Face",
+  "rating": 4.7,
+  "skills": {
+   "finetuning": 0.8,
+   "pytorch": 0.3,
+   "transformers": 0.35
+  },
+  "title": "Fine-tuning LLMs with LoRA & PEFT"
+ },
+ {
+  "depth": 4,
+  "hours": 10,
+  "id": "gen-108",
+  "kind": "course",
+  "learners": 130000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-104"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.7,
+  "skills": {
+   "llm-evaluation": 0.75,
+   "model-eval": 0.25,
+   "responsible-ai": 0.3
+  },
+  "title": "Evaluating LLM Applications"
+ },
+ {
+  "depth": 7,
+  "hours": 16,
+  "id": "gen-109",
+  "kind": "course",
+  "learners": 145000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "dl-103"
+  ],
+  "provider": "Hugging Face",
+  "rating": 4.7,
+  "skills": {
+   "deep-learning": 0.3,
+   "diffusion-models": 0.75,
+   "pytorch": 0.25
+  },
+  "title": "Diffusion Models & Image Generation"
+ },
+ {
+  "depth": 5,
+  "hours": 10,
+  "id": "gen-110",
+  "kind": "course",
+  "learners": 48000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-108"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "llm-evaluation": 0.35,
+   "responsible-ai": 0.55,
+   "security-basics": 0.2
+  },
+  "title": "LLM Safety, Guardrails & Red-teaming"
+ },
+ {
+  "depth": 4,
+  "hours": 20,
+  "id": "gen-p01",
+  "kind": "project",
+  "learners": 96000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "gen-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "fastapi-backend": 0.25,
+   "rag": 0.5,
+   "vector-databases": 0.35
+  },
+  "title": "Project: Build a RAG Chatbot over Your Docs"
+ },
+ {
+  "depth": 5,
+  "hours": 24,
+  "id": "gen-p02",
+  "kind": "project",
+  "learners": 63000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "gen-106"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "agents": 0.55,
+   "rest-api": 0.3,
+   "testing": 0.2
+  },
+  "title": "Project: Multi-tool AI Agent"
+ },
+ {
+  "depth": 4,
+  "hours": 2,
+  "id": "gen-a01",
+  "kind": "assessment",
+  "learners": 88000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "gen-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "llm-foundations": 0.3,
+   "prompt-engineering": 0.25,
+   "rag": 0.2
+  },
+  "title": "Assessment: GenAI Practitioner Check"
+ },
+ {
+  "depth": 0,
+  "hours": 25,
+  "id": "web-101",
+  "kind": "course",
+  "learners": 2100000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [],
+  "provider": "freeCodeCamp",
+  "rating": 4.8,
+  "skills": {
+   "html-css": 0.65,
+   "responsive-design": 0.4
+  },
+  "title": "Responsive Web Design"
+ },
+ {
+  "depth": 1,
+  "hours": 12,
+  "id": "web-102",
+  "kind": "course",
+  "learners": 480000,
+  "level": 1,
+  "modality": "interactive",
+  "prereqs": [
+   "web-101"
+  ],
+  "provider": "The Odin Project",
+  "rating": 4.7,
+  "skills": {
+   "html-css": 0.4,
+   "responsive-design": 0.55
+  },
+  "title": "CSS Layout: Flexbox & Grid"
+ },
+ {
+  "depth": 2,
+  "hours": 8,
+  "id": "web-103",
+  "kind": "course",
+  "learners": 120000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [
+   "web-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "responsive-design": 0.5,
+   "ui-design": 0.2
+  },
+  "title": "Tailwind CSS in Practice"
+ },
+ {
+  "depth": 2,
+  "hours": 10,
+  "id": "web-104",
+  "kind": "course",
+  "learners": 210000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "web-102"
+  ],
+  "provider": "Google/Udacity",
+  "rating": 4.7,
+  "skills": {
+   "accessibility": 0.75,
+   "html-css": 0.2
+  },
+  "title": "Web Accessibility Fundamentals"
+ },
+ {
+  "depth": 3,
+  "hours": 12,
+  "id": "web-105",
+  "kind": "course",
+  "learners": 165000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "web.dev",
+  "rating": 4.7,
+  "skills": {
+   "javascript": 0.2,
+   "web-performance": 0.75
+  },
+  "title": "Web Performance Optimisation"
+ },
+ {
+  "depth": 3,
+  "hours": 30,
+  "id": "react-101",
+  "kind": "course",
+  "learners": 900000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "Udemy",
+  "rating": 4.7,
+  "skills": {
+   "javascript": 0.25,
+   "react": 0.7
+  },
+  "title": "React: The Complete Guide"
+ },
+ {
+  "depth": 4,
+  "hours": 18,
+  "id": "react-102",
+  "kind": "course",
+  "learners": 240000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "react-101"
+  ],
+  "provider": "Epic React",
+  "rating": 4.9,
+  "skills": {
+   "react": 0.6,
+   "state-management": 0.35
+  },
+  "title": "React Hooks & Patterns"
+ },
+ {
+  "depth": 4,
+  "hours": 12,
+  "id": "react-103",
+  "kind": "course",
+  "learners": 190000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "react-101"
+  ],
+  "provider": "Frontend Masters",
+  "rating": 4.6,
+  "skills": {
+   "react": 0.25,
+   "state-management": 0.7
+  },
+  "title": "State Management with Redux & Zustand"
+ },
+ {
+  "depth": 5,
+  "hours": 20,
+  "id": "react-104",
+  "kind": "course",
+  "learners": 320000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "react-102"
+  ],
+  "provider": "Vercel",
+  "rating": 4.7,
+  "skills": {
+   "nextjs": 0.75,
+   "react": 0.3,
+   "web-performance": 0.25
+  },
+  "title": "Next.js App Router in Depth"
+ },
+ {
+  "depth": 4,
+  "hours": 12,
+  "id": "react-105",
+  "kind": "course",
+  "learners": 150000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "react-101"
+  ],
+  "provider": "Testing Library",
+  "rating": 4.7,
+  "skills": {
+   "react": 0.3,
+   "testing": 0.55
+  },
+  "title": "Testing React Applications"
+ },
+ {
+  "depth": 3,
+  "hours": 18,
+  "id": "vue-101",
+  "kind": "course",
+  "learners": 175000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "Vue Mastery",
+  "rating": 4.6,
+  "skills": {
+   "javascript": 0.25,
+   "vue-svelte": 0.75
+  },
+  "title": "Vue 3 & Svelte Essentials"
+ },
+ {
+  "depth": 2,
+  "hours": 12,
+  "id": "web-p01",
+  "kind": "project",
+  "learners": 210000,
+  "level": 1,
+  "modality": "project",
+  "prereqs": [
+   "web-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "accessibility": 0.2,
+   "html-css": 0.4,
+   "responsive-design": 0.35
+  },
+  "title": "Project: Portfolio Website from Scratch"
+ },
+ {
+  "depth": 5,
+  "hours": 26,
+  "id": "web-p02",
+  "kind": "project",
+  "learners": 88000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "react-102",
+   "node-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "data-viz": 0.2,
+   "node-backend": 0.3,
+   "react": 0.4,
+   "rest-api": 0.35
+  },
+  "title": "Project: Full-stack Dashboard App"
+ },
+ {
+  "depth": 4,
+  "hours": 2,
+  "id": "web-a01",
+  "kind": "assessment",
+  "learners": 94000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "react-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "html-css": 0.2,
+   "javascript": 0.25,
+   "react": 0.25
+  },
+  "title": "Assessment: Frontend Skills Check"
+ },
+ {
+  "depth": 3,
+  "hours": 24,
+  "id": "node-101",
+  "kind": "course",
+  "learners": 420000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "js-103"
+  ],
+  "provider": "The Odin Project",
+  "rating": 4.7,
+  "skills": {
+   "javascript": 0.2,
+   "node-backend": 0.7,
+   "rest-api": 0.35
+  },
+  "title": "Node.js & Express Backends"
+ },
+ {
+  "depth": 4,
+  "hours": 18,
+  "id": "node-102",
+  "kind": "course",
+  "learners": 130000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "node-101",
+   "js-104"
+  ],
+  "provider": "Udemy",
+  "rating": 4.6,
+  "skills": {
+   "node-backend": 0.55,
+   "rest-api": 0.35,
+   "typescript": 0.3
+  },
+  "title": "NestJS for Scalable APIs"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "api-101",
+  "kind": "course",
+  "learners": 175000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "py-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "fastapi-backend": 0.7,
+   "python-advanced": 0.2,
+   "rest-api": 0.4
+  },
+  "title": "FastAPI: Modern Python APIs"
+ },
+ {
+  "depth": 3,
+  "hours": 26,
+  "id": "api-102",
+  "kind": "course",
+  "learners": 380000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "py-104",
+   "sql-101"
+  ],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "auth-security": 0.25,
+   "db-design": 0.3,
+   "fastapi-backend": 0.6
+  },
+  "title": "Django for Web Applications"
+ },
+ {
+  "depth": 1,
+  "hours": 10,
+  "id": "api-103",
+  "kind": "course",
+  "learners": 105000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "net-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "rest-api": 0.75,
+   "tech-writing": 0.2
+  },
+  "title": "REST API Design Best Practices"
+ },
+ {
+  "depth": 4,
+  "hours": 14,
+  "id": "api-104",
+  "kind": "course",
+  "learners": 120000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "node-101"
+  ],
+  "provider": "Apollo",
+  "rating": 4.6,
+  "skills": {
+   "graphql": 0.75,
+   "node-backend": 0.2,
+   "rest-api": 0.2
+  },
+  "title": "GraphQL from Zero to Production"
+ },
+ {
+  "depth": 2,
+  "hours": 12,
+  "id": "api-105",
+  "kind": "course",
+  "learners": 165000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "api-103"
+  ],
+  "provider": "Auth0",
+  "rating": 4.7,
+  "skills": {
+   "auth-security": 0.75,
+   "rest-api": 0.2,
+   "web-security": 0.3
+  },
+  "title": "Authentication & Authorisation in Practice"
+ },
+ {
+  "depth": 4,
+  "hours": 12,
+  "id": "api-106",
+  "kind": "course",
+  "learners": 72000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "node-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "node-backend": 0.25,
+   "websockets": 0.75
+  },
+  "title": "Realtime Apps with WebSockets"
+ },
+ {
+  "depth": 1,
+  "hours": 30,
+  "id": "mob-101",
+  "kind": "course",
+  "learners": 390000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "java-101"
+  ],
+  "provider": "Google/Udacity",
+  "rating": 4.6,
+  "skills": {
+   "android-dev": 0.75,
+   "oop": 0.2
+  },
+  "title": "Android Development with Kotlin"
+ },
+ {
+  "depth": 2,
+  "hours": 16,
+  "id": "mob-102",
+  "kind": "course",
+  "learners": 180000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "mob-101"
+  ],
+  "provider": "Google",
+  "rating": 4.7,
+  "skills": {
+   "android-dev": 0.6,
+   "ui-design": 0.25
+  },
+  "title": "Jetpack Compose Essentials"
+ },
+ {
+  "depth": 0,
+  "hours": 28,
+  "id": "mob-103",
+  "kind": "course",
+  "learners": 260000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Stanford CS193p",
+  "rating": 4.8,
+  "skills": {
+   "ios-dev": 0.75,
+   "ui-design": 0.25
+  },
+  "title": "iOS Development with SwiftUI"
+ },
+ {
+  "depth": 2,
+  "hours": 26,
+  "id": "mob-104",
+  "kind": "course",
+  "learners": 340000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "js-102"
+  ],
+  "provider": "Udemy",
+  "rating": 4.6,
+  "skills": {
+   "react-native": 0.7,
+   "ui-design": 0.2
+  },
+  "title": "Flutter & Dart Complete Guide"
+ },
+ {
+  "depth": 4,
+  "hours": 20,
+  "id": "mob-105",
+  "kind": "course",
+  "learners": 155000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "react-101"
+  ],
+  "provider": "Expo",
+  "rating": 4.6,
+  "skills": {
+   "react": 0.35,
+   "react-native": 0.65
+  },
+  "title": "React Native in Practice"
+ },
+ {
+  "depth": 3,
+  "hours": 28,
+  "id": "mob-p01",
+  "kind": "project",
+  "learners": 46000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "mob-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "ci-cd": 0.2,
+   "react-native": 0.4,
+   "ui-design": 0.25
+  },
+  "title": "Project: Ship a Mobile App to Store"
+ },
+ {
+  "depth": 1,
+  "hours": 18,
+  "id": "lin-101",
+  "kind": "course",
+  "learners": 480000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [
+   "sh-101"
+  ],
+  "provider": "Linux Foundation",
+  "rating": 4.6,
+  "skills": {
+   "bash-shell": 0.35,
+   "linux-admin": 0.7
+  },
+  "title": "Linux Fundamentals"
+ },
+ {
+  "depth": 2,
+  "hours": 12,
+  "id": "dock-101",
+  "kind": "course",
+  "learners": 560000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "lin-101"
+  ],
+  "provider": "Docker",
+  "rating": 4.8,
+  "skills": {
+   "docker": 0.75,
+   "linux-admin": 0.25
+  },
+  "title": "Docker for Developers"
+ },
+ {
+  "depth": 3,
+  "hours": 20,
+  "id": "k8s-101",
+  "kind": "course",
+  "learners": 380000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "dock-101"
+  ],
+  "provider": "Linux Foundation",
+  "rating": 4.7,
+  "skills": {
+   "docker": 0.3,
+   "kubernetes": 0.7
+  },
+  "title": "Kubernetes Basics"
+ },
+ {
+  "depth": 4,
+  "hours": 24,
+  "id": "k8s-102",
+  "kind": "course",
+  "learners": 145000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "k8s-101"
+  ],
+  "provider": "CNCF",
+  "rating": 4.7,
+  "skills": {
+   "cloud-architecture": 0.25,
+   "kubernetes": 0.65,
+   "observability": 0.3
+  },
+  "title": "Kubernetes in Production"
+ },
+ {
+  "depth": 1,
+  "hours": 12,
+  "id": "ci-101",
+  "kind": "course",
+  "learners": 420000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "git-101"
+  ],
+  "provider": "GitHub",
+  "rating": 4.7,
+  "skills": {
+   "ci-cd": 0.75,
+   "git": 0.25,
+   "testing": 0.2
+  },
+  "title": "CI/CD with GitHub Actions"
+ },
+ {
+  "depth": 1,
+  "hours": 18,
+  "id": "iac-101",
+  "kind": "course",
+  "learners": 290000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "aws-101"
+  ],
+  "provider": "HashiCorp",
+  "rating": 4.7,
+  "skills": {
+   "cloud-architecture": 0.25,
+   "iac": 0.75
+  },
+  "title": "Infrastructure as Code with Terraform"
+ },
+ {
+  "depth": 0,
+  "hours": 14,
+  "id": "aws-101",
+  "kind": "course",
+  "learners": 1200000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "AWS",
+  "rating": 4.7,
+  "skills": {
+   "aws": 0.6,
+   "cloud-architecture": 0.25
+  },
+  "title": "AWS Cloud Practitioner Essentials"
+ },
+ {
+  "depth": 1,
+  "hours": 34,
+  "id": "aws-102",
+  "kind": "course",
+  "learners": 780000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "aws-101"
+  ],
+  "provider": "AWS",
+  "rating": 4.8,
+  "skills": {
+   "aws": 0.75,
+   "cloud-architecture": 0.5,
+   "network-security": 0.2
+  },
+  "title": "AWS Solutions Architect Associate"
+ },
+ {
+  "depth": 2,
+  "hours": 16,
+  "id": "aws-103",
+  "kind": "course",
+  "learners": 240000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "aws-102"
+  ],
+  "provider": "AWS",
+  "rating": 4.6,
+  "skills": {
+   "aws": 0.5,
+   "cloud-architecture": 0.35,
+   "rest-api": 0.25
+  },
+  "title": "Serverless with Lambda & API Gateway"
+ },
+ {
+  "depth": 0,
+  "hours": 14,
+  "id": "gcp-101",
+  "kind": "course",
+  "learners": 520000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "Google Cloud",
+  "rating": 4.6,
+  "skills": {
+   "azure-gcp": 0.65,
+   "cloud-architecture": 0.25
+  },
+  "title": "Google Cloud Fundamentals"
+ },
+ {
+  "depth": 0,
+  "hours": 14,
+  "id": "az-101",
+  "kind": "course",
+  "learners": 890000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "Microsoft Learn",
+  "rating": 4.7,
+  "skills": {
+   "azure-gcp": 0.65,
+   "cloud-architecture": 0.25
+  },
+  "title": "Microsoft Azure Fundamentals AZ-900"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "obs-101",
+  "kind": "course",
+  "learners": 165000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "dock-101"
+  ],
+  "provider": "Grafana Labs",
+  "rating": 4.6,
+  "skills": {
+   "linux-admin": 0.2,
+   "observability": 0.75
+  },
+  "title": "Observability with Prometheus & Grafana"
+ },
+ {
+  "depth": 3,
+  "hours": 18,
+  "id": "dev-p01",
+  "kind": "project",
+  "learners": 74000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "dock-101",
+   "ci-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "ci-cd": 0.35,
+   "cloud-architecture": 0.25,
+   "docker": 0.45
+  },
+  "title": "Project: Containerise & Deploy a Service"
+ },
+ {
+  "depth": 2,
+  "hours": 2,
+  "id": "dev-a01",
+  "kind": "assessment",
+  "learners": 58000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "ci-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "ci-cd": 0.25,
+   "docker": 0.25,
+   "linux-admin": 0.2
+  },
+  "title": "Assessment: DevOps Readiness Check"
+ },
+ {
+  "depth": 0,
+  "hours": 18,
+  "id": "sec-101",
+  "kind": "course",
+  "learners": 640000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "edX",
+  "rating": 4.6,
+  "skills": {
+   "networking": 0.2,
+   "security-basics": 0.7
+  },
+  "title": "Cybersecurity Fundamentals"
+ },
+ {
+  "depth": 1,
+  "hours": 28,
+  "id": "sec-102",
+  "kind": "course",
+  "learners": 260000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "math-107"
+  ],
+  "provider": "Stanford",
+  "rating": 4.8,
+  "skills": {
+   "cryptography": 0.8,
+   "discrete-math": 0.3,
+   "probability": 0.2
+  },
+  "title": "Cryptography I"
+ },
+ {
+  "depth": 1,
+  "hours": 16,
+  "id": "sec-103",
+  "kind": "course",
+  "learners": 410000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sec-101",
+   "net-102"
+  ],
+  "provider": "PortSwigger",
+  "rating": 4.8,
+  "skills": {
+   "security-basics": 0.3,
+   "web-security": 0.75
+  },
+  "title": "OWASP Top 10 Web Security"
+ },
+ {
+  "depth": 2,
+  "hours": 30,
+  "id": "sec-104",
+  "kind": "course",
+  "learners": 520000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sec-103"
+  ],
+  "provider": "TryHackMe",
+  "rating": 4.8,
+  "skills": {
+   "linux-admin": 0.3,
+   "pentesting": 0.7,
+   "web-security": 0.35
+  },
+  "title": "Ethical Hacking & Penetration Testing"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "sec-105",
+  "kind": "course",
+  "learners": 300000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "net-101",
+   "sec-101"
+  ],
+  "provider": "Cisco NetAcad",
+  "rating": 4.6,
+  "skills": {
+   "network-security": 0.75,
+   "networking": 0.35
+  },
+  "title": "Network Security & Packet Analysis"
+ },
+ {
+  "depth": 2,
+  "hours": 16,
+  "id": "sec-106",
+  "kind": "course",
+  "learners": 175000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "aws-102",
+   "sec-101"
+  ],
+  "provider": "AWS",
+  "rating": 4.6,
+  "skills": {
+   "aws": 0.25,
+   "cloud-security": 0.75,
+   "security-basics": 0.2
+  },
+  "title": "Cloud Security & IAM"
+ },
+ {
+  "depth": 2,
+  "hours": 24,
+  "id": "sec-107",
+  "kind": "course",
+  "learners": 120000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "sec-105"
+  ],
+  "provider": "SANS",
+  "rating": 4.7,
+  "skills": {
+   "forensics": 0.75,
+   "linux-admin": 0.2,
+   "security-basics": 0.25
+  },
+  "title": "Incident Response & Digital Forensics"
+ },
+ {
+  "depth": 2,
+  "hours": 16,
+  "id": "sec-p01",
+  "kind": "project",
+  "learners": 52000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "sec-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "auth-security": 0.3,
+   "testing": 0.2,
+   "web-security": 0.5
+  },
+  "title": "Project: Secure a Vulnerable Web App"
+ },
+ {
+  "depth": 3,
+  "hours": 4,
+  "id": "sec-a01",
+  "kind": "assessment",
+  "learners": 96000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "sec-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.9,
+  "skills": {
+   "pentesting": 0.3,
+   "web-security": 0.25
+  },
+  "title": "Assessment: Capture the Flag Challenge"
+ },
+ {
+  "depth": 0,
+  "hours": 20,
+  "id": "ux-101",
+  "kind": "course",
+  "learners": 950000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Google/Coursera",
+  "rating": 4.8,
+  "skills": {
+   "ui-design": 0.35,
+   "ux-research": 0.6
+  },
+  "title": "Introduction to UX Design"
+ },
+ {
+  "depth": 1,
+  "hours": 14,
+  "id": "ux-102",
+  "kind": "course",
+  "learners": 230000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "ux-101"
+  ],
+  "provider": "NN/g",
+  "rating": 4.7,
+  "skills": {
+   "communication": 0.2,
+   "ux-research": 0.75
+  },
+  "title": "UX Research Methods"
+ },
+ {
+  "depth": 1,
+  "hours": 12,
+  "id": "ux-103",
+  "kind": "course",
+  "learners": 480000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [
+   "ux-101"
+  ],
+  "provider": "Figma",
+  "rating": 4.7,
+  "skills": {
+   "responsive-design": 0.2,
+   "ui-design": 0.7
+  },
+  "title": "UI Design with Figma"
+ },
+ {
+  "depth": 2,
+  "hours": 12,
+  "id": "ux-104",
+  "kind": "course",
+  "learners": 140000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ux-103"
+  ],
+  "provider": "Frontend Masters",
+  "rating": 4.6,
+  "skills": {
+   "accessibility": 0.25,
+   "responsive-design": 0.3,
+   "ui-design": 0.55
+  },
+  "title": "Design Systems in Practice"
+ },
+ {
+  "depth": 0,
+  "hours": 16,
+  "id": "pm-101",
+  "kind": "course",
+  "learners": 520000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Coursera",
+  "rating": 4.6,
+  "skills": {
+   "communication": 0.3,
+   "product-thinking": 0.7
+  },
+  "title": "Product Management Fundamentals"
+ },
+ {
+  "depth": 0,
+  "hours": 10,
+  "id": "pm-102",
+  "kind": "course",
+  "learners": 610000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "Scrum.org",
+  "rating": 4.6,
+  "skills": {
+   "agile-scrum": 0.75,
+   "communication": 0.2
+  },
+  "title": "Agile & Scrum in Practice"
+ },
+ {
+  "depth": 5,
+  "hours": 14,
+  "id": "pm-103",
+  "kind": "course",
+  "learners": 95000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "pm-101",
+   "da-104"
+  ],
+  "provider": "Reforge",
+  "rating": 4.7,
+  "skills": {
+   "data-analysis": 0.3,
+   "product-thinking": 0.55,
+   "statistics": 0.25
+  },
+  "title": "Data-Informed Product Decisions"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "com-101",
+  "kind": "course",
+  "learners": 340000,
+  "level": 1,
+  "modality": "reading",
+  "prereqs": [],
+  "provider": "Google",
+  "rating": 4.7,
+  "skills": {
+   "communication": 0.3,
+   "tech-writing": 0.75
+  },
+  "title": "Technical Writing for Engineers"
+ },
+ {
+  "depth": 1,
+  "hours": 10,
+  "id": "com-102",
+  "kind": "course",
+  "learners": 78000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "com-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "communication": 0.7,
+   "tech-writing": 0.2
+  },
+  "title": "Presenting & Storytelling for Tech"
+ },
+ {
+  "depth": 4,
+  "hours": 30,
+  "id": "car-101",
+  "kind": "course",
+  "learners": 880000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "dsa-102"
+  ],
+  "provider": "LeetCode",
+  "rating": 4.7,
+  "skills": {
+   "algorithms": 0.3,
+   "dsa-advanced": 0.4,
+   "interview-prep": 0.6
+  },
+  "title": "Coding Interview Preparation"
+ },
+ {
+  "depth": 0,
+  "hours": 8,
+  "id": "car-102",
+  "kind": "course",
+  "learners": 260000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "communication": 0.35,
+   "interview-prep": 0.55
+  },
+  "title": "Behavioural Interviews & Resume Craft"
+ },
+ {
+  "depth": 3,
+  "hours": 10,
+  "id": "car-103",
+  "kind": "course",
+  "learners": 130000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [
+   "web-p01"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "communication": 0.25,
+   "freelancing": 0.7,
+   "tech-writing": 0.2
+  },
+  "title": "Freelancing & Building a Portfolio"
+ },
+ {
+  "depth": 0,
+  "hours": 16,
+  "id": "bc-101",
+  "kind": "course",
+  "learners": 380000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "Coursera",
+  "rating": 4.5,
+  "skills": {
+   "blockchain": 0.6,
+   "cryptography": 0.25
+  },
+  "title": "Blockchain Basics"
+ },
+ {
+  "depth": 3,
+  "hours": 22,
+  "id": "bc-102",
+  "kind": "course",
+  "learners": 210000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "bc-101",
+   "js-103"
+  ],
+  "provider": "Alchemy",
+  "rating": 4.6,
+  "skills": {
+   "blockchain": 0.7,
+   "testing": 0.2
+  },
+  "title": "Smart Contracts with Solidity"
+ },
+ {
+  "depth": 0,
+  "hours": 20,
+  "id": "iot-101",
+  "kind": "course",
+  "learners": 250000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "NPTEL",
+  "rating": 4.5,
+  "skills": {
+   "c-lang": 0.3,
+   "iot-embedded": 0.7
+  },
+  "title": "IoT with Arduino & ESP32"
+ },
+ {
+  "depth": 1,
+  "hours": 26,
+  "id": "iot-102",
+  "kind": "course",
+  "learners": 130000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "iot-101",
+   "c-101"
+  ],
+  "provider": "edX",
+  "rating": 4.6,
+  "skills": {
+   "c-lang": 0.4,
+   "iot-embedded": 0.6,
+   "os-concepts": 0.25
+  },
+  "title": "Embedded Systems Programming"
+ },
+ {
+  "depth": 1,
+  "hours": 30,
+  "id": "game-101",
+  "kind": "course",
+  "learners": 420000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "cpp-101"
+  ],
+  "provider": "Unity Learn",
+  "rating": 4.6,
+  "skills": {
+   "game-dev": 0.7,
+   "oop": 0.25
+  },
+  "title": "Game Development with Unity"
+ },
+ {
+  "depth": 0,
+  "hours": 18,
+  "id": "game-102",
+  "kind": "course",
+  "learners": 160000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "GDQuest",
+  "rating": 4.6,
+  "skills": {
+   "game-dev": 0.6,
+   "ui-design": 0.2
+  },
+  "title": "Godot & 2D Game Design"
+ },
+ {
+  "depth": 2,
+  "hours": 22,
+  "id": "arvr-101",
+  "kind": "course",
+  "learners": 145000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "game-101"
+  ],
+  "provider": "Meta/Coursera",
+  "rating": 4.5,
+  "skills": {
+   "ar-vr": 0.7,
+   "game-dev": 0.3
+  },
+  "title": "AR/VR Development Foundations"
+ },
+ {
+  "depth": 3,
+  "hours": 28,
+  "id": "rob-101",
+  "kind": "course",
+  "learners": 110000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "py-104",
+   "math-101"
+  ],
+  "provider": "edX",
+  "rating": 4.6,
+  "skills": {
+   "linear-algebra": 0.2,
+   "python-advanced": 0.25,
+   "robotics": 0.75
+  },
+  "title": "Robotics with ROS"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "qc-101",
+  "kind": "course",
+  "learners": 165000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "math-101"
+  ],
+  "provider": "IBM",
+  "rating": 4.6,
+  "skills": {
+   "linear-algebra": 0.4,
+   "quantum-computing": 0.75
+  },
+  "title": "Quantum Computing with Qiskit"
+ },
+ {
+  "depth": 4,
+  "hours": 22,
+  "id": "go-102",
+  "kind": "course",
+  "learners": 78000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "go-101"
+  ],
+  "provider": "Ardan Labs",
+  "rating": 4.7,
+  "skills": {
+   "distributed-systems": 0.3,
+   "go-lang": 0.6,
+   "rest-api": 0.25
+  },
+  "title": "Building Microservices in Go"
+ },
+ {
+  "depth": 2,
+  "hours": 24,
+  "id": "rust-102",
+  "kind": "course",
+  "learners": 62000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "rust-101"
+  ],
+  "provider": "Udemy",
+  "rating": 4.6,
+  "skills": {
+   "c-lang": 0.2,
+   "os-concepts": 0.3,
+   "rust": 0.6
+  },
+  "title": "Rust for Systems Programming"
+ },
+ {
+  "depth": 2,
+  "hours": 14,
+  "id": "rust-p01",
+  "kind": "project",
+  "learners": 34000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "rust-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "bash-shell": 0.2,
+   "rust": 0.45,
+   "testing": 0.2
+  },
+  "title": "Project: Build a CLI Tool in Rust"
+ },
+ {
+  "depth": 1,
+  "hours": 30,
+  "id": "comp-102",
+  "kind": "course",
+  "learners": 140000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "math-107",
+   "c-101"
+  ],
+  "provider": "NPTEL",
+  "rating": 4.5,
+  "skills": {
+   "algorithms": 0.2,
+   "compilers": 0.7,
+   "discrete-math": 0.25
+  },
+  "title": "Compiler Design"
+ },
+ {
+  "depth": 3,
+  "hours": 22,
+  "id": "comp-p01",
+  "kind": "project",
+  "learners": 29000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "comp-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "compilers": 0.5,
+   "python-advanced": 0.3,
+   "testing": 0.25
+  },
+  "title": "Project: Write a Small Interpreter"
+ },
+ {
+  "depth": 7,
+  "hours": 10,
+  "id": "clu-101",
+  "kind": "course",
+  "learners": 57000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "ml-107"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "clustering": 0.6,
+   "linear-algebra": 0.35
+  },
+  "title": "Dimensionality Reduction: PCA, t-SNE, UMAP"
+ },
+ {
+  "depth": 7,
+  "hours": 16,
+  "id": "ts-101",
+  "kind": "course",
+  "learners": 96000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "ml-108"
+  ],
+  "provider": "Udemy",
+  "rating": 4.5,
+  "skills": {
+   "data-analysis": 0.2,
+   "statistics": 0.3,
+   "time-series": 0.65
+  },
+  "title": "Applied Time Series with Prophet & ARIMA"
+ },
+ {
+  "depth": 8,
+  "hours": 20,
+  "id": "ts-p01",
+  "kind": "project",
+  "learners": 31000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "ts-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "feature-eng": 0.3,
+   "mlops": 0.2,
+   "time-series": 0.5
+  },
+  "title": "Project: Demand Forecasting System"
+ },
+ {
+  "depth": 6,
+  "hours": 16,
+  "id": "rec-101",
+  "kind": "course",
+  "learners": 84000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "ml-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "ml-foundations": 0.25,
+   "python-advanced": 0.2,
+   "recsys": 0.6
+  },
+  "title": "Building Recommender Systems in Python"
+ },
+ {
+  "depth": 7,
+  "hours": 22,
+  "id": "rec-p01",
+  "kind": "project",
+  "learners": 39000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "rec-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "feature-eng": 0.3,
+   "model-eval": 0.25,
+   "recsys": 0.55
+  },
+  "title": "Project: Hybrid Recommendation Engine"
+ },
+ {
+  "depth": 7,
+  "hours": 26,
+  "id": "rl-102",
+  "kind": "course",
+  "learners": 44000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "rl-101",
+   "dl-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "deep-learning": 0.25,
+   "pytorch": 0.35,
+   "reinforcement-learn": 0.65
+  },
+  "title": "Deep RL Hands-On"
+ },
+ {
+  "depth": 7,
+  "hours": 24,
+  "id": "tf-101",
+  "kind": "course",
+  "learners": 130000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "dl-104"
+  ],
+  "provider": "DeepLearning.AI",
+  "rating": 4.7,
+  "skills": {
+   "cnn": 0.2,
+   "deep-learning": 0.3,
+   "tensorflow": 0.7
+  },
+  "title": "TensorFlow: Advanced Techniques"
+ },
+ {
+  "depth": 4,
+  "hours": 18,
+  "id": "bd-101",
+  "kind": "course",
+  "learners": 145000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "de-101"
+  ],
+  "provider": "DataCamp",
+  "rating": 4.6,
+  "skills": {
+   "big-data": 0.65,
+   "data-engineering": 0.3,
+   "python-advanced": 0.2
+  },
+  "title": "PySpark for Large-scale Data"
+ },
+ {
+  "depth": 5,
+  "hours": 16,
+  "id": "bd-102",
+  "kind": "course",
+  "learners": 38000,
+  "level": 3,
+  "modality": "reading",
+  "prereqs": [
+   "bd-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "big-data": 0.5,
+   "distributed-systems": 0.35
+  },
+  "title": "Distributed Data Processing Patterns"
+ },
+ {
+  "depth": 2,
+  "hours": 12,
+  "id": "dbt-102",
+  "kind": "course",
+  "learners": 52000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "sql-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "db-design": 0.35,
+   "dbt-modeling": 0.6
+  },
+  "title": "Dimensional Modeling & Star Schemas"
+ },
+ {
+  "depth": 1,
+  "hours": 12,
+  "id": "excel-102",
+  "kind": "course",
+  "learners": 310000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "excel-101"
+  ],
+  "provider": "Microsoft Learn",
+  "rating": 4.5,
+  "skills": {
+   "bi-tools": 0.3,
+   "excel-sheets": 0.65
+  },
+  "title": "Advanced Excel: Power Query & DAX"
+ },
+ {
+  "depth": 9,
+  "hours": 14,
+  "id": "ft-101",
+  "kind": "course",
+  "learners": 41000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-107"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "data-cleaning": 0.25,
+   "finetuning": 0.6,
+   "llm-evaluation": 0.3
+  },
+  "title": "Instruction Tuning & Dataset Curation"
+ },
+ {
+  "depth": 8,
+  "hours": 14,
+  "id": "diff-101",
+  "kind": "course",
+  "learners": 36000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-109"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "computer-vision": 0.25,
+   "diffusion-models": 0.6,
+   "pytorch": 0.3
+  },
+  "title": "Building with Diffusion Models"
+ },
+ {
+  "depth": 2,
+  "hours": 8,
+  "id": "gen-111",
+  "kind": "course",
+  "learners": 74000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "agents": 0.4,
+   "prompt-engineering": 0.45,
+   "rest-api": 0.2
+  },
+  "title": "Structured Output & Function Calling"
+ },
+ {
+  "depth": 5,
+  "hours": 3,
+  "id": "gen-a02",
+  "kind": "assessment",
+  "learners": 33000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "gen-p01"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "rag": 0.3,
+   "system-design": 0.2,
+   "vector-databases": 0.25
+  },
+  "title": "Assessment: RAG System Design Review"
+ },
+ {
+  "depth": 6,
+  "hours": 12,
+  "id": "next-102",
+  "kind": "course",
+  "learners": 64000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "react-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "nextjs": 0.6,
+   "web-performance": 0.4
+  },
+  "title": "Next.js Performance & Caching"
+ },
+ {
+  "depth": 4,
+  "hours": 14,
+  "id": "vue-102",
+  "kind": "course",
+  "learners": 42000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "vue-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "vue-svelte": 0.65,
+   "web-performance": 0.25
+  },
+  "title": "SvelteKit in Production"
+ },
+ {
+  "depth": 5,
+  "hours": 12,
+  "id": "gql-102",
+  "kind": "course",
+  "learners": 31000,
+  "level": 3,
+  "modality": "reading",
+  "prereqs": [
+   "api-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "graphql": 0.6,
+   "rest-api": 0.2,
+   "system-design": 0.25
+  },
+  "title": "GraphQL Federation & Schema Design"
+ },
+ {
+  "depth": 1,
+  "hours": 20,
+  "id": "ios-102",
+  "kind": "course",
+  "learners": 58000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "mob-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "ios-dev": 0.65,
+   "oop": 0.25,
+   "testing": 0.2
+  },
+  "title": "Advanced SwiftUI & App Architecture"
+ },
+ {
+  "depth": 3,
+  "hours": 2,
+  "id": "mob-a01",
+  "kind": "assessment",
+  "learners": 37000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "mob-104"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "android-dev": 0.2,
+   "ios-dev": 0.2,
+   "react-native": 0.2
+  },
+  "title": "Assessment: Mobile Development Check"
+ },
+ {
+  "depth": 2,
+  "hours": 14,
+  "id": "iac-102",
+  "kind": "course",
+  "learners": 175000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "lin-101"
+  ],
+  "provider": "Red Hat",
+  "rating": 4.6,
+  "skills": {
+   "iac": 0.6,
+   "linux-admin": 0.3
+  },
+  "title": "Ansible & Configuration Management"
+ },
+ {
+  "depth": 3,
+  "hours": 14,
+  "id": "csec-102",
+  "kind": "course",
+  "learners": 29000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "sec-106"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "cloud-security": 0.6,
+   "observability": 0.25,
+   "security-basics": 0.2
+  },
+  "title": "Cloud Security Posture & Compliance"
+ },
+ {
+  "depth": 3,
+  "hours": 18,
+  "id": "for-102",
+  "kind": "course",
+  "learners": 34000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "sec-107"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "forensics": 0.6,
+   "os-concepts": 0.2,
+   "security-basics": 0.25
+  },
+  "title": "Malware Analysis Fundamentals"
+ },
+ {
+  "depth": 2,
+  "hours": 24,
+  "id": "cloud-p01",
+  "kind": "project",
+  "learners": 47000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "iac-101",
+   "aws-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "aws": 0.4,
+   "cloud-architecture": 0.35,
+   "iac": 0.35,
+   "observability": 0.2
+  },
+  "title": "Project: Multi-tier Cloud Deployment"
+ },
+ {
+  "depth": 2,
+  "hours": 3,
+  "id": "cloud-a01",
+  "kind": "assessment",
+  "learners": 41000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "aws-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "aws": 0.2,
+   "cloud-architecture": 0.3
+  },
+  "title": "Assessment: Cloud Architecture Review"
+ },
+ {
+  "depth": 1,
+  "hours": 10,
+  "id": "agile-102",
+  "kind": "course",
+  "learners": 88000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "pm-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "agile-scrum": 0.6,
+   "communication": 0.3,
+   "product-thinking": 0.2
+  },
+  "title": "Scrum Master in Practice"
+ },
+ {
+  "depth": 4,
+  "hours": 8,
+  "id": "free-102",
+  "kind": "course",
+  "learners": 46000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "car-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.4,
+  "skills": {
+   "communication": 0.25,
+   "freelancing": 0.6
+  },
+  "title": "Client Work & Pricing for Developers"
+ },
+ {
+  "depth": 2,
+  "hours": 3,
+  "id": "ux-a01",
+  "kind": "assessment",
+  "learners": 39000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "ux-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "communication": 0.2,
+   "ui-design": 0.25,
+   "ux-research": 0.25
+  },
+  "title": "Assessment: Portfolio & Design Critique"
+ },
+ {
+  "depth": 1,
+  "hours": 3,
+  "id": "pm-a01",
+  "kind": "assessment",
+  "learners": 52000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "pm-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "communication": 0.25,
+   "product-thinking": 0.3
+  },
+  "title": "Assessment: Product Case Study"
+ },
+ {
+  "depth": 2,
+  "hours": 18,
+  "id": "qc-102",
+  "kind": "course",
+  "learners": 27000,
+  "level": 3,
+  "modality": "video",
+  "prereqs": [
+   "qc-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.5,
+  "skills": {
+   "algorithms": 0.2,
+   "linear-algebra": 0.3,
+   "quantum-computing": 0.6
+  },
+  "title": "Quantum Algorithms & Complexity"
+ },
+ {
+  "depth": 4,
+  "hours": 22,
+  "id": "rob-102",
+  "kind": "course",
+  "learners": 24000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "rob-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "computer-vision": 0.25,
+   "linear-algebra": 0.3,
+   "robotics": 0.6
+  },
+  "title": "Motion Planning & SLAM"
+ },
+ {
+  "depth": 3,
+  "hours": 16,
+  "id": "arvr-102",
+  "kind": "course",
+  "learners": 21000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "arvr-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.4,
+  "skills": {
+   "ar-vr": 0.6,
+   "game-dev": 0.2,
+   "ui-design": 0.3
+  },
+  "title": "Immersive Interaction Design"
+ },
+ {
+  "depth": 4,
+  "hours": 20,
+  "id": "bc-p01",
+  "kind": "project",
+  "learners": 43000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "bc-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "blockchain": 0.5,
+   "react": 0.25,
+   "testing": 0.2
+  },
+  "title": "Project: Deploy a Smart Contract dApp"
+ },
+ {
+  "depth": 1,
+  "hours": 18,
+  "id": "iot-p01",
+  "kind": "project",
+  "learners": 32000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "iot-101",
+   "aws-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "cloud-architecture": 0.2,
+   "iot-embedded": 0.45,
+   "streaming-data": 0.3
+  },
+  "title": "Project: Sensor-to-Cloud IoT Pipeline"
+ },
+ {
+  "depth": 1,
+  "hours": 24,
+  "id": "game-p01",
+  "kind": "project",
+  "learners": 56000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "game-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "game-dev": 0.5,
+   "testing": 0.2,
+   "ui-design": 0.2
+  },
+  "title": "Project: Ship a Playable Game Demo"
+ },
+ {
+  "depth": 5,
+  "hours": 4,
+  "id": "int-a01",
+  "kind": "assessment",
+  "learners": 112000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "car-101"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.8,
+  "skills": {
+   "communication": 0.2,
+   "dsa-advanced": 0.25,
+   "interview-prep": 0.35
+  },
+  "title": "Assessment: Full Mock Technical Interview"
+ },
+ {
+  "depth": 4,
+  "hours": 18,
+  "id": "nlp-p01",
+  "kind": "project",
+  "learners": 51000,
+  "level": 2,
+  "modality": "project",
+  "prereqs": [
+   "nlp-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "mlops": 0.25,
+   "model-eval": 0.25,
+   "nlp": 0.45
+  },
+  "title": "Project: Text Classification Service"
+ },
+ {
+  "depth": 6,
+  "hours": 22,
+  "id": "cv-p01",
+  "kind": "project",
+  "learners": 44000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "cv-102"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "cnn": 0.3,
+   "computer-vision": 0.5,
+   "mlops": 0.2
+  },
+  "title": "Project: Real-time Object Detection App"
+ },
+ {
+  "depth": 8,
+  "hours": 3,
+  "id": "resp-a01",
+  "kind": "assessment",
+  "learners": 28000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "ml-110"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.6,
+  "skills": {
+   "model-eval": 0.25,
+   "responsible-ai": 0.35
+  },
+  "title": "Assessment: Model Fairness Audit"
+ },
+ {
+  "depth": 2,
+  "hours": 20,
+  "id": "sysd-p01",
+  "kind": "project",
+  "learners": 49000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "sysd-101",
+   "api-103"
+  ],
+  "provider": "PathFinder Labs",
+  "rating": 4.7,
+  "skills": {
+   "rest-api": 0.3,
+   "system-design": 0.45,
+   "tech-writing": 0.25
+  },
+  "title": "Project: Design & Document a Scalable API"
+ }
+]

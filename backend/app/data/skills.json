@@ -1,0 +1,1214 @@
+[
+ {
+  "aliases": [
+   "python",
+   "python3",
+   "scripting"
+  ],
+  "category": "Programming",
+  "id": "python-basics",
+  "name": "Python Fundamentals"
+ },
+ {
+  "aliases": [
+   "decorators",
+   "generators",
+   "asyncio",
+   "pythonic"
+  ],
+  "category": "Programming",
+  "id": "python-advanced",
+  "name": "Advanced Python"
+ },
+ {
+  "aliases": [
+   "js",
+   "es6",
+   "ecmascript",
+   "vanilla js"
+  ],
+  "category": "Programming",
+  "id": "javascript",
+  "name": "JavaScript"
+ },
+ {
+  "aliases": [
+   "ts",
+   "typed javascript"
+  ],
+  "category": "Programming",
+  "id": "typescript",
+  "name": "TypeScript"
+ },
+ {
+  "aliases": [
+   "jvm",
+   "core java"
+  ],
+  "category": "Programming",
+  "id": "java",
+  "name": "Java"
+ },
+ {
+  "aliases": [
+   "c plus plus",
+   "cpp",
+   "competitive programming"
+  ],
+  "category": "Programming",
+  "id": "cpp",
+  "name": "C++"
+ },
+ {
+  "aliases": [
+   "c language",
+   "systems c"
+  ],
+  "category": "Programming",
+  "id": "c-lang",
+  "name": "C Programming"
+ },
+ {
+  "aliases": [
+   "golang"
+  ],
+  "category": "Programming",
+  "id": "go-lang",
+  "name": "Go"
+ },
+ {
+  "aliases": [
+   "rustlang",
+   "memory safety"
+  ],
+  "category": "Programming",
+  "id": "rust",
+  "name": "Rust"
+ },
+ {
+  "aliases": [
+   "queries",
+   "select",
+   "joins",
+   "rdbms queries"
+  ],
+  "category": "Programming",
+  "id": "sql",
+  "name": "SQL"
+ },
+ {
+  "aliases": [
+   "terminal",
+   "command line",
+   "zsh",
+   "cli"
+  ],
+  "category": "Programming",
+  "id": "bash-shell",
+  "name": "Shell & Bash"
+ },
+ {
+  "aliases": [
+   "github",
+   "version control",
+   "branching"
+  ],
+  "category": "Programming",
+  "id": "git",
+  "name": "Git & Version Control"
+ },
+ {
+  "aliases": [
+   "oops",
+   "classes",
+   "inheritance",
+   "solid"
+  ],
+  "category": "Programming",
+  "id": "oop",
+  "name": "Object-Oriented Design"
+ },
+ {
+  "aliases": [
+   "pure functions",
+   "immutability",
+   "map reduce"
+  ],
+  "category": "Programming",
+  "id": "functional-prog",
+  "name": "Functional Programming"
+ },
+ {
+  "aliases": [
+   "code quality",
+   "refactor",
+   "readable code"
+  ],
+  "category": "Programming",
+  "id": "clean-code",
+  "name": "Clean Code & Refactoring"
+ },
+ {
+  "aliases": [
+   "unit tests",
+   "pytest",
+   "jest",
+   "tdd"
+  ],
+  "category": "Programming",
+  "id": "testing",
+  "name": "Software Testing"
+ },
+ {
+  "aliases": [
+   "profiler",
+   "breakpoints",
+   "troubleshooting"
+  ],
+  "category": "Programming",
+  "id": "debugging",
+  "name": "Debugging & Profiling"
+ },
+ {
+  "aliases": [
+   "arrays",
+   "linked list",
+   "stacks",
+   "queues",
+   "hashmap"
+  ],
+  "category": "CS Core",
+  "id": "dsa-basics",
+  "name": "Data Structures"
+ },
+ {
+  "aliases": [
+   "sorting",
+   "searching",
+   "greedy",
+   "complexity"
+  ],
+  "category": "CS Core",
+  "id": "algorithms",
+  "name": "Algorithms"
+ },
+ {
+  "aliases": [
+   "dynamic programming",
+   "graphs",
+   "dp",
+   "trees",
+   "segment tree"
+  ],
+  "category": "CS Core",
+  "id": "dsa-advanced",
+  "name": "Advanced Algorithms"
+ },
+ {
+  "aliases": [
+   "processes",
+   "threads",
+   "scheduling",
+   "memory management"
+  ],
+  "category": "CS Core",
+  "id": "os-concepts",
+  "name": "Operating Systems"
+ },
+ {
+  "aliases": [
+   "tcp",
+   "http",
+   "dns",
+   "osi",
+   "sockets"
+  ],
+  "category": "CS Core",
+  "id": "networking",
+  "name": "Computer Networks"
+ },
+ {
+  "aliases": [
+   "normalisation",
+   "er diagram",
+   "schema design",
+   "indexing"
+  ],
+  "category": "CS Core",
+  "id": "db-design",
+  "name": "Database Design"
+ },
+ {
+  "aliases": [
+   "parsing",
+   "lexer",
+   "codegen",
+   "interpreter"
+  ],
+  "category": "CS Core",
+  "id": "compilers",
+  "name": "Compilers & Language Design"
+ },
+ {
+  "aliases": [
+   "consensus",
+   "replication",
+   "sharding",
+   "cap theorem"
+  ],
+  "category": "CS Core",
+  "id": "distributed-systems",
+  "name": "Distributed Systems"
+ },
+ {
+  "aliases": [
+   "hld",
+   "lld",
+   "scalability",
+   "architecture interview"
+  ],
+  "category": "CS Core",
+  "id": "system-design",
+  "name": "System Design"
+ },
+ {
+  "aliases": [
+   "matrices",
+   "vectors",
+   "eigenvalues",
+   "svd"
+  ],
+  "category": "Mathematics",
+  "id": "linear-algebra",
+  "name": "Linear Algebra"
+ },
+ {
+  "aliases": [
+   "derivatives",
+   "gradients",
+   "integration"
+  ],
+  "category": "Mathematics",
+  "id": "calculus",
+  "name": "Calculus"
+ },
+ {
+  "aliases": [
+   "random variables",
+   "distributions",
+   "bayes"
+  ],
+  "category": "Mathematics",
+  "id": "probability",
+  "name": "Probability"
+ },
+ {
+  "aliases": [
+   "hypothesis testing",
+   "p value",
+   "regression stats"
+  ],
+  "category": "Mathematics",
+  "id": "statistics",
+  "name": "Statistics"
+ },
+ {
+  "aliases": [
+   "gradient descent",
+   "convex",
+   "lagrange"
+  ],
+  "category": "Mathematics",
+  "id": "optimization",
+  "name": "Optimization"
+ },
+ {
+  "aliases": [
+   "combinatorics",
+   "graph theory",
+   "logic",
+   "proofs"
+  ],
+  "category": "Mathematics",
+  "id": "discrete-math",
+  "name": "Discrete Mathematics"
+ },
+ {
+  "aliases": [
+   "pandas",
+   "eda",
+   "exploratory analysis",
+   "numpy"
+  ],
+  "category": "Data",
+  "id": "data-analysis",
+  "name": "Data Analysis"
+ },
+ {
+  "aliases": [
+   "matplotlib",
+   "seaborn",
+   "plotly",
+   "charts"
+  ],
+  "category": "Data",
+  "id": "data-viz",
+  "name": "Data Visualization"
+ },
+ {
+  "aliases": [
+   "cleaning",
+   "missing values",
+   "etl basics",
+   "preprocessing"
+  ],
+  "category": "Data",
+  "id": "data-cleaning",
+  "name": "Data Wrangling"
+ },
+ {
+  "aliases": [
+   "feature selection",
+   "encoding",
+   "scaling"
+  ],
+  "category": "Data",
+  "id": "feature-eng",
+  "name": "Feature Engineering"
+ },
+ {
+  "aliases": [
+   "power bi",
+   "tableau",
+   "looker",
+   "reporting"
+  ],
+  "category": "Data",
+  "id": "bi-tools",
+  "name": "BI & Dashboards"
+ },
+ {
+  "aliases": [
+   "excel",
+   "google sheets",
+   "pivot table"
+  ],
+  "category": "Data",
+  "id": "excel-sheets",
+  "name": "Spreadsheet Analytics"
+ },
+ {
+  "aliases": [
+   "etl",
+   "elt",
+   "pipelines",
+   "data warehouse"
+  ],
+  "category": "Data",
+  "id": "data-engineering",
+  "name": "Data Engineering"
+ },
+ {
+  "aliases": [
+   "spark",
+   "hadoop",
+   "pyspark",
+   "mapreduce"
+  ],
+  "category": "Data",
+  "id": "big-data",
+  "name": "Big Data Processing"
+ },
+ {
+  "aliases": [
+   "kafka",
+   "real time pipeline",
+   "flink"
+  ],
+  "category": "Data",
+  "id": "streaming-data",
+  "name": "Streaming Data"
+ },
+ {
+  "aliases": [
+   "dbt",
+   "data modeling",
+   "star schema"
+  ],
+  "category": "Data",
+  "id": "dbt-modeling",
+  "name": "Analytics Engineering"
+ },
+ {
+  "aliases": [
+   "machine learning",
+   "supervised",
+   "unsupervised",
+   "ml basics"
+  ],
+  "category": "Machine Learning",
+  "id": "ml-foundations",
+  "name": "ML Foundations"
+ },
+ {
+  "aliases": [
+   "linear regression",
+   "logistic regression"
+  ],
+  "category": "Machine Learning",
+  "id": "regression",
+  "name": "Regression Models"
+ },
+ {
+  "aliases": [
+   "decision tree",
+   "random forest",
+   "svm",
+   "knn"
+  ],
+  "category": "Machine Learning",
+  "id": "classification",
+  "name": "Classification"
+ },
+ {
+  "aliases": [
+   "xgboost",
+   "gradient boosting",
+   "lightgbm",
+   "bagging"
+  ],
+  "category": "Machine Learning",
+  "id": "ensemble-methods",
+  "name": "Ensemble Methods"
+ },
+ {
+  "aliases": [
+   "kmeans",
+   "pca",
+   "dbscan",
+   "tsne"
+  ],
+  "category": "Machine Learning",
+  "id": "clustering",
+  "name": "Clustering & Dim. Reduction"
+ },
+ {
+  "aliases": [
+   "cross validation",
+   "roc auc",
+   "confusion matrix",
+   "overfitting"
+  ],
+  "category": "Machine Learning",
+  "id": "model-eval",
+  "name": "Model Evaluation"
+ },
+ {
+  "aliases": [
+   "collaborative filtering",
+   "matrix factorisation",
+   "recommendation"
+  ],
+  "category": "Machine Learning",
+  "id": "recsys",
+  "name": "Recommender Systems"
+ },
+ {
+  "aliases": [
+   "arima",
+   "forecasting",
+   "prophet",
+   "seasonality"
+  ],
+  "category": "Machine Learning",
+  "id": "time-series",
+  "name": "Time Series Forecasting"
+ },
+ {
+  "aliases": [
+   "neural networks",
+   "backpropagation",
+   "dnn"
+  ],
+  "category": "Machine Learning",
+  "id": "deep-learning",
+  "name": "Deep Learning"
+ },
+ {
+  "aliases": [
+   "torch",
+   "tensors"
+  ],
+  "category": "Machine Learning",
+  "id": "pytorch",
+  "name": "PyTorch"
+ },
+ {
+  "aliases": [
+   "keras",
+   "tf"
+  ],
+  "category": "Machine Learning",
+  "id": "tensorflow",
+  "name": "TensorFlow & Keras"
+ },
+ {
+  "aliases": [
+   "cnn",
+   "image classification",
+   "resnet"
+  ],
+  "category": "Machine Learning",
+  "id": "cnn",
+  "name": "Convolutional Networks"
+ },
+ {
+  "aliases": [
+   "rnn",
+   "lstm",
+   "gru",
+   "seq2seq"
+  ],
+  "category": "Machine Learning",
+  "id": "rnn-seq",
+  "name": "Sequence Models"
+ },
+ {
+  "aliases": [
+   "attention",
+   "bert",
+   "self attention"
+  ],
+  "category": "Machine Learning",
+  "id": "transformers",
+  "name": "Transformers & Attention"
+ },
+ {
+  "aliases": [
+   "text mining",
+   "tokenisation",
+   "sentiment analysis"
+  ],
+  "category": "Machine Learning",
+  "id": "nlp",
+  "name": "Natural Language Processing"
+ },
+ {
+  "aliases": [
+   "opencv",
+   "object detection",
+   "image processing",
+   "yolo"
+  ],
+  "category": "Machine Learning",
+  "id": "computer-vision",
+  "name": "Computer Vision"
+ },
+ {
+  "aliases": [
+   "q learning",
+   "policy gradient",
+   "rl",
+   "bandits"
+  ],
+  "category": "Machine Learning",
+  "id": "reinforcement-learn",
+  "name": "Reinforcement Learning"
+ },
+ {
+  "aliases": [
+   "model deployment",
+   "mlflow",
+   "model monitoring",
+   "experiment tracking"
+  ],
+  "category": "Machine Learning",
+  "id": "mlops",
+  "name": "MLOps"
+ },
+ {
+  "aliases": [
+   "fairness",
+   "bias",
+   "explainability",
+   "ai ethics",
+   "shap"
+  ],
+  "category": "Machine Learning",
+  "id": "responsible-ai",
+  "name": "Responsible AI"
+ },
+ {
+  "aliases": [
+   "large language models",
+   "gpt",
+   "claude",
+   "foundation models"
+  ],
+  "category": "Generative AI",
+  "id": "llm-foundations",
+  "name": "LLM Foundations"
+ },
+ {
+  "aliases": [
+   "prompting",
+   "few shot",
+   "chain of thought"
+  ],
+  "category": "Generative AI",
+  "id": "prompt-engineering",
+  "name": "Prompt Engineering"
+ },
+ {
+  "aliases": [
+   "rag",
+   "vector search",
+   "embeddings retrieval"
+  ],
+  "category": "Generative AI",
+  "id": "rag",
+  "name": "Retrieval-Augmented Gen."
+ },
+ {
+  "aliases": [
+   "pinecone",
+   "faiss",
+   "chroma",
+   "pgvector"
+  ],
+  "category": "Generative AI",
+  "id": "vector-databases",
+  "name": "Vector Databases"
+ },
+ {
+  "aliases": [
+   "agentic",
+   "function calling",
+   "tool use",
+   "langgraph"
+  ],
+  "category": "Generative AI",
+  "id": "agents",
+  "name": "AI Agents & Tool Use"
+ },
+ {
+  "aliases": [
+   "lora",
+   "peft",
+   "instruction tuning",
+   "sft"
+  ],
+  "category": "Generative AI",
+  "id": "finetuning",
+  "name": "Fine-tuning & PEFT"
+ },
+ {
+  "aliases": [
+   "evals",
+   "llm as judge",
+   "hallucination testing"
+  ],
+  "category": "Generative AI",
+  "id": "llm-evaluation",
+  "name": "LLM Evaluation"
+ },
+ {
+  "aliases": [
+   "stable diffusion",
+   "text to image",
+   "gan"
+  ],
+  "category": "Generative AI",
+  "id": "diffusion-models",
+  "name": "Diffusion & Image Gen."
+ },
+ {
+  "aliases": [
+   "markup",
+   "stylesheets",
+   "flexbox",
+   "grid"
+  ],
+  "category": "Web",
+  "id": "html-css",
+  "name": "HTML & CSS"
+ },
+ {
+  "aliases": [
+   "mobile first",
+   "media queries",
+   "tailwind"
+  ],
+  "category": "Web",
+  "id": "responsive-design",
+  "name": "Responsive Design"
+ },
+ {
+  "aliases": [
+   "reactjs",
+   "hooks",
+   "jsx",
+   "components"
+  ],
+  "category": "Web",
+  "id": "react",
+  "name": "React"
+ },
+ {
+  "aliases": [
+   "ssr",
+   "app router",
+   "react framework"
+  ],
+  "category": "Web",
+  "id": "nextjs",
+  "name": "Next.js"
+ },
+ {
+  "aliases": [
+   "vuejs",
+   "sveltekit"
+  ],
+  "category": "Web",
+  "id": "vue-svelte",
+  "name": "Vue & Svelte"
+ },
+ {
+  "aliases": [
+   "redux",
+   "zustand",
+   "context api"
+  ],
+  "category": "Web",
+  "id": "state-management",
+  "name": "Frontend State Management"
+ },
+ {
+  "aliases": [
+   "lighthouse",
+   "core web vitals",
+   "bundle size"
+  ],
+  "category": "Web",
+  "id": "web-performance",
+  "name": "Web Performance"
+ },
+ {
+  "aliases": [
+   "a11y",
+   "wcag",
+   "screen reader",
+   "aria"
+  ],
+  "category": "Web",
+  "id": "accessibility",
+  "name": "Web Accessibility"
+ },
+ {
+  "aliases": [
+   "express",
+   "nodejs",
+   "nestjs"
+  ],
+  "category": "Web",
+  "id": "node-backend",
+  "name": "Node.js Backend"
+ },
+ {
+  "aliases": [
+   "fastapi",
+   "django",
+   "flask"
+  ],
+  "category": "Web",
+  "id": "fastapi-backend",
+  "name": "Python Web Backends"
+ },
+ {
+  "aliases": [
+   "api design",
+   "endpoints",
+   "openapi",
+   "swagger"
+  ],
+  "category": "Web",
+  "id": "rest-api",
+  "name": "REST API Design"
+ },
+ {
+  "aliases": [
+   "apollo",
+   "schema stitching"
+  ],
+  "category": "Web",
+  "id": "graphql",
+  "name": "GraphQL"
+ },
+ {
+  "aliases": [
+   "oauth",
+   "jwt",
+   "session",
+   "authentication"
+  ],
+  "category": "Web",
+  "id": "auth-security",
+  "name": "Auth & AppSec"
+ },
+ {
+  "aliases": [
+   "socket.io",
+   "sse",
+   "realtime"
+  ],
+  "category": "Web",
+  "id": "websockets",
+  "name": "Realtime & WebSockets"
+ },
+ {
+  "aliases": [
+   "kotlin",
+   "android studio",
+   "jetpack compose"
+  ],
+  "category": "Mobile",
+  "id": "android-dev",
+  "name": "Android Development"
+ },
+ {
+  "aliases": [
+   "swift",
+   "swiftui",
+   "xcode"
+  ],
+  "category": "Mobile",
+  "id": "ios-dev",
+  "name": "iOS Development"
+ },
+ {
+  "aliases": [
+   "react native",
+   "flutter",
+   "expo"
+  ],
+  "category": "Mobile",
+  "id": "react-native",
+  "name": "Cross-platform Mobile"
+ },
+ {
+  "aliases": [
+   "ubuntu",
+   "systemd",
+   "permissions",
+   "server admin"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "linux-admin",
+  "name": "Linux Administration"
+ },
+ {
+  "aliases": [
+   "containerisation",
+   "dockerfile",
+   "compose"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "docker",
+  "name": "Containers & Docker"
+ },
+ {
+  "aliases": [
+   "k8s",
+   "helm",
+   "pods",
+   "orchestration"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "kubernetes",
+  "name": "Kubernetes"
+ },
+ {
+  "aliases": [
+   "github actions",
+   "jenkins",
+   "pipelines",
+   "continuous delivery"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "ci-cd",
+  "name": "CI/CD"
+ },
+ {
+  "aliases": [
+   "terraform",
+   "ansible",
+   "pulumi"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "iac",
+  "name": "Infrastructure as Code"
+ },
+ {
+  "aliases": [
+   "amazon web services",
+   "ec2",
+   "s3",
+   "lambda"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "aws",
+  "name": "AWS"
+ },
+ {
+  "aliases": [
+   "azure",
+   "google cloud",
+   "gcp"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "azure-gcp",
+  "name": "Azure & GCP"
+ },
+ {
+  "aliases": [
+   "prometheus",
+   "grafana",
+   "logging",
+   "tracing"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "observability",
+  "name": "Monitoring & Observability"
+ },
+ {
+  "aliases": [
+   "well architected",
+   "cloud native",
+   "serverless design"
+  ],
+  "category": "Cloud & DevOps",
+  "id": "cloud-architecture",
+  "name": "Cloud Architecture"
+ },
+ {
+  "aliases": [
+   "cia triad",
+   "threat model",
+   "infosec"
+  ],
+  "category": "Security",
+  "id": "security-basics",
+  "name": "Security Fundamentals"
+ },
+ {
+  "aliases": [
+   "encryption",
+   "hashing",
+   "tls",
+   "pki"
+  ],
+  "category": "Security",
+  "id": "cryptography",
+  "name": "Cryptography"
+ },
+ {
+  "aliases": [
+   "owasp",
+   "xss",
+   "sql injection",
+   "csrf"
+  ],
+  "category": "Security",
+  "id": "web-security",
+  "name": "Web Application Security"
+ },
+ {
+  "aliases": [
+   "ethical hacking",
+   "kali",
+   "burp suite",
+   "red team"
+  ],
+  "category": "Security",
+  "id": "pentesting",
+  "name": "Penetration Testing"
+ },
+ {
+  "aliases": [
+   "firewall",
+   "ids",
+   "vpn",
+   "packet analysis"
+  ],
+  "category": "Security",
+  "id": "network-security",
+  "name": "Network Security"
+ },
+ {
+  "aliases": [
+   "iam",
+   "least privilege",
+   "cspm"
+  ],
+  "category": "Security",
+  "id": "cloud-security",
+  "name": "Cloud Security"
+ },
+ {
+  "aliases": [
+   "incident response",
+   "malware analysis",
+   "blue team"
+  ],
+  "category": "Security",
+  "id": "forensics",
+  "name": "Digital Forensics"
+ },
+ {
+  "aliases": [
+   "user research",
+   "interviews",
+   "usability testing"
+  ],
+  "category": "Product & Design",
+  "id": "ux-research",
+  "name": "UX Research"
+ },
+ {
+  "aliases": [
+   "figma",
+   "visual design",
+   "design systems"
+  ],
+  "category": "Product & Design",
+  "id": "ui-design",
+  "name": "UI Design"
+ },
+ {
+  "aliases": [
+   "roadmap",
+   "prioritisation",
+   "prd",
+   "product sense"
+  ],
+  "category": "Product & Design",
+  "id": "product-thinking",
+  "name": "Product Management"
+ },
+ {
+  "aliases": [
+   "sprint",
+   "kanban",
+   "standup",
+   "jira"
+  ],
+  "category": "Product & Design",
+  "id": "agile-scrum",
+  "name": "Agile & Scrum"
+ },
+ {
+  "aliases": [
+   "documentation",
+   "readme",
+   "api docs"
+  ],
+  "category": "Product & Design",
+  "id": "tech-writing",
+  "name": "Technical Writing"
+ },
+ {
+  "aliases": [
+   "presentation",
+   "stakeholder",
+   "public speaking"
+  ],
+  "category": "Product & Design",
+  "id": "communication",
+  "name": "Communication & Storytelling"
+ },
+ {
+  "aliases": [
+   "coding interview",
+   "behavioural",
+   "resume",
+   "placement"
+  ],
+  "category": "Career",
+  "id": "interview-prep",
+  "name": "Interview Preparation"
+ },
+ {
+  "aliases": [
+   "portfolio",
+   "upwork",
+   "personal brand"
+  ],
+  "category": "Career",
+  "id": "freelancing",
+  "name": "Freelancing & Portfolio"
+ },
+ {
+  "aliases": [
+   "solidity",
+   "smart contracts",
+   "ethereum",
+   "web3"
+  ],
+  "category": "Emerging",
+  "id": "blockchain",
+  "name": "Blockchain & Web3"
+ },
+ {
+  "aliases": [
+   "arduino",
+   "raspberry pi",
+   "microcontroller",
+   "esp32"
+  ],
+  "category": "Emerging",
+  "id": "iot-embedded",
+  "name": "IoT & Embedded Systems"
+ },
+ {
+  "aliases": [
+   "qiskit",
+   "qubits",
+   "quantum algorithms"
+  ],
+  "category": "Emerging",
+  "id": "quantum-computing",
+  "name": "Quantum Computing"
+ },
+ {
+  "aliases": [
+   "unity",
+   "unreal",
+   "godot",
+   "game engine"
+  ],
+  "category": "Emerging",
+  "id": "game-dev",
+  "name": "Game Development"
+ },
+ {
+  "aliases": [
+   "augmented reality",
+   "virtual reality",
+   "xr",
+   "metaverse"
+  ],
+  "category": "Emerging",
+  "id": "ar-vr",
+  "name": "AR / VR"
+ },
+ {
+  "aliases": [
+   "ros",
+   "slam",
+   "motion planning"
+  ],
+  "category": "Emerging",
+  "id": "robotics",
+  "name": "Robotics"
+ }
+]

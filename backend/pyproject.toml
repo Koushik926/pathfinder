@@ -1,0 +1,28 @@
+[project]
+name = "pathfinder-backend"
+version = "1.0.0"
+description = "PathFinder - AI-powered personalized learning path recommender"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "numpy>=1.26",
+    "scikit-learn>=1.5",
+]
+
+[project.optional-dependencies]
+# Optional. Enables Claude-authored conversation and explanations.
+# PathFinder is fully functional without it.
+llm = ["anthropic>=0.40"]
+dev = ["pytest>=8.3", "httpx>=0.27"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

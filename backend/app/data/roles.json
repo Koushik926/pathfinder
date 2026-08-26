@@ -1,0 +1,541 @@
+[
+ {
+  "aliases": [
+   "data science",
+   "data scientist",
+   "ds role",
+   "analytics scientist"
+  ],
+  "family": "Data & AI",
+  "id": "data-scientist",
+  "skills": {
+   "classification": 0.8,
+   "clustering": 0.55,
+   "communication": 0.65,
+   "data-analysis": 0.95,
+   "data-cleaning": 0.85,
+   "data-viz": 0.8,
+   "ensemble-methods": 0.6,
+   "feature-eng": 0.8,
+   "linear-algebra": 0.6,
+   "ml-foundations": 0.95,
+   "model-eval": 0.85,
+   "probability": 0.75,
+   "python-basics": 0.9,
+   "regression": 0.8,
+   "responsible-ai": 0.45,
+   "sql": 0.85,
+   "statistics": 0.9
+  },
+  "title": "Data Scientist"
+ },
+ {
+  "aliases": [
+   "ml engineer",
+   "machine learning engineer",
+   "mle",
+   "ai engineer"
+  ],
+  "family": "Data & AI",
+  "id": "ml-engineer",
+  "skills": {
+   "ci-cd": 0.6,
+   "cloud-architecture": 0.55,
+   "deep-learning": 0.8,
+   "docker": 0.75,
+   "feature-eng": 0.7,
+   "linear-algebra": 0.6,
+   "ml-foundations": 0.9,
+   "mlops": 0.9,
+   "model-eval": 0.8,
+   "python-advanced": 0.7,
+   "python-basics": 0.9,
+   "pytorch": 0.7,
+   "rest-api": 0.65,
+   "sql": 0.6,
+   "system-design": 0.5,
+   "testing": 0.6
+  },
+  "title": "Machine Learning Engineer"
+ },
+ {
+  "aliases": [
+   "data analyst",
+   "business analyst",
+   "analytics",
+   "reporting analyst"
+  ],
+  "family": "Data & AI",
+  "id": "data-analyst",
+  "skills": {
+   "bi-tools": 0.85,
+   "communication": 0.8,
+   "data-analysis": 0.9,
+   "data-cleaning": 0.8,
+   "data-viz": 0.9,
+   "excel-sheets": 0.7,
+   "product-thinking": 0.4,
+   "python-basics": 0.55,
+   "sql": 0.95,
+   "statistics": 0.7
+  },
+  "title": "Data Analyst"
+ },
+ {
+  "aliases": [
+   "data engineer",
+   "etl developer",
+   "pipeline engineer",
+   "analytics engineer"
+  ],
+  "family": "Data & AI",
+  "id": "data-engineer",
+  "skills": {
+   "big-data": 0.75,
+   "ci-cd": 0.55,
+   "cloud-architecture": 0.7,
+   "data-engineering": 0.95,
+   "db-design": 0.8,
+   "dbt-modeling": 0.6,
+   "distributed-systems": 0.5,
+   "docker": 0.7,
+   "linux-admin": 0.55,
+   "python-advanced": 0.6,
+   "python-basics": 0.8,
+   "sql": 0.9,
+   "streaming-data": 0.65
+  },
+  "title": "Data Engineer"
+ },
+ {
+  "aliases": [
+   "genai",
+   "gen ai engineer",
+   "llm engineer",
+   "ai application developer",
+   "llm developer"
+  ],
+  "family": "Data & AI",
+  "id": "genai-engineer",
+  "skills": {
+   "agents": 0.8,
+   "docker": 0.5,
+   "fastapi-backend": 0.6,
+   "finetuning": 0.55,
+   "llm-evaluation": 0.7,
+   "llm-foundations": 0.9,
+   "prompt-engineering": 0.85,
+   "python-advanced": 0.65,
+   "python-basics": 0.85,
+   "rag": 0.9,
+   "responsible-ai": 0.6,
+   "rest-api": 0.7,
+   "transformers": 0.6,
+   "vector-databases": 0.75
+  },
+  "title": "Generative AI Engineer"
+ },
+ {
+  "aliases": [
+   "nlp engineer",
+   "computational linguist",
+   "text mining",
+   "language ai"
+  ],
+  "family": "Data & AI",
+  "id": "nlp-engineer",
+  "skills": {
+   "data-cleaning": 0.6,
+   "deep-learning": 0.75,
+   "linear-algebra": 0.5,
+   "mlops": 0.55,
+   "model-eval": 0.7,
+   "nlp": 0.95,
+   "python-basics": 0.85,
+   "pytorch": 0.7,
+   "rnn-seq": 0.6,
+   "transformers": 0.8
+  },
+  "title": "NLP Engineer"
+ },
+ {
+  "aliases": [
+   "computer vision engineer",
+   "cv engineer",
+   "image processing",
+   "vision ai"
+  ],
+  "family": "Data & AI",
+  "id": "cv-engineer",
+  "skills": {
+   "cnn": 0.85,
+   "computer-vision": 0.95,
+   "data-cleaning": 0.5,
+   "deep-learning": 0.8,
+   "linear-algebra": 0.55,
+   "mlops": 0.55,
+   "model-eval": 0.65,
+   "python-basics": 0.85,
+   "pytorch": 0.7
+  },
+  "title": "Computer Vision Engineer"
+ },
+ {
+  "aliases": [
+   "frontend",
+   "front end developer",
+   "ui developer",
+   "react developer"
+  ],
+  "family": "Engineering",
+  "id": "frontend-dev",
+  "skills": {
+   "accessibility": 0.65,
+   "git": 0.8,
+   "html-css": 0.9,
+   "javascript": 0.95,
+   "react": 0.9,
+   "responsive-design": 0.85,
+   "rest-api": 0.6,
+   "state-management": 0.7,
+   "testing": 0.6,
+   "typescript": 0.7,
+   "ui-design": 0.5,
+   "web-performance": 0.65
+  },
+  "title": "Frontend Developer"
+ },
+ {
+  "aliases": [
+   "backend",
+   "back end developer",
+   "api developer",
+   "server side"
+  ],
+  "family": "Engineering",
+  "id": "backend-dev",
+  "skills": {
+   "auth-security": 0.75,
+   "clean-code": 0.6,
+   "db-design": 0.85,
+   "docker": 0.7,
+   "fastapi-backend": 0.6,
+   "git": 0.8,
+   "networking": 0.55,
+   "node-backend": 0.5,
+   "observability": 0.5,
+   "python-basics": 0.7,
+   "rest-api": 0.95,
+   "sql": 0.85,
+   "system-design": 0.7,
+   "testing": 0.75
+  },
+  "title": "Backend Developer"
+ },
+ {
+  "aliases": [
+   "full stack",
+   "fullstack developer",
+   "web developer",
+   "mern"
+  ],
+  "family": "Engineering",
+  "id": "fullstack-dev",
+  "skills": {
+   "auth-security": 0.6,
+   "ci-cd": 0.5,
+   "db-design": 0.65,
+   "docker": 0.55,
+   "git": 0.8,
+   "html-css": 0.8,
+   "javascript": 0.9,
+   "node-backend": 0.75,
+   "react": 0.85,
+   "responsive-design": 0.7,
+   "rest-api": 0.8,
+   "sql": 0.7,
+   "testing": 0.6,
+   "typescript": 0.65
+  },
+  "title": "Full-stack Developer"
+ },
+ {
+  "aliases": [
+   "mobile developer",
+   "android developer",
+   "ios developer",
+   "app developer",
+   "flutter"
+  ],
+  "family": "Engineering",
+  "id": "mobile-dev",
+  "skills": {
+   "android-dev": 0.65,
+   "ci-cd": 0.45,
+   "git": 0.75,
+   "ios-dev": 0.5,
+   "oop": 0.6,
+   "react-native": 0.7,
+   "responsive-design": 0.5,
+   "rest-api": 0.7,
+   "testing": 0.55,
+   "ui-design": 0.6
+  },
+  "title": "Mobile App Developer"
+ },
+ {
+  "aliases": [
+   "devops",
+   "sre",
+   "platform engineer",
+   "site reliability"
+  ],
+  "family": "Infrastructure",
+  "id": "devops-engineer",
+  "skills": {
+   "aws": 0.75,
+   "bash-shell": 0.85,
+   "ci-cd": 0.9,
+   "cloud-architecture": 0.7,
+   "docker": 0.95,
+   "git": 0.8,
+   "iac": 0.8,
+   "kubernetes": 0.85,
+   "linux-admin": 0.9,
+   "networking": 0.65,
+   "observability": 0.8,
+   "security-basics": 0.55
+  },
+  "title": "DevOps Engineer"
+ },
+ {
+  "aliases": [
+   "cloud architect",
+   "solutions architect",
+   "cloud engineer",
+   "aws architect"
+  ],
+  "family": "Infrastructure",
+  "id": "cloud-architect",
+  "skills": {
+   "aws": 0.9,
+   "cloud-architecture": 0.95,
+   "cloud-security": 0.75,
+   "communication": 0.6,
+   "distributed-systems": 0.65,
+   "docker": 0.65,
+   "iac": 0.75,
+   "kubernetes": 0.7,
+   "networking": 0.75,
+   "observability": 0.65,
+   "system-design": 0.8
+  },
+  "title": "Cloud Architect"
+ },
+ {
+  "aliases": [
+   "cybersecurity",
+   "security analyst",
+   "soc analyst",
+   "infosec",
+   "blue team"
+  ],
+  "family": "Security",
+  "id": "security-analyst",
+  "skills": {
+   "bash-shell": 0.6,
+   "cloud-security": 0.6,
+   "cryptography": 0.6,
+   "forensics": 0.7,
+   "linux-admin": 0.7,
+   "network-security": 0.85,
+   "networking": 0.8,
+   "observability": 0.5,
+   "security-basics": 0.95,
+   "web-security": 0.75
+  },
+  "title": "Security Analyst"
+ },
+ {
+  "aliases": [
+   "ethical hacker",
+   "pentester",
+   "red team",
+   "offensive security",
+   "bug bounty"
+  ],
+  "family": "Security",
+  "id": "pentester",
+  "skills": {
+   "bash-shell": 0.7,
+   "cryptography": 0.55,
+   "linux-admin": 0.8,
+   "network-security": 0.65,
+   "networking": 0.75,
+   "pentesting": 0.95,
+   "python-basics": 0.6,
+   "security-basics": 0.8,
+   "web-security": 0.9
+  },
+  "title": "Penetration Tester"
+ },
+ {
+  "aliases": [
+   "placement",
+   "campus placement",
+   "sde",
+   "software engineer",
+   "crack interviews",
+   "product company",
+   "faang"
+  ],
+  "family": "Engineering",
+  "id": "sde-placement",
+  "skills": {
+   "algorithms": 0.9,
+   "communication": 0.55,
+   "cpp": 0.4,
+   "db-design": 0.55,
+   "dsa-advanced": 0.85,
+   "dsa-basics": 0.95,
+   "git": 0.6,
+   "interview-prep": 0.9,
+   "java": 0.4,
+   "networking": 0.5,
+   "oop": 0.75,
+   "os-concepts": 0.6,
+   "sql": 0.6,
+   "system-design": 0.6
+  },
+  "title": "Software Engineer (Campus Placement)"
+ },
+ {
+  "aliases": [
+   "product manager",
+   "pm role",
+   "associate product manager",
+   "apm"
+  ],
+  "family": "Product & Design",
+  "id": "product-manager",
+  "skills": {
+   "agile-scrum": 0.8,
+   "communication": 0.9,
+   "data-analysis": 0.65,
+   "product-thinking": 0.95,
+   "sql": 0.5,
+   "statistics": 0.5,
+   "tech-writing": 0.6,
+   "ui-design": 0.4,
+   "ux-research": 0.7
+  },
+  "title": "Product Manager"
+ },
+ {
+  "aliases": [
+   "ux designer",
+   "ui designer",
+   "product designer",
+   "interaction designer"
+  ],
+  "family": "Product & Design",
+  "id": "ux-designer",
+  "skills": {
+   "accessibility": 0.7,
+   "communication": 0.75,
+   "html-css": 0.4,
+   "product-thinking": 0.6,
+   "responsive-design": 0.6,
+   "tech-writing": 0.45,
+   "ui-design": 0.95,
+   "ux-research": 0.9
+  },
+  "title": "UX / Product Designer"
+ },
+ {
+  "aliases": [
+   "mlops",
+   "ml platform engineer",
+   "ml infrastructure"
+  ],
+  "family": "Data & AI",
+  "id": "mlops-engineer",
+  "skills": {
+   "ci-cd": 0.8,
+   "cloud-architecture": 0.7,
+   "docker": 0.85,
+   "iac": 0.6,
+   "kubernetes": 0.7,
+   "ml-foundations": 0.7,
+   "mlops": 0.95,
+   "model-eval": 0.6,
+   "observability": 0.75,
+   "python-advanced": 0.7,
+   "rest-api": 0.6,
+   "testing": 0.65
+  },
+  "title": "MLOps Engineer"
+ },
+ {
+  "aliases": [
+   "game developer",
+   "unity developer",
+   "game programmer",
+   "gamedev"
+  ],
+  "family": "Emerging",
+  "id": "game-developer",
+  "skills": {
+   "ar-vr": 0.35,
+   "cpp": 0.6,
+   "game-dev": 0.95,
+   "git": 0.6,
+   "linear-algebra": 0.5,
+   "oop": 0.75,
+   "testing": 0.45,
+   "ui-design": 0.5
+  },
+  "title": "Game Developer"
+ },
+ {
+  "aliases": [
+   "blockchain developer",
+   "web3 developer",
+   "solidity developer",
+   "smart contract"
+  ],
+  "family": "Emerging",
+  "id": "blockchain-dev",
+  "skills": {
+   "auth-security": 0.5,
+   "blockchain": 0.95,
+   "cryptography": 0.6,
+   "git": 0.6,
+   "javascript": 0.7,
+   "react": 0.5,
+   "rest-api": 0.45,
+   "testing": 0.6
+  },
+  "title": "Blockchain Developer"
+ },
+ {
+  "aliases": [
+   "embedded engineer",
+   "iot developer",
+   "firmware",
+   "hardware programming"
+  ],
+  "family": "Emerging",
+  "id": "embedded-engineer",
+  "skills": {
+   "c-lang": 0.85,
+   "cloud-architecture": 0.35,
+   "iot-embedded": 0.95,
+   "networking": 0.55,
+   "os-concepts": 0.6,
+   "python-basics": 0.5,
+   "streaming-data": 0.35
+  },
+  "title": "Embedded / IoT Engineer"
+ }
+]
