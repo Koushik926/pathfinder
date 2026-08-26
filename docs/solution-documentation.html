@@ -1,0 +1,636 @@
+<title>PathFinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  :root{
+    --paper:#f5f4f0; --card:#fffefb; --ink:#15181c; --ink-2:#4a5058; --ink-3:#767c85;
+    --rule:#dcdad2; --rule-2:#ebe9e2;
+    --route:#0b6e8c; --route-soft:#0b6e8c1a;
+    --signal:#c2610c; --signal-soft:#c2610c1a;
+    --verify:#2f7d53; --verify-soft:#2f7d531a;
+    --flag:#a33a45; --flag-soft:#a33a451a;
+    --measure:68ch;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#101317; --card:#171b21; --ink:#e8e6e0; --ink-2:#a4aab3; --ink-3:#7b828c;
+      --rule:#282d35; --rule-2:#1e232a;
+      --route:#5cb6cf; --route-soft:#5cb6cf1f;
+      --signal:#e0973f; --signal-soft:#e0973f1f;
+      --verify:#63b487; --verify-soft:#63b4871f;
+      --flag:#d8757f; --flag-soft:#d8757f1f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101317; --card:#171b21; --ink:#e8e6e0; --ink-2:#a4aab3; --ink-3:#7b828c;
+    --rule:#282d35; --rule-2:#1e232a;
+    --route:#5cb6cf; --route-soft:#5cb6cf1f;
+    --signal:#e0973f; --signal-soft:#e0973f1f;
+    --verify:#63b487; --verify-soft:#63b4871f;
+    --flag:#d8757f; --flag-soft:#d8757f1f;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 96px}
+
+  /* ---- masthead ---- */
+  .mast{padding:72px 0 40px; border-bottom:2px solid var(--ink)}
+  .eyebrow{
+    font-family:Archivo,system-ui,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--route);
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+  }
+  .eyebrow span{color:var(--ink-3)}
+  h1{
+    font-family:Archivo,system-ui,sans-serif; font-weight:700; font-size:clamp(44px,8vw,88px);
+    line-height:.95; letter-spacing:-.03em; margin:18px 0 0; text-wrap:balance;
+  }
+  .standfirst{
+    font-size:clamp(19px,2.4vw,23px); line-height:1.5; color:var(--ink-2);
+    max-width:56ch; margin:20px 0 0;
+  }
+  .mast-meta{
+    margin-top:30px; display:flex; flex-wrap:wrap; gap:8px 10px;
+    font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px;
+  }
+  .tag{
+    border:1px solid var(--rule); border-radius:2px; padding:4px 9px; color:var(--ink-2);
+    background:var(--card);
+  }
+  .tag.on{border-color:var(--route); color:var(--route); background:var(--route-soft)}
+
+  /* ---- route rail ---- */
+  .route{position:relative; margin-top:8px}
+  .route::before{
+    content:""; position:absolute; left:15px; top:34px; bottom:24px; width:2px;
+    background:var(--rule); border-radius:2px;
+  }
+  section.stop{position:relative; padding:44px 0 4px 58px}
+  section.stop::before{
+    content:attr(data-n); position:absolute; left:0; top:52px;
+    width:32px; height:32px; border-radius:50%;
+    background:var(--card); border:2px solid var(--route); color:var(--route);
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:500;
+    display:flex; align-items:center; justify-content:center; z-index:1;
+  }
+  h2{
+    font-family:Archivo,system-ui,sans-serif; font-weight:700;
+    font-size:clamp(26px,3.6vw,34px); letter-spacing:-.02em; line-height:1.15;
+    margin:34px 0 6px; text-wrap:balance;
+  }
+  .kicker{
+    font-family:Archivo,system-ui,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:2px;
+  }
+  h3{
+    font-family:Archivo,system-ui,sans-serif; font-weight:600; font-size:18px;
+    letter-spacing:-.01em; margin:30px 0 8px;
+  }
+  p{max-width:var(--measure); margin:14px 0}
+  a{color:var(--route)}
+  strong{font-weight:600}
+  code{
+    font-family:"JetBrains Mono",ui-monospace,monospace; font-size:.85em;
+    background:var(--rule-2); border:1px solid var(--rule); border-radius:3px; padding:1px 5px;
+  }
+
+  .lede{font-size:19px; color:var(--ink-2); max-width:60ch}
+
+  /* ---- components ---- */
+  .grid{display:grid; gap:14px; margin:22px 0}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+
+  .card{
+    background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:16px 18px;
+  }
+  .card h4{
+    font-family:Archivo,system-ui,sans-serif; font-size:14px; font-weight:600;
+    margin:0 0 6px; letter-spacing:-.01em;
+  }
+  .card p{font-size:15px; margin:0; color:var(--ink-2); max-width:none}
+
+  .metric{
+    background:var(--card); border:1px solid var(--rule); border-radius:4px;
+    padding:14px 16px; border-top:3px solid var(--route);
+  }
+  .metric .n{
+    font-family:Archivo,system-ui,sans-serif; font-size:32px; font-weight:700;
+    letter-spacing:-.02em; line-height:1.05; font-variant-numeric:tabular-nums;
+  }
+  .metric .l{
+    font-family:Archivo,system-ui,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-top:5px;
+  }
+  .metric.amber{border-top-color:var(--signal)}
+  .metric.green{border-top-color:var(--verify)}
+
+  .scroll{overflow-x:auto; margin:22px 0; border:1px solid var(--rule); border-radius:4px; background:var(--card)}
+  table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:520px}
+  th,td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--rule-2); vertical-align:top}
+  th{
+    font-family:Archivo,system-ui,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+    border-bottom:1px solid var(--rule); white-space:nowrap;
+  }
+  tr:last-child td{border-bottom:none}
+  td.num{font-family:"JetBrains Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+  .note{
+    border-left:3px solid var(--signal); background:var(--signal-soft);
+    padding:14px 18px; margin:22px 0; border-radius:0 4px 4px 0;
+  }
+  .note p{margin:0; max-width:none; font-size:15.5px}
+  .note .h{
+    font-family:Archivo,system-ui,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--signal); margin-bottom:5px;
+  }
+  .note.flag{border-left-color:var(--flag); background:var(--flag-soft)}
+  .note.flag .h{color:var(--flag)}
+  .note.ok{border-left-color:var(--verify); background:var(--verify-soft)}
+  .note.ok .h{color:var(--verify)}
+
+  .bug{
+    background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--flag);
+    border-radius:0 4px 4px 0; padding:16px 18px; margin:16px 0;
+  }
+  .bug h4{font-family:Archivo,system-ui,sans-serif; font-size:15px; font-weight:600; margin:0 0 8px}
+  .bug dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:15px}
+  .bug dt{
+    font-family:Archivo,system-ui,sans-serif; font-size:10.5px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); padding-top:4px;
+  }
+  .bug dd{margin:0; color:var(--ink-2)}
+
+  ul.clean{list-style:none; padding:0; margin:16px 0; max-width:var(--measure)}
+  ul.clean li{position:relative; padding-left:20px; margin:9px 0}
+  ul.clean li::before{
+    content:""; position:absolute; left:2px; top:.68em; width:6px; height:6px;
+    border-radius:50%; background:var(--route);
+  }
+
+  figure{margin:26px 0}
+  figcaption{
+    font-family:Archivo,system-ui,sans-serif; font-size:12px; color:var(--ink-3);
+    margin-top:10px; letter-spacing:.01em;
+  }
+  svg{display:block; max-width:100%; height:auto}
+
+  .weights{display:grid; gap:7px; margin:18px 0; max-width:var(--measure)}
+  .wrow{display:grid; grid-template-columns:150px 1fr 46px; gap:12px; align-items:center; font-size:14px}
+  .wrow .bar{height:9px; background:var(--rule-2); border-radius:2px; overflow:hidden}
+  .wrow .bar i{display:block; height:100%; background:var(--route); border-radius:2px}
+  .wrow .v{font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--ink-3); text-align:right; font-variant-numeric:tabular-nums}
+  .wrow .k{font-family:Archivo,system-ui,sans-serif; font-size:13px; font-weight:500}
+
+  footer{
+    margin-top:60px; padding-top:24px; border-top:2px solid var(--ink);
+    font-family:Archivo,system-ui,sans-serif; font-size:13px; color:var(--ink-3);
+    display:flex; flex-wrap:wrap; gap:10px 28px; justify-content:space-between;
+  }
+  footer b{color:var(--ink-2); font-weight:600}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .route::before{left:9px}
+    section.stop{padding-left:38px}
+    section.stop::before{width:22px; height:22px; font-size:10px; top:50px}
+    .wrow{grid-template-columns:110px 1fr 42px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+  @media print{
+    body{background:#fff}
+    section.stop{break-inside:avoid}
+    .mast{padding-top:24px}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow">
+      HCLTech Round 2 · Solution Documentation
+      <span>Team Critical Path — REVA University</span>
+    </div>
+    <h1>PathFinder</h1>
+    <p class="standfirst">
+      Every learning platform can tell you which courses are relevant. None of them
+      tells you which to take <em>first</em>, which you aren't ready for, or which
+      you can skip because you already know it. PathFinder answers that — and shows
+      its work.
+    </p>
+    <div class="mast-meta">
+      <span class="tag on">Runs fully offline · no API key required</span>
+      <span class="tag">FastAPI + React</span>
+      <span class="tag">238 catalog items</span>
+      <span class="tag">67 tests</span>
+      <span class="tag">Reproducible build</span>
+    </div>
+  </header>
+
+  <div class="route">
+
+    <!-- 1 -->
+    <section class="stop" data-n="1">
+      <div class="kicker">Problem understanding</div>
+      <h2>Relevance is solved. Sequence isn't.</h2>
+      <p class="lede">
+        A recommender answers <em>"what relates to this topic?"</em> A learner needs
+        the answer to something harder: <em>"given what I already know, what should I
+        do next, in what order, to reach a goal I can only describe vaguely?"</em>
+      </p>
+      <p>
+        That reframing is the whole design. It demands four things similarity search
+        cannot provide on its own:
+      </p>
+      <div class="grid g2">
+        <div class="card"><h4>A model of what you already know</h4>
+          <p>So the system stops recommending it — and so "relevant" can be measured against a starting point, not from zero.</p></div>
+        <div class="card"><h4>A model of what the goal requires</h4>
+          <p>A career target as a weighted skill vector turns a vague ambition into a measurable distance.</p></div>
+        <div class="card"><h4>Ordering</h4>
+          <p>A course you aren't ready for is worse than useless. Prerequisites are a graph, and the path must respect it.</p></div>
+        <div class="card"><h4>Explanations</h4>
+          <p>A learner who doesn't trust the ordering abandons it. The reasoning has to be inspectable, not asserted.</p></div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="stop" data-n="2">
+      <div class="kicker">Solution approach</div>
+      <h2>A pipeline, not a search box</h2>
+      <p>
+        A learner describes a goal in plain language. PathFinder resolves it to a
+        career profile, estimates current mastery from their history, computes the
+        weighted gap, ranks candidates on six independent signals, then plans an
+        ordered, scheduled roadmap of courses, projects and assessments — attaching
+        to each one the arithmetic that put it there.
+      </p>
+
+      <figure>
+        <svg viewBox="0 0 880 300" role="img" aria-label="PathFinder pipeline: goal text through semantic space, profiler and gap engine into the hybrid ranker and planner, producing a roadmap.">
+          <defs>
+            <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+              <path d="M0,1 L8,4.5 L0,8 z" fill="var(--ink-3)"/>
+            </marker>
+            <style>
+              .bx{fill:var(--card); stroke:var(--rule); stroke-width:1.5; rx:4}
+              .bx-hi{fill:var(--route-soft); stroke:var(--route); stroke-width:1.5; rx:4}
+              .t{font-family:Archivo,sans-serif; font-size:13px; font-weight:600; fill:var(--ink)}
+              .s{font-family:'JetBrains Mono',monospace; font-size:10px; fill:var(--ink-3)}
+              .fl{font-family:'JetBrains Mono',monospace; font-size:10px; fill:var(--ink-3)}
+              .ln{stroke:var(--ink-3); stroke-width:1.4; fill:none; marker-end:url(#ar)}
+            </style>
+          </defs>
+
+          <rect class="bx" x="8" y="120" width="126" height="52"/>
+          <text class="t" x="71" y="142" text-anchor="middle">Goal text</text>
+          <text class="s" x="71" y="158" text-anchor="middle">free language</text>
+
+          <path class="ln" d="M136 146 H 176"/>
+
+          <rect class="bx-hi" x="178" y="112" width="140" height="68"/>
+          <text class="t" x="248" y="136" text-anchor="middle">Semantic space</text>
+          <text class="s" x="248" y="152" text-anchor="middle">word + char TF-IDF</text>
+          <text class="s" x="248" y="166" text-anchor="middle">SVD → 128 dims</text>
+
+          <path class="ln" d="M320 130 H 360"/>
+          <path class="ln" d="M320 162 H 360"/>
+
+          <rect class="bx" x="362" y="36" width="148" height="62"/>
+          <text class="t" x="436" y="60" text-anchor="middle">Profiler</text>
+          <text class="s" x="436" y="76" text-anchor="middle">noisy-OR mastery</text>
+          <text class="s" x="436" y="89" text-anchor="middle">× recency decay</text>
+
+          <rect class="bx" x="362" y="112" width="148" height="62"/>
+          <text class="t" x="436" y="136" text-anchor="middle">Gap engine</text>
+          <text class="s" x="436" y="152" text-anchor="middle">target − mastery,</text>
+          <text class="s" x="436" y="165" text-anchor="middle">× importance</text>
+
+          <rect class="bx" x="362" y="188" width="148" height="62"/>
+          <text class="t" x="436" y="212" text-anchor="middle">Prereq DAG</text>
+          <text class="s" x="436" y="228" text-anchor="middle">238 nodes,</text>
+          <text class="s" x="436" y="241" text-anchor="middle">depth 9, acyclic</text>
+
+          <path class="ln" d="M436 100 V 108"/>
+          <path class="ln" d="M512 143 H 552"/>
+
+          <rect class="bx-hi" x="554" y="76" width="150" height="90"/>
+          <text class="t" x="629" y="102" text-anchor="middle">Hybrid ranker</text>
+          <text class="s" x="629" y="120" text-anchor="middle">6 weighted signals</text>
+          <text class="s" x="629" y="134" text-anchor="middle">per-component</text>
+          <text class="s" x="629" y="147" text-anchor="middle">attribution kept</text>
+
+          <path class="ln" d="M629 168 V 196"/>
+          <path class="ln" d="M512 219 H 552"/>
+
+          <rect class="bx-hi" x="554" y="198" width="150" height="76"/>
+          <text class="t" x="629" y="222" text-anchor="middle">Planner</text>
+          <text class="s" x="629" y="239" text-anchor="middle">greedy submodular</text>
+          <text class="s" x="629" y="252" text-anchor="middle">→ topo sort</text>
+          <text class="s" x="629" y="265" text-anchor="middle">→ milestones</text>
+
+          <path class="ln" d="M706 236 H 746"/>
+          <rect class="bx" x="748" y="196" width="124" height="80"/>
+          <text class="t" x="810" y="222" text-anchor="middle">Roadmap</text>
+          <text class="s" x="810" y="239" text-anchor="middle">ordered ·</text>
+          <text class="s" x="810" y="252" text-anchor="middle">scheduled ·</text>
+          <text class="s" x="810" y="265" text-anchor="middle">explained</text>
+
+          <path class="ln" d="M706 121 H 746"/>
+          <rect class="bx" x="748" y="92" width="124" height="58"/>
+          <text class="t" x="810" y="115" text-anchor="middle">Explanations</text>
+          <text class="s" x="810" y="132" text-anchor="middle">from attributions</text>
+        </svg>
+        <figcaption>
+          The ranker's component attributions feed the explanation layer directly — the
+          same numbers that produce the ordering produce the justification.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 3 -->
+    <section class="stop" data-n="3">
+      <div class="kicker">AI / ML techniques</div>
+      <h2>Six models, each covering another's blind spot</h2>
+
+      <h3>Representation — shared latent space</h3>
+      <p>
+        Items, skills, career roles and free-text goals are embedded into one
+        128-dimensional space so any two can be compared with a dot product. TF-IDF
+        over hand-built documents, reduced by truncated SVD — latent semantic
+        analysis. Two feature views are unioned before the reduction: <strong>word
+        1–2 grams</strong> carry topic, <strong>character 3–5 grams</strong> carry
+        morphology.
+      </p>
+      <div class="note">
+        <div class="h">Why the character view exists</div>
+        <p>
+          With word features alone, the goal <em>"designing beautiful websites"</em>
+          produced a <strong>zero vector</strong> — none of those word forms appear in
+          the catalog — and the learner received no recommendations at all. Character
+          n-grams reach "web design" through shared substrings. A regression test now
+          guards it.
+        </p>
+      </div>
+
+      <h3>Learner profiling — noisy-OR mastery</h3>
+      <p>
+        Evidence combines multiplicatively rather than additively:
+        <code>mastery = 1 − Π(1 − contributionᵢ)</code>. Summing would be wrong — two
+        courses each teaching Python at 0.5 do not make an expert, they overlap.
+        Noisy-OR produces genuine diminishing returns and cannot exceed 1.0, which is
+        precisely what makes the gap engine stop asking for more Python once you
+        clearly know Python.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Discount factor</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Depth</strong></td><td>Advanced items teach more deeply — 0.85 / 1.0 / 1.15 by level</td></tr>
+            <tr><td><strong>Recency</strong></td><td><code>0.5^(months/24)</code>, floored at 0.35 — skills fade, they don't vanish</td></tr>
+            <tr><td><strong>Score</strong></td><td>Assessment results are direct evidence; 0.85 assumed for a bare completion</td></tr>
+            <tr><td><strong>Kind</strong></td><td>Projects and assessments count 1.1× — building beats watching</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Ranking — six weighted signals</h3>
+      <div class="weights">
+        <div class="wrow"><span class="k">Gap coverage</span><span class="bar"><i style="width:100%"></i></span><span class="v">0.38</span></div>
+        <div class="wrow"><span class="k">Semantic match</span><span class="bar"><i style="width:47%"></i></span><span class="v">0.18</span></div>
+        <div class="wrow"><span class="k">Item-item CF</span><span class="bar"><i style="width:37%"></i></span><span class="v">0.14</span></div>
+        <div class="wrow"><span class="k">Level fit</span><span class="bar"><i style="width:32%"></i></span><span class="v">0.12</span></div>
+        <div class="wrow"><span class="k">Quality prior</span><span class="bar"><i style="width:26%"></i></span><span class="v">0.10</span></div>
+        <div class="wrow"><span class="k">Modality fit</span><span class="bar"><i style="width:21%"></i></span><span class="v">0.08</span></div>
+      </div>
+      <p>
+        Each signal fails alone: coverage ignores quality and readiness, semantic
+        ignores what you know, collaborative filtering cold-starts and echoes
+        popularity, level fit ignores the goal entirely. Two details do real work —
+        the quality prior is <strong>Bayesian-smoothed</strong>, so a 4.9 from 200
+        raters can't outrank a 4.8 from 200,000; and CF similarity is
+        <strong>shrunk</strong> by <code>co/(co+12)</code>, so a pair seen twice isn't
+        trusted like a pair seen two hundred times. MMR re-ranking then trades a
+        little relevance for breadth, because the top five would otherwise be five
+        near-identical intro courses.
+      </p>
+
+      <h3>Path planning — budgeted maximum coverage</h3>
+      <p>
+        Choosing a path is a budgeted max-coverage problem, and the objective is
+        <strong>submodular</strong> — each additional course on a topic adds less than
+        the last. Greedy selection therefore carries the standard
+        <code>(1 − 1/e)</code> approximation guarantee and runs in milliseconds. After
+        every pick the planner <strong>simulates the mastery the learner would
+        gain</strong> using the profiler's own noisy-OR rule and recomputes the
+        remaining gap — which is what stops it stacking four overlapping intro-ML
+        courses. The selection is then closed under prerequisites, topologically
+        sorted with Kahn's algorithm, and chunked into milestones on cumulative hours.
+      </p>
+
+      <h3>Explanation — derived, never narrated after the fact</h3>
+      <p>
+        The explanation layer reads the <strong>same component attributions that
+        produced the ranking</strong>. Every sentence traces to a number the ranker
+        used. This is an architectural constraint, not a stylistic one: a system that
+        ranks with one model and explains with another can produce fluent, confident,
+        wrong justifications. Here the explanation is computed <em>from</em> the
+        ranking, so it cannot drift from it.
+      </p>
+      <div class="note ok">
+        <div class="h">On the optional Claude integration</div>
+        <p>
+          With an API key, Claude improves intent extraction and rewrites explanations
+          into warmer prose — given the computed facts and instructed to add none.
+          Claude is <strong>never</strong> asked to choose or order recommendations;
+          that stays deterministic and reproducible. Every call fails soft: no key, no
+          package, no network, a rate limit or a malformed response all fall back
+          silently to the local path. <strong>The application is fully functional with
+          no key at all.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="stop" data-n="4">
+      <div class="kicker">Key features &amp; workflows</div>
+      <h2>Four turns to a roadmap</h2>
+      <p>
+        The conversation is slot-filling rather than open-ended, because planning needs
+        five specific things. The assistant asks only for what's still missing and
+        stops the moment it has enough — and a single sentence can fill four slots at
+        once.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Turn</th><th>Learner says</th><th>What the system does</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>"I want to become a generative AI engineer"</td><td>Resolves to a role profile — 14 weighted target skills. Ambiguous goals produce a clarifying question, not a guess.</td></tr>
+            <tr><td class="num">2</td><td>"some grounding"</td><td>Sets the difficulty anchor for level-fit scoring</td></tr>
+            <tr><td class="num">3</td><td>"I did Python for Everybody and Prompt Engineering for Developers"</td><td>Token-overlap matches both against the real catalog; they become mastery evidence, not text</td></tr>
+            <tr><td class="num">4</td><td>"15 hours a week, hands-on"</td><td>Sets the schedule and the modality preference; the path generates</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid g4">
+        <div class="metric"><div class="n">289 h</div><div class="l">Planned effort</div></div>
+        <div class="metric"><div class="n">19.3 w</div><div class="l">At 15 h / week</div></div>
+        <div class="metric amber"><div class="n">84%</div><div class="l">Gap covered</div></div>
+        <div class="metric green"><div class="n">10→89%</div><div class="l">Goal readiness</div></div>
+      </div>
+      <figcaption>Actual output for the four turns above — five milestones, prerequisites pulled in automatically.</figcaption>
+
+      <h3>The projects guarantee</h3>
+      <p>
+        Coverage-per-hour has a blind spot: a 20-hour project consolidating four
+        already-taught skills scores worse than two 10-hour courses each introducing a
+        new one. Left alone, the planner produced <strong>a reading list with no
+        hands-on work at all</strong>. Projects and assessments now carry a selection
+        bonus and a minimum of two projects is guaranteed. A path you can't show
+        anyone isn't a path.
+      </p>
+
+      <h3>Adaptation</h3>
+      <p>
+        Feedback folds back into the <em>profile</em> and the path regenerates — it is
+        never patched in place. One source of truth means the roadmap cannot drift
+        from the learner model, and regeneration costs milliseconds.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Signal</th><th>Effect on the plan</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Completed</strong> (with score)</td><td>Credited as mastery; a low score credits only partially, so reinforcement can reappear</td></tr>
+            <tr><td><strong>Too easy</strong></td><td>Credits the skills and raises the difficulty target</td></tr>
+            <tr><td><strong>Too hard</strong></td><td>Lowers the target and inserts groundwork — the item is not dropped</td></tr>
+            <tr><td><strong>Not for me</strong></td><td>De-emphasises the topic, but keeps what the goal still genuinely requires</td></tr>
+            <tr><td><strong>Pace change</strong></td><td>Rescales the entire schedule and every milestone date</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="stop" data-n="5">
+      <div class="kicker">Data</div>
+      <h2>Curated, committed, verified at build time</h2>
+      <div class="grid g4">
+        <div class="metric"><div class="n">238</div><div class="l">Catalog items</div></div>
+        <div class="metric"><div class="n">116</div><div class="l">Skills · 13 categories</div></div>
+        <div class="metric"><div class="n">22</div><div class="l">Career profiles</div></div>
+        <div class="metric"><div class="n">9</div><div class="l">Max prereq depth</div></div>
+      </div>
+      <p>
+        190 courses, 27 projects, 21 assessments from real providers — Coursera, edX,
+        freeCodeCamp, NPTEL, DeepLearning.AI, Hugging Face, AWS and others. Curated
+        rather than scraped for three reasons: <strong>prerequisite edges exist in no
+        public course dataset</strong> and are the backbone of the system; a committed
+        catalog means the demo cannot fail on a network call; and correctness becomes
+        enforceable.
+      </p>
+      <p>
+        The build refuses to emit output if any prerequisite dangles, any skill is
+        unknown, any id repeats, or the graph contains a cycle. Every skill is taught
+        by at least two items, so the ranker always has a real choice. Rebuilding from
+        source produces <strong>byte-identical</strong> artifacts — verified.
+      </p>
+      <div class="note">
+        <div class="h">Stated plainly</div>
+        <p>
+          We have no real enrolment data, so the collaborative-filtering component is
+          fitted on <strong>4,000 simulated sessions</strong> generated from a fixed
+          seed. It is a genuine item-item CF model over genuine co-occurrence
+          structure — but the co-occurrences are synthetic. It carries 14% of the
+          ranking weight; the other 86% uses no simulated data.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="stop" data-n="6">
+      <div class="kicker">Challenges faced</div>
+      <h2>Three bugs that changed the design</h2>
+      <p>
+        Each of these was found by building the thing and looking hard at the output.
+        All three are now covered by regression tests.
+      </p>
+
+      <div class="bug">
+        <h4>A learner's goal was silently recorded as their history</h4>
+        <dl>
+          <dt>Symptom</dt><dd>"I want to become a machine learning engineer" matched the course title <em>Intro to Machine Learning</em> by token overlap and was logged as completed — so the system removed from the path the very thing the learner asked to learn.</dd>
+          <dt>Root cause</dt><dd>Title matching had no notion of whether the sentence was a claim about the past or a statement of intent.</dd>
+          <dt>Fix</dt><dd>Matching is gated on a completion cue ("did", "finished", "already know"). The gate lifts only when the assistant has just asked what they've completed, since the reply is then a bare list of titles.</dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <h4>Foundations were scheduled after the material built on them</h4>
+        <dl>
+          <dt>Symptom</dt><dd>Linear Algebra appeared <em>after</em> the ML Specialization that requires it — technically valid under the DAG, pedagogically backwards.</dd>
+          <dt>Root cause</dt><dd>Prerequisites pulled in as fillers carried zero ranking priority, so they sorted to the back of the path and dragged their dependents with them.</dd>
+          <dt>Fix</dt><dd>Priority propagates backwards through the graph: a prerequisite is exactly as urgent as the most urgent thing it unlocks.</dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <h4>Unseen word forms returned nothing at all</h4>
+        <dl>
+          <dt>Symptom</dt><dd>"designing beautiful websites" produced an empty recommendation list — not a bad one, an empty one.</dd>
+          <dt>Root cause</dt><dd>Word-level TF-IDF has no entry for "websites" or "designing", so the query vectorised to all zeros.</dd>
+          <dt>Fix</dt><dd>Character n-grams unioned into the feature space, plus an explicit empty-vector check so "no signal" is handled as a case rather than scored as zero similarity to everything.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="stop" data-n="7">
+      <div class="kicker">Engineering</div>
+      <h2>Verification &amp; limits</h2>
+      <div class="grid g3">
+        <div class="metric green"><div class="n">67</div><div class="l">Tests passing</div></div>
+        <div class="metric"><div class="n">~2 s</div><div class="l">Full suite</div></div>
+        <div class="metric"><div class="n">1</div><div class="l">Process to deploy</div></div>
+      </div>
+      <p>
+        The route layer contains no reasoning — every engine is a pure function over a
+        profile and the catalog. That's why the algorithms can be tested directly
+        without HTTP, and why the same profile always yields the same path. Tests
+        cover catalog invariants (acyclicity, skill coverage, no dangling edges),
+        mastery saturation and decay, topological correctness, ranking determinism,
+        path construction, and the complete HTTP flow.
+      </p>
+      <p>
+        Verified from a clean environment: unzip → install → build catalog → 67 tests
+        pass → frontend builds → artifacts are byte-identical to the committed ones.
+      </p>
+
+      <h3>What we'd fix with more time</h3>
+      <ul class="clean">
+        <li><strong>Ranking weights are hand-set, not learned.</strong> With no real engagement data there's nothing to fit them against; they were tuned against the behaviours in the test suite.</li>
+        <li><strong>LSA under-performs a neural sentence encoder</strong> on paraphrase-heavy input. The character view narrows that gap; it doesn't close it. We chose reproducibility and a zero-download install over the last few points of accuracy.</li>
+        <li><strong>238 items is a prototype catalog.</strong> The ranker is vectorised and the graph algorithms are near-linear, but retrieval would need an ANN index beyond ~10⁵ items.</li>
+        <li><strong>Sessions are in-memory</strong>, capped at 500 and cleared on restart. Swapping one module for Redis is the only change required.</li>
+        <li><strong>Mastery is inferred, not measured.</strong> Finishing a course is weak evidence of having learned it — which is exactly why assessments are first-class catalog items rather than an afterthought.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <span><b>PathFinder</b> · AI-Powered Personalized Learning Path Recommender</span>
+    <span><b>Team Critical Path</b> — R Koushik · Chethan H S · Khushi Katwe · Sandeep N · Chethan Kumar H M</span>
+    <span>REVA University · HCLTech Round 2</span>
+  </footer>
+
+</div>

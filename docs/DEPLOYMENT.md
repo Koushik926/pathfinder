@@ -45,3 +45,14 @@ docker run -p 8000:8000 -e ANTHROPIC_API_KEY=sk-... pathfinder
 - No database, no external services, no network calls at request time.
 - Cold start is ~1 s (the SVD is fitted at import).
 - Sessions are in-memory and capped at 500; a restart clears them.
+
+---
+
+## Submission deliverable 3 — solution documentation
+
+`docs/solution-documentation.html` is the presentation document (problem
+understanding, approach, architecture, AI/ML techniques, features, challenges).
+It is print-styled: open it in a browser and **Print → Save as PDF** to produce
+the PDF for submission. It is also published at:
+
+https://claude.ai/code/artifact/c70f67b4-f363-47a1-892a-800e51925a30
