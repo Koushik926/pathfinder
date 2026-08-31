@@ -17,6 +17,7 @@ model is reproducible: judges running the build get byte-identical output.
 from __future__ import annotations
 
 import json
+import math
 import random
 from collections import defaultdict
 from pathlib import Path
@@ -139,17 +140,28 @@ def synthesise_interactions(items: list[dict], roles: list[dict], seed: int = 20
     n_learners = 4000
 
     # Which items serve each role, scored by how well they cover role skills.
+    #
+    # Two details here exist purely to keep the output reproducible across
+    # Python versions. CPython 3.12 switched sum() over floats to compensated
+    # (Neumaier) summation, so the same arithmetic yields last-bit-different
+    # overlaps on 3.10 vs 3.12; those differences flip near-ties in the sort
+    # and change which items survive the [:60] cutoff. Rounding the score and
+    # breaking ties on the item id removes both sources of drift, so the
+    # shipped model is identical whatever interpreter builds it.
     role_items: dict[str, list[tuple[str, float]]] = {}
     for role in roles:
         scored = []
         for item in items:
-            overlap = sum(
-                weight * role["skills"].get(sid, 0.0)
-                for sid, weight in item["skills"].items()
+            overlap = round(
+                math.fsum(
+                    weight * role["skills"].get(sid, 0.0)
+                    for sid, weight in item["skills"].items()
+                ),
+                12,
             )
             if overlap > 0.05:
                 scored.append((item["id"], overlap))
-        scored.sort(key=lambda pair: -pair[1])
+        scored.sort(key=lambda pair: (-pair[1], pair[0]))
         role_items[role["id"]] = scored[:60]
 
     sessions: list[list[str]] = []
@@ -160,7 +172,7 @@ def synthesise_interactions(items: list[dict], roles: list[dict], seed: int = 20
             continue
         take = rng.randint(4, 14)
         weights = [
-            score * (0.4 + by_id[item_id]["learners"] / 2_000_000)
+            round(score * (0.4 + by_id[item_id]["learners"] / 2_000_000), 12)
             for item_id, score in pool
         ]
         chosen: set[str] = set()

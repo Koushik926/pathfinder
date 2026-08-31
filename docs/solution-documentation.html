@@ -253,7 +253,7 @@
       <span class="tag on">Runs fully offline · no API key required</span>
       <span class="tag">FastAPI + React</span>
       <span class="tag">238 catalog items</span>
-      <span class="tag">67 tests</span>
+      <span class="tag">72 tests</span>
       <span class="tag">Reproducible build</span>
     </div>
   </header>
@@ -620,7 +620,7 @@
       <div class="kicker">Engineering</div>
       <h2>Verification &amp; limits</h2>
       <div class="grid g3">
-        <div class="metric green"><div class="n">67</div><div class="l">Tests passing</div></div>
+        <div class="metric green"><div class="n">72</div><div class="l">Tests passing</div></div>
         <div class="metric"><div class="n">~2 s</div><div class="l">Full suite</div></div>
         <div class="metric"><div class="n">1</div><div class="l">Process to deploy</div></div>
       </div>
@@ -633,8 +633,14 @@
         path construction, and the complete HTTP flow.
       </p>
       <p>
-        Verified from a clean environment: unzip → install → build catalog → 67 tests
-        pass → frontend builds → artifacts are byte-identical to the committed ones.
+        Verified from a clean environment on <strong>both Python 3.10 and 3.12</strong>:
+        unzip → install → build catalog → 72 tests pass → frontend builds → artifacts
+        byte-identical to the committed ones. That last check earned its place — it
+        caught CPython 3.12 switching <code>sum()</code> over floats to compensated
+        summation, which shifted role-overlap scores in their final bits and flipped
+        near-ties in a sort. The build now uses <code>math.fsum</code> with explicit
+        rounding and a deterministic tie-break, and a test fails if reproducibility
+        ever regresses.
       </p>
 
       <h3>What we'd fix with more time</h3>

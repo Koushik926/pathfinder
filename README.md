@@ -56,8 +56,12 @@ malformed response all fall back silently to the deterministic path.
 ### Tests
 
 ```bash
-cd backend && pip install -e ".[dev]" && pytest -q      # 67 tests, ~2s
+cd backend && pip install -e ".[dev]" && pytest -q      # 72 tests, ~2s
 ```
+
+Verified on **Python 3.10 and 3.12** (numpy 2.2/2.5, scikit-learn 1.7/1.9).
+The suite includes a reproducibility check asserting the committed catalog
+matches a fresh rebuild byte-for-byte on either interpreter.
 
 ---
 
@@ -165,7 +169,7 @@ backend/
                    planner, explain, feedback, conversation
     api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
     llm.py         optional Claude integration, fails soft everywhere
-  tests/           67 tests
+  tests/           72 tests
 frontend/
   src/components/  Chat, Roadmap, Dashboard, Primitives
 docs/              architecture, demo script
