@@ -1,17 +1,16 @@
 services:
   - type: web
     name: pathfinder
-    runtime: python
+    # Docker rather than the Python runtime: the build needs Node to compile
+    # the frontend, and the Dockerfile pins both toolchains explicitly instead
+    # of depending on what happens to be present in a language image.
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     plan: free
-    buildCommand: |
-      cd frontend && npm ci && npm run build
-      cd ../backend && pip install -e .
-    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.11"
-      - key: NODE_VERSION
-        value: "20"
+      # Render injects PORT; the container reads it.
+      - key: PORT
+        value: "8000"
       # Optional — leave unset to run in offline mode.
       - key: ANTHROPIC_API_KEY
         sync: false

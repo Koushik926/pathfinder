@@ -1,0 +1,22 @@
+# Never copy host build output into the image. Without this, `COPY frontend/ ./`
+# overwrites the Linux node_modules that `npm ci` just installed with the host's
+# platform-specific one (darwin-arm64 esbuild/rollup binaries), and the frontend
+# build fails inside the container.
+**/node_modules
+**/dist
+**/.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/*.egg-info
+
+.git
+.gitignore
+.env
+.env.local
+
+# Not needed at runtime
+docs/
+*.zip
+package.sh
+SUBMISSION.md
