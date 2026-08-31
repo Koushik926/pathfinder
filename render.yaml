@@ -5,8 +5,9 @@ services:
     # the frontend, and the Dockerfile pins both toolchains explicitly instead
     # of depending on what happens to be present in a language image.
     runtime: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: Dockerfile
     plan: free
+    region: oregon
     envVars:
       # Render injects PORT; the container reads it.
       - key: PORT
