@@ -207,9 +207,31 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
   @media print{
-    body{background:#fff}
-    section.stop{break-inside:avoid}
-    .mast{padding-top:24px}
+    /* Force the light palette: a print job must never inherit a dark OS theme. */
+    :root{
+      --paper:#fff; --card:#fffefb; --ink:#15181c; --ink-2:#4a5058; --ink-3:#6b7179;
+      --rule:#d2d0c8; --rule-2:#e8e6df;
+      --route:#0a5f79; --signal:#a8540a; --verify:#276a47; --flag:#8f323c;
+    }
+    body{background:#fff; font-size:10.5pt; line-height:1.5}
+    .wrap{max-width:none; padding:0}
+    @page{margin:14mm 15mm}
+
+    /* Sections flow rather than each claiming a page, but never split a
+       heading from its body or break a card, table or diagram in half. */
+    section.stop{padding:24px 0 2px 46px; break-inside:auto}
+    section.stop::before{top:30px}
+    h2{margin:12px 0 4px; break-after:avoid}
+    h3{margin:18px 0 6px; break-after:avoid}
+    .kicker{break-after:avoid}
+    p,li{orphans:3; widows:3}
+    .card,.metric,.bug,.note,figure,.scroll,.weights{break-inside:avoid}
+    .mast{padding:0 0 22px}
+    h1{font-size:46pt}
+    .standfirst{font-size:13pt}
+    .grid{margin:14px 0}
+    footer{break-inside:avoid}
+    a{text-decoration:none}
   }
 </style>
 
