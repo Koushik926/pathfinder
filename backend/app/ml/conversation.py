@@ -70,6 +70,11 @@ class Session:
     pending_role_options: list[str] = field(default_factory=list)
     last_asked: str = ""
     path: Any = None
+    # Items completed while following the path, in the order they were done.
+    # The path itself cannot record this: it regenerates after every completion
+    # and excludes finished work by construction, so progress measured against
+    # the current path alone is permanently zero.
+    completed_in_path: list[str] = field(default_factory=list)
 
     @property
     def missing_slots(self) -> list[str]:

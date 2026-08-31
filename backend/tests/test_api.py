@@ -92,6 +92,32 @@ def test_completion_feedback_regenerates_and_advances_progress(client, ready_ses
     assert after["readiness"] > before["readiness"]
 
 
+def test_path_progress_advances_as_items_are_completed(client, ready_session):
+    """Regression: progress read 0% forever.
+
+    The path is regenerated after every completion and excludes finished work,
+    so progress measured against the current path alone can never move — the
+    dashboard's headline metric was permanently zero even as readiness rose.
+    """
+    before = client.get(f"/api/session/{ready_session}/dashboard").json()["progress"]
+    assert before["items_done"] == 0
+
+    path = client.get(f"/api/session/{ready_session}/path").json()
+    first_two = [i["item_id"] for m in path["milestones"] for i in m["items"]][:2]
+    for item_id in first_two:
+        client.post(
+            f"/api/session/{ready_session}/feedback",
+            json={"kind": "completion", "item_id": item_id},
+        )
+
+    after = client.get(f"/api/session/{ready_session}/dashboard").json()["progress"]
+    assert after["items_done"] == 2
+    assert after["hours_done"] > 0
+    assert after["percent"] > 0
+    # Finished work stays counted in the total rather than vanishing from it.
+    assert after["items_total"] >= before["items_total"]
+
+
 def test_pace_feedback_reschedules(client, ready_session):
     before = client.get(f"/api/session/{ready_session}/path").json()["total_weeks"]
     client.post(

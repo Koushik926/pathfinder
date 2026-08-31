@@ -249,9 +249,15 @@ def dashboard(session_id: str) -> dict:
 
     completed_ids = profile.completed_ids
     path_items = session.path.all_items if session.path else []
-    done_in_path = [i for i in path_items if i.item_id in completed_ids]
-    hours_done = sum(i.hours for i in done_in_path)
-    hours_total = sum(i.hours for i in path_items)
+
+    # Progress is (work finished) / (work finished + work remaining). Measuring
+    # against the current path alone would always read zero, because the path is
+    # regenerated after each completion and excludes what is already done.
+    done_ids = [i for i in session.completed_in_path if i in CATALOG.items]
+    hours_done = sum(CATALOG.items[i].hours for i in done_ids)
+    hours_remaining = sum(i.hours for i in path_items)
+    hours_total = hours_done + hours_remaining
+    items_total = len(done_ids) + len(path_items)
 
     # Next actions: ready, not yet done, in path order.
     next_actions = [
@@ -303,8 +309,8 @@ def dashboard(session_id: str) -> dict:
             ],
         },
         "progress": {
-            "items_done": len(done_in_path),
-            "items_total": len(path_items),
+            "items_done": len(done_ids),
+            "items_total": items_total,
             "hours_done": hours_done,
             "hours_total": hours_total,
             "percent": round(hours_done / hours_total, 4) if hours_total else 0.0,
@@ -332,7 +338,12 @@ def submit_feedback(session_id: str, payload: FeedbackIn) -> FeedbackOut:
     if payload.kind == "completion":
         if not payload.item_id:
             raise HTTPException(status_code=400, detail="item_id is required for a completion.")
+        was_planned = session.path is not None and any(
+            item.item_id == payload.item_id for item in session.path.all_items
+        )
         result = feedback_engine.apply_completion(profile, payload.item_id, payload.score)
+        if result.regenerate and was_planned and payload.item_id not in session.completed_in_path:
+            session.completed_in_path.append(payload.item_id)
     elif payload.kind == "reaction":
         if not payload.item_id or not payload.reaction:
             raise HTTPException(status_code=400, detail="item_id and reaction are required.")

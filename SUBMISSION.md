@@ -86,7 +86,7 @@ USING IT
 TESTS
   cd backend
   pip install -e ".[dev]"
-  pytest -q            -> 72 tests, ~2 seconds
+  pytest -q            -> 73 tests, ~2 seconds
 
 OPTIONAL — enable Claude
   The application is fully functional offline; this only improves the
@@ -116,6 +116,6 @@ NOTES FOR EVALUATORS
 - [x] Repo public and reachable unauthenticated (HTTP 200)
 - [x] Commit history reflects development process
 - [x] PDF covers all six required documentation areas
-- [x] Clean-room verified: install → build → 72 tests → serve, on Python 3.12
+- [x] Clean-room verified: install → build → 73 tests → serve, on Python 3.12
 - [ ] Demo video recorded and uploaded
 - [ ] Form submitted before 11:59 pm IST

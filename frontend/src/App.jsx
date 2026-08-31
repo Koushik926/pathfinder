@@ -24,7 +24,12 @@ export default function App() {
   const [path, setPath] = useState(null)
   const [dashboard, setDashboard] = useState(null)
   const [explanation, setExplanation] = useState(null)
-  const [tab, setTab] = useState('roadmap')
+  const [tab, setTab] = useState(
+    // ?tab=progress deep-links straight to the dashboard.
+    new URLSearchParams(window.location.search).get('tab') === 'progress'
+      ? 'progress'
+      : 'roadmap',
+  )
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
 
@@ -37,7 +42,10 @@ export default function App() {
         if (cancelled) return
         setMeta(info)
 
-        const existing = storedSession()
+        // ?s=<id> restores a specific session, which makes a path shareable
+        // and lets a reviewer open a populated view directly.
+        const fromUrl = new URLSearchParams(window.location.search).get('s')
+        const existing = fromUrl || storedSession()
         if (existing) {
           try {
             const [existingPath, existingDashboard] = await Promise.all([

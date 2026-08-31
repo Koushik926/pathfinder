@@ -12,7 +12,8 @@ function SkillRadar({ categories }) {
 
   const size = 260
   const center = size / 2
-  const radius = center - 42
+  // Leaves room for the axis labels drawn outside the outer ring.
+  const radius = center - 46
 
   const point = (index, value) => {
     const angle = (Math.PI * 2 * index) / axes.length - Math.PI / 2
@@ -25,7 +26,7 @@ function SkillRadar({ categories }) {
     values.map((value, index) => point(index, value).join(',')).join(' ')
 
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="mx-auto h-64 w-64" role="img"
+    <svg viewBox={`-26 0 ${size + 52} ${size}`} className="mx-auto h-64 w-80 max-w-full" role="img"
          aria-label="Skill coverage against the goal profile">
       {[0.25, 0.5, 0.75, 1].map((ring) => (
         <polygon key={ring} points={polygon(axes.map(() => ring))}
@@ -42,11 +43,14 @@ function SkillRadar({ categories }) {
                fill="#5ddba6" fillOpacity="0.22" stroke="#5ddba6" strokeWidth="1.5" />
 
       {axes.map((axis, index) => {
-        const [x, y] = point(index, 1.22)
+        const [x, y] = point(index, 1.18)
+        // Anchor by side rather than always centring: a centred label on the
+        // leftmost or rightmost axis overflows the viewBox and gets clipped.
+        const anchor = x < center - 6 ? 'end' : x > center + 6 ? 'start' : 'middle'
         return (
-          <text key={axis.category} x={x} y={y} textAnchor="middle" dominantBaseline="middle"
+          <text key={axis.category} x={x} y={y} textAnchor={anchor} dominantBaseline="middle"
                 fontSize="8" fill="#7c8798">
-            {axis.category.length > 14 ? `${axis.category.slice(0, 13)}…` : axis.category}
+            {axis.category.length > 15 ? `${axis.category.slice(0, 14)}…` : axis.category}
           </text>
         )
       })}

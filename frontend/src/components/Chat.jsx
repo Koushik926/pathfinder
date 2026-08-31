@@ -49,10 +49,16 @@ function Bubble({ turn }) {
 
 export default function Chat({ session, turns, options, missing, busy, onSend, llmEnabled }) {
   const [draft, setDraft] = useState('')
-  const endRef = useRef(null)
+  const scrollRef = useRef(null)
 
+  // Scroll the transcript container directly. scrollIntoView() walks up to the
+  // nearest scrollable ancestor — which is the document — so on load with a
+  // restored session it dragged the whole page down and hid the header and the
+  // path summary entirely.
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const box = scrollRef.current
+    if (!box) return
+    box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' })
   }, [turns, busy])
 
   function submit(event) {
@@ -65,24 +71,21 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
 
   return (
     <div className="card flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between gap-3 border-b border-ink-line px-4 py-3">
-        <div>
+      <header className="space-y-2.5 border-b border-ink-line px-4 py-3">
+        <div className="flex items-baseline justify-between gap-3">
           <h2 className="font-semibold text-slate-100">Tell me your goal</h2>
-          <p className="text-xs text-slate-500">
-            {llmEnabled
-              ? 'Claude is reading your replies'
-              : 'Running offline — no API key needed'}
+          <p className="shrink-0 text-xs text-slate-500">
+            {llmEnabled ? 'Claude enabled' : 'Offline — no API key'}
           </p>
         </div>
         <SlotProgress missing={missing} />
       </header>
 
-      <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+      <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
         {turns.map((turn, index) => <Bubble key={index} turn={turn} />)}
         {busy && (
           <div className="pl-1"><Spinner label="Thinking…" /></div>
         )}
-        <div ref={endRef} />
       </div>
 
       {options.length > 0 && !busy && (

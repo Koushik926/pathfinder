@@ -32,6 +32,16 @@ uvicorn app.main:app --port 8000
 
 Open **http://localhost:8000**. Interactive API docs at **/docs**.
 
+### Sharing or resuming a path
+
+Any session can be reopened by URL, which makes a generated path shareable and
+lets a reviewer jump straight to a populated view:
+
+```
+http://localhost:8000/?s=<session-id>            # restore a session
+http://localhost:8000/?s=<session-id>&tab=progress   # open on the dashboard
+```
+
 ### Development mode (hot reload)
 
 ```bash
@@ -56,7 +66,7 @@ malformed response all fall back silently to the deterministic path.
 ### Tests
 
 ```bash
-cd backend && pip install -e ".[dev]" && pytest -q      # 72 tests, ~2s
+cd backend && pip install -e ".[dev]" && pytest -q      # 73 tests, ~2s
 ```
 
 Verified on **Python 3.10 and 3.12** (numpy 2.2/2.5, scikit-learn 1.7/1.9).
@@ -169,7 +179,7 @@ backend/
                    planner, explain, feedback, conversation
     api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
     llm.py         optional Claude integration, fails soft everywhere
-  tests/           72 tests
+  tests/           73 tests
 frontend/
   src/components/  Chat, Roadmap, Dashboard, Primitives
 docs/              architecture, demo script
