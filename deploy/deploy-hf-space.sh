@@ -14,7 +14,8 @@ if ! hf auth whoami >/dev/null 2>&1; then
   echo "Not logged in. Run:  hf auth login" >&2
   exit 1
 fi
-USER="$(hf auth whoami | head -1 | tr -d '[:space:]')"
+USER="$(hf auth whoami 2>/dev/null | head -1 | awk '{print $1}' | tr -d '[:space:]')"
+if [ -z "$USER" ]; then echo "Could not determine your Hugging Face username." >&2; exit 1; fi
 REPO="$USER/$SPACE_NAME"
 echo "Deploying to https://huggingface.co/spaces/$REPO"
 
@@ -26,8 +27,7 @@ git archive HEAD | tar -x -C "$STAGE"
 cp deploy/space-README.md "$STAGE/README.md"
 rm -rf "$STAGE/docs" "$STAGE/deploy" "$STAGE/SUBMISSION.md"
 
-hf repo create "$REPO" --repo-type space --space_sdk docker -y 2>/dev/null \
-  || echo "Space already exists — updating it."
+hf repo create "$REPO" --repo-type space --space_sdk docker --exist-ok
 
 hf upload "$REPO" "$STAGE" . --repo-type space \
   --commit-message "Deploy PathFinder"
