@@ -36,7 +36,13 @@
    "mle",
    "ai engineer",
    "ai engineer",
-   "work in ai"
+   "work in ai",
+   "ai",
+   "artificial intelligence",
+   "learn ai",
+   "get into ai",
+   "machine learning",
+   "ml"
   ],
   "family": "Data & AI",
   "id": "ml-engineer",
@@ -65,7 +71,10 @@
    "data analyst",
    "business analyst",
    "analytics",
-   "reporting analyst"
+   "reporting analyst",
+   "data analytics",
+   "analytics role",
+   "dashboards and reports"
   ],
   "family": "Data & AI",
   "id": "data-analyst",
@@ -193,7 +202,11 @@
    "react developer",
    "make websites",
    "build websites",
-   "web design"
+   "web design",
+   "web development",
+   "web dev",
+   "website development",
+   "frontend development"
   ],
   "family": "Engineering",
   "id": "frontend-dev",
@@ -245,7 +258,10 @@
    "full stack",
    "fullstack developer",
    "web developer",
-   "mern"
+   "mern",
+   "full stack development",
+   "web developer role",
+   "end to end web"
   ],
   "family": "Engineering",
   "id": "fullstack-dev",
@@ -273,7 +289,10 @@
    "android developer",
    "ios developer",
    "app developer",
-   "flutter"
+   "flutter",
+   "app development",
+   "mobile development",
+   "make apps"
   ],
   "family": "Engineering",
   "id": "mobile-dev",
@@ -296,7 +315,11 @@
    "devops",
    "sre",
    "platform engineer",
-   "site reliability"
+   "site reliability",
+   "devops",
+   "ci cd",
+   "deployment",
+   "infrastructure"
   ],
   "family": "Infrastructure",
   "id": "devops-engineer",
@@ -321,7 +344,10 @@
    "cloud architect",
    "solutions architect",
    "cloud engineer",
-   "aws architect"
+   "aws architect",
+   "cloud",
+   "cloud computing",
+   "aws azure"
   ],
   "family": "Infrastructure",
   "id": "cloud-architect",
@@ -398,7 +424,12 @@
    "software engineer",
    "crack interviews",
    "product company",
-   "faang"
+   "faang",
+   "coding",
+   "dsa",
+   "learn programming",
+   "get placed",
+   "placements"
   ],
   "family": "Engineering",
   "id": "sde-placement",
@@ -415,6 +446,7 @@
    "networking": 0.5,
    "oop": 0.75,
    "os-concepts": 0.6,
+   "python-basics": 0.7,
    "sql": 0.6,
    "system-design": 0.6
   },

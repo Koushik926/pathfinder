@@ -45,6 +45,20 @@ MODALITY_PATTERNS = {
     "project": rf"\b(?:project{_S}|build{_ING}|portfolio{_S})\b",
 }
 
+# Below this, a top-ranked role is too weak to commit to on the learner's
+# behalf. Character n-grams make the matcher robust to unseen word forms, but
+# they also mean nonsense scores non-zero: "zxcv" reaches "cv" reaches Computer
+# Vision. Committing at that confidence invents a career for someone who typed
+# noise, so we show real choices instead.
+COMMIT_THRESHOLD = 0.40
+
+# Offered when we genuinely cannot read the goal. Breadth over precision:
+# these span the families most learners arrive wanting.
+FALLBACK_ROLES = [
+    "sde-placement", "data-scientist", "genai-engineer",
+    "fullstack-dev", "devops-engineer",
+]
+
 ASK = {
     "goal": "What do you want to be able to do? Describe it however feels natural — a job title, a project you want to build, or just a topic you're curious about.",
     "level": "How much ground have you already covered in this area?",
@@ -68,6 +82,7 @@ class Session:
     history: list[Turn] = field(default_factory=list)
     asked: set[str] = field(default_factory=set)
     pending_role_options: list[str] = field(default_factory=list)
+    role_prompts: int = 0
     last_asked: str = ""
     path: Any = None
     # Items completed while following the path, in the order they were done.
@@ -175,8 +190,18 @@ def _match_known_items(
     return hits
 
 
-def _apply_extraction(session: Session, text: str, catalog: Catalog) -> list[str]:
-    """Fill whatever slots this message provides. Returns slot names filled."""
+def _apply_extraction(
+    session: Session, text: str, catalog: Catalog, answering_prompt: bool = False
+) -> list[str]:
+    """Fill whatever slots this message provides. Returns slot names filled.
+
+    ``answering_prompt`` marks the message as a reply to a question we just
+    asked (experience, history, pace, or a role disambiguation). Such a reply
+    must never be mined for goal intent: "nothing" and "6 hours a week" both
+    return plausible-looking skills from the embedding tail — algorithms,
+    GraphQL, React — and accumulating those turned an "I want to learn AI"
+    request into a JavaScript path.
+    """
     profile = session.profile
     filled: list[str] = []
 
@@ -237,8 +262,9 @@ def _apply_extraction(session: Session, text: str, catalog: Catalog) -> list[str
         session.asked.add("history")
         filled.append("history")
 
-    # Goal resolution, if the goal slot is still open.
-    if not profile.role_id:
+    # Goal resolution, if the goal slot is still open and this message is
+    # actually a statement of intent rather than an answer to a prompt.
+    if not profile.role_id and not answering_prompt:
         goal_source = text
         if parsed and parsed.role_hint:
             goal_source = parsed.role_hint
@@ -254,11 +280,15 @@ def _apply_extraction(session: Session, text: str, catalog: Catalog) -> list[str
             # Plausible but not certain — ask rather than guess.
             session.pending_role_options = [rid for rid, _ in ranked]
             profile.goal_text = profile.goal_text or text
-        elif skills:
-            # No role matched, but they named real skills: plan against those.
-            profile.goal_skills.update(skills)
-            profile.goal_text = profile.goal_text or text
-            filled.append("goal")
+        else:
+            # No role matched. Fall back to skills only when the learner clearly
+            # named them — an explicit alias hit (1.0) or a strong match. The
+            # weak tail of the embedding is noise, not intent.
+            confident = {k: v for k, v in skills.items() if v >= 0.75}
+            if confident:
+                profile.goal_skills.update(confident)
+                profile.goal_text = profile.goal_text or text
+                filled.append("goal")
 
     return filled
 
@@ -296,15 +326,60 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
     session.history.append(Turn("learner", message))
 
     # Resolve a pending "which of these did you mean" question first.
-    if session.pending_role_options:
+    was_disambiguating = bool(session.pending_role_options)
+    if was_disambiguating:
         chosen = _resolve_role_choice(message, session.pending_role_options, catalog)
         if chosen:
             session.profile.role_id = chosen
             session.pending_role_options = []
 
-    filled = _apply_extraction(session, message, catalog)
+    answering_prompt = was_disambiguating or session.last_asked in ("level", "history", "pace")
+    filled = _apply_extraction(session, message, catalog, answering_prompt=answering_prompt)
+
+    if session.pending_role_options and session.role_prompts >= 2:
+        # Termination is guaranteed by a monotonically increasing counter:
+        # two attempts at the ranked options, then one at a broad fallback
+        # list, then we commit. Without a hard cap this loops forever on a
+        # learner who never picks — which is exactly the deadlock this
+        # replaced, only more politely worded.
+        ranked = SPACE.rank_roles(session.profile.goal_text or "", top_k=1)
+        score = ranked[0][1] if ranked else 0.0
+        strong = score >= COMMIT_THRESHOLD
+
+        if strong or session.role_prompts >= 3:
+            # A weak-but-real match still beats an arbitrary default, so long as
+            # the learner used vocabulary the catalog recognises. With no
+            # lexical signal at all the ranking is character-level noise and a
+            # neutral, popular default is the honest choice.
+            has_words = SPACE.lexical_signal(session.profile.goal_text or "") > 0
+            if strong or (has_words and ranked):
+                best = session.pending_role_options[0] if strong else ranked[0][0]
+            else:
+                best = next((r for r in FALLBACK_ROLES if r in catalog.roles),
+                            session.pending_role_options[0])
+            session.profile.role_id = best
+            session.pending_role_options = []
+            filled.append("goal")
+        else:
+            # One honest attempt at a broad, concrete list before committing.
+            session.role_prompts += 1
+            options = [
+                {"value": rid, "label": catalog.roles[rid].title,
+                 "detail": catalog.roles[rid].family}
+                for rid in FALLBACK_ROLES if rid in catalog.roles
+            ]
+            session.pending_role_options = [o["value"] for o in options]
+            reply = _narrate(
+                "I couldn't quite read that one. Rather than guess, here are the "
+                "goals people most often start from — pick whichever is closest, "
+                "or describe yours again in different words.",
+                "Tell the learner you could not understand their goal and ask them "
+                "to pick from the list or rephrase. Be encouraging, not apologetic.",
+            )
+            return _package(session, reply, "choose_role", options=options)
 
     if session.pending_role_options:
+        session.role_prompts += 1
         options = [
             {"value": rid, "label": catalog.roles[rid].title, "detail": catalog.roles[rid].family}
             for rid in session.pending_role_options
@@ -338,17 +413,51 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
 
 
 def _resolve_role_choice(message: str, options: list[str], catalog: Catalog) -> str | None:
+    """Work out which offered role the learner picked.
+
+    People answer this in every possible way: the full title, one distinctive
+    word from it, a position ("the first one", "1"), or by restating the goal.
+    """
     lowered = message.lower()
+
     for role_id in options:
         role = catalog.roles[role_id]
-        if role.title.lower() in lowered or role_id in lowered:
+        if role.title.lower() in lowered or role_id.replace("-", " ") in lowered:
             return role_id
-    # "the first one" / "1"
+
+    # A word that distinguishes exactly one of the options on offer. Which
+    # words are distinctive depends on the offered set, not on a fixed list:
+    # among "Data Analyst / Data Scientist / Data Engineer", "data" separates
+    # nothing and "analyst" separates everything.
+    said = set(re.findall(r"[a-z]+", lowered))
+    title_words = {
+        role_id: {w for w in re.findall(r"[a-z]+", catalog.roles[role_id].title.lower()) if len(w) > 3}
+        for role_id in options
+    }
+    for role_id, words in title_words.items():
+        shared = set().union(*(w for r, w in title_words.items() if r != role_id)) if len(options) > 1 else set()
+        distinctive = words - shared
+        if distinctive & said:
+            return role_id
+
+    # Ordinals, longest-first: "the second one" contains "one", so a naive
+    # scan that checks "one" before "second" selects the wrong option.
+    ordinals = [("second", 1), ("third", 2), ("first", 0), ("2nd", 1), ("3rd", 2),
+                ("1st", 0), ("three", 2), ("two", 1)]
+    for word, index in ordinals:
+        if re.search(rf"\b{word}\b", lowered) and index < len(options):
+            return options[index]
     match = re.search(r"\b([123])\b", lowered)
     if match:
         index = int(match.group(1)) - 1
         if 0 <= index < len(options):
             return options[index]
+
+    # They may have restated the goal instead of picking; re-rank and accept a
+    # clear winner that is one of the options on offer.
+    ranked = SPACE.rank_roles(message, top_k=1)
+    if ranked and ranked[0][1] >= 0.55 and ranked[0][0] in options:
+        return ranked[0][0]
     return None
 
 

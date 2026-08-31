@@ -38,13 +38,19 @@ def prerequisite_closure(
 
 
 def topological_order(
-    item_ids: set[str], priority: dict[str, float] | None = None, catalog: Catalog = CATALOG
+    item_ids: set[str],
+    priority: dict[str, float] | None = None,
+    catalog: Catalog = CATALOG,
+    sort_key=None,
 ) -> list[str]:
     """Order items so every prerequisite precedes its dependents.
 
-    Kahn's algorithm over the induced subgraph. Ties are broken by ``priority``
-    (higher first), then prerequisite depth, then id — so output is
-    deterministic and the most valuable ready item surfaces first.
+    Kahn's algorithm over the induced subgraph. Prerequisite edges constrain
+    only what genuinely depends on what; among items that are all ready at the
+    same time the order is a free choice, and ``sort_key`` is how the caller
+    expresses its policy for that choice. The default breaks ties by
+    ``priority`` (higher first), then prerequisite depth, then id, which keeps
+    the output deterministic.
 
     Raises ValueError if the induced subgraph contains a cycle, which would
     mean the catalog invariant was violated after the build.
@@ -60,9 +66,10 @@ def topological_order(
                 indegree[item_id] += 1
                 outgoing[prereq].append(item_id)
 
-    def sort_key(item_id: str) -> tuple:
-        item = catalog.items[item_id]
-        return (-priority.get(item_id, 0.0), item.depth, item_id)
+    if sort_key is None:
+        def sort_key(item_id: str) -> tuple:
+            item = catalog.items[item_id]
+            return (-priority.get(item_id, 0.0), item.depth, item_id)
 
     ready = sorted([i for i, deg in indegree.items() if deg == 0], key=sort_key)
     ordered: list[str] = []

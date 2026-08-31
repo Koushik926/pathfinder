@@ -21,14 +21,14 @@ ROLES = [
       "responsible-ai": 0.45}),
 
     ("ml-engineer", "Machine Learning Engineer", "Data & AI",
-     ["ml engineer", "machine learning engineer", "mle", "ai engineer", "ai engineer", "work in ai"],
+     ["ml engineer", "machine learning engineer", "mle", "ai engineer", "ai engineer", "work in ai", "ai", "artificial intelligence", "learn ai", "get into ai", "machine learning", "ml"],
      {"python-basics": 0.9, "python-advanced": 0.7, "ml-foundations": 0.9, "deep-learning": 0.8,
       "pytorch": 0.7, "model-eval": 0.8, "feature-eng": 0.7, "mlops": 0.9, "docker": 0.75,
       "rest-api": 0.65, "ci-cd": 0.6, "sql": 0.6, "linear-algebra": 0.6, "testing": 0.6,
       "cloud-architecture": 0.55, "system-design": 0.5}),
 
     ("data-analyst", "Data Analyst", "Data & AI",
-     ["data analyst", "business analyst", "analytics", "reporting analyst"],
+     ["data analyst", "business analyst", "analytics", "reporting analyst", "data analytics", "analytics role", "dashboards and reports"],
      {"sql": 0.95, "data-analysis": 0.9, "data-viz": 0.9, "data-cleaning": 0.8,
       "bi-tools": 0.85, "excel-sheets": 0.7, "statistics": 0.7, "communication": 0.8,
       "python-basics": 0.55, "product-thinking": 0.4}),
@@ -60,7 +60,7 @@ ROLES = [
       "data-cleaning": 0.5}),
 
     ("frontend-dev", "Frontend Developer", "Engineering",
-     ["frontend", "front end developer", "ui developer", "react developer", "make websites", "build websites", "web design"],
+     ["frontend", "front end developer", "ui developer", "react developer", "make websites", "build websites", "web design", "web development", "web dev", "website development", "frontend development"],
      {"html-css": 0.9, "javascript": 0.95, "typescript": 0.7, "react": 0.9,
       "responsive-design": 0.85, "state-management": 0.7, "accessibility": 0.65,
       "web-performance": 0.65, "testing": 0.6, "git": 0.8, "rest-api": 0.6, "ui-design": 0.5}),
@@ -73,26 +73,26 @@ ROLES = [
       "clean-code": 0.6, "observability": 0.5}),
 
     ("fullstack-dev", "Full-stack Developer", "Engineering",
-     ["full stack", "fullstack developer", "web developer", "mern"],
+     ["full stack", "fullstack developer", "web developer", "mern", "full stack development", "web developer role", "end to end web"],
      {"html-css": 0.8, "javascript": 0.9, "typescript": 0.65, "react": 0.85,
       "node-backend": 0.75, "rest-api": 0.8, "sql": 0.7, "db-design": 0.65,
       "auth-security": 0.6, "git": 0.8, "docker": 0.55, "testing": 0.6,
       "responsive-design": 0.7, "ci-cd": 0.5}),
 
     ("mobile-dev", "Mobile App Developer", "Engineering",
-     ["mobile developer", "android developer", "ios developer", "app developer", "flutter"],
+     ["mobile developer", "android developer", "ios developer", "app developer", "flutter", "app development", "mobile development", "make apps"],
      {"react-native": 0.7, "android-dev": 0.65, "ios-dev": 0.5, "ui-design": 0.6,
       "rest-api": 0.7, "git": 0.75, "testing": 0.55, "oop": 0.6, "ci-cd": 0.45,
       "responsive-design": 0.5}),
 
     ("devops-engineer", "DevOps Engineer", "Infrastructure",
-     ["devops", "sre", "platform engineer", "site reliability"],
+     ["devops", "sre", "platform engineer", "site reliability", "devops", "ci cd", "deployment", "infrastructure"],
      {"linux-admin": 0.9, "bash-shell": 0.85, "docker": 0.95, "kubernetes": 0.85,
       "ci-cd": 0.9, "iac": 0.8, "aws": 0.75, "observability": 0.8, "networking": 0.65,
       "git": 0.8, "cloud-architecture": 0.7, "security-basics": 0.55}),
 
     ("cloud-architect", "Cloud Architect", "Infrastructure",
-     ["cloud architect", "solutions architect", "cloud engineer", "aws architect"],
+     ["cloud architect", "solutions architect", "cloud engineer", "aws architect", "cloud", "cloud computing", "aws azure"],
      {"aws": 0.9, "cloud-architecture": 0.95, "iac": 0.75, "kubernetes": 0.7,
       "networking": 0.75, "system-design": 0.8, "cloud-security": 0.75,
       "distributed-systems": 0.65, "observability": 0.65, "docker": 0.65,
@@ -112,11 +112,15 @@ ROLES = [
 
     ("sde-placement", "Software Engineer (Campus Placement)", "Engineering",
      ["placement", "campus placement", "sde", "software engineer", "crack interviews",
-      "product company", "faang"],
+      "product company", "faang", "coding", "dsa", "learn programming", "get placed", "placements"],
+     # A placement candidate needs a language to solve problems in before
+     # anything else. Listing only C++ and Java left Python — the most common
+     # choice in Indian campus prep — out of the target entirely, so an
+     # introductory SQL course outranked introductory Python in the path.
      {"dsa-basics": 0.95, "algorithms": 0.9, "dsa-advanced": 0.85, "interview-prep": 0.9,
-      "oop": 0.75, "system-design": 0.6, "sql": 0.6, "os-concepts": 0.6,
-      "networking": 0.5, "db-design": 0.55, "git": 0.6, "communication": 0.55,
-      "cpp": 0.4, "java": 0.4}),
+      "oop": 0.75, "python-basics": 0.7, "system-design": 0.6, "sql": 0.6,
+      "os-concepts": 0.6, "networking": 0.5, "db-design": 0.55, "git": 0.6,
+      "communication": 0.55, "cpp": 0.4, "java": 0.4}),
 
     ("product-manager", "Product Manager", "Product & Design",
      ["product manager", "pm role", "associate product manager", "apm"],

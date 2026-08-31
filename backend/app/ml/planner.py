@@ -193,6 +193,46 @@ def _chunk_into_milestones(
     return milestones
 
 
+# Skill categories that describe end-of-journey activity rather than material
+# to learn. Interview prep before you know the material is wasted effort.
+_LATE_CATEGORIES = {"Career"}
+
+
+def _learning_order(priority: dict[str, float], catalog: Catalog):
+    """Ordering policy for items that are all ready at the same time.
+
+    Prerequisite edges are sparse: most pairs of items have no edge between
+    them, so topological sort alone leaves the order to the tie-break. Ranking
+    priority is the wrong tie-break on its own, because it measures how much
+    gap an item closes, not when it makes sense to study it — that is how Git
+    fundamentals ended up in the final milestone and a SQL course ahead of
+    introductory Python.
+
+    Sequence by, in order: career-stage material last, then difficulty level,
+    then prerequisite depth, then ranking priority.
+    """
+
+    def category_stage(item_id: str) -> int:
+        item = catalog.items[item_id]
+        if not item.skills:
+            return 0
+        dominant = max(item.skills.items(), key=lambda kv: kv[1])[0]
+        skill = catalog.skills.get(dominant)
+        return 1 if skill and skill.category in _LATE_CATEGORIES else 0
+
+    def key(item_id: str) -> tuple:
+        item = catalog.items[item_id]
+        return (
+            category_stage(item_id),
+            item.level,
+            item.depth,
+            -priority.get(item_id, 0.0),
+            item_id,
+        )
+
+    return key
+
+
 def _ensure_projects(
     profile: LearnerProfile,
     selected: dict[str, ScoredItem],
@@ -332,7 +372,9 @@ def generate_path(
                     priority[prereq] = priority[item_id]
                     changed = True
 
-    ordered_ids = topological_order(everything, priority, catalog)
+    ordered_ids = topological_order(
+        everything, priority, catalog, sort_key=_learning_order(priority, catalog)
+    )
 
     ordered = [
         _to_path_item(item_id, catalog, selected.get(item_id), item_id in fillers)

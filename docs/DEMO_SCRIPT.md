@@ -96,7 +96,7 @@ Mark two items complete, then switch to **Progress**.
 Switch to the `/docs` tab, then show the terminal running `pytest -q`.
 
 > "FastAPI backend, React frontend, 238 curated items with a validated acyclic
-> prerequisite graph, 116 skills, 22 career profiles. 73 tests covering the
+> prerequisite graph, 116 skills, 22 career profiles. 77 tests covering the
 > catalog invariants and the algorithms — including regressions for two real
 > bugs we hit: goals being silently logged as completed history, and unseen word
 > forms returning no recommendations at all."

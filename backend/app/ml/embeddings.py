@@ -145,6 +145,19 @@ class SemanticSpace:
     def is_empty(vector: np.ndarray) -> bool:
         return not np.any(vector)
 
+    def lexical_signal(self, text: str) -> int:
+        """How many catalog *words* the text actually uses.
+
+        The character view deliberately matches unseen word forms, which is
+        what makes "designing websites" work — but it also means pure noise
+        scores non-zero ("zxcv" reaches "cv" reaches computer vision). The word
+        view alone answers a different, useful question: did the learner use
+        any vocabulary this catalog recognises at all? Zero means whatever the
+        similarity score says, there is no real signal behind it.
+        """
+        word_view = dict(self.vectorizer.transformer_list)["word"]
+        return int(word_view.transform([text.lower()]).nnz)
+
     def similar_items(self, vector: np.ndarray) -> np.ndarray:
         """Cosine similarity of a query vector against every catalog item."""
         if self.is_empty(vector):

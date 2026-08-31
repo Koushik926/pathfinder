@@ -253,7 +253,7 @@
       <span class="tag on">Runs fully offline · no API key required</span>
       <span class="tag">FastAPI + React</span>
       <span class="tag">238 catalog items</span>
-      <span class="tag">73 tests</span>
+      <span class="tag">77 tests</span>
       <span class="tag">Reproducible build</span>
     </div>
   </header>
@@ -581,10 +581,11 @@
     <!-- 6 -->
     <section class="stop" data-n="6">
       <div class="kicker">Challenges faced</div>
-      <h2>Three bugs that changed the design</h2>
+      <h2>Bugs that changed the design</h2>
       <p>
-        Each of these was found by building the thing and looking hard at the output.
-        All three are now covered by regression tests.
+        Each was found by using the thing — driving the conversation the way a
+        student actually would, and screenshotting the running app. All are now
+        covered by regression tests.
       </p>
 
       <div class="bug">
@@ -606,6 +607,24 @@
       </div>
 
       <div class="bug">
+        <h4>Answers to questions were mined as learning goals</h4>
+        <dl>
+          <dt>Symptom</dt><dd>A learner asking to learn AI received a <em>JavaScript</em> path.</dd>
+          <dt>Root cause</dt><dd>Every message was scanned for goal intent, including replies to our own questions. "nothing" returned algorithms, GraphQL and cryptography from the embedding's weak tail; "6 hours a week" returned React. Those accumulated as goals and outvoted the real one.</dd>
+          <dt>Fix</dt><dd>Replies to a prompt are never mined for intent, and skill-based goals require an explicit match rather than the tail.</dd>
+        </dl>
+      </div>
+
+      <div class="bug">
+        <h4>Nonsense produced a confident career path</h4>
+        <dl>
+          <dt>Symptom</dt><dd>"asdkjh qwe zxcv" generated a 423-hour Computer Vision Engineer roadmap.</dd>
+          <dt>Root cause</dt><dd>The character n-grams that make unseen word forms work also match noise: "z<strong>xcv</strong>" reaches "cv" reaches computer vision, scoring above the commit threshold.</dd>
+          <dt>Fix</dt><dd>A separate word-level check asks whether the learner used any vocabulary the catalog recognises. With none, the ranking is character noise, so the assistant offers real choices instead of inventing a career.</dd>
+        </dl>
+      </div>
+
+      <div class="bug">
         <h4>Unseen word forms returned nothing at all</h4>
         <dl>
           <dt>Symptom</dt><dd>"designing beautiful websites" produced an empty recommendation list — not a bad one, an empty one.</dd>
@@ -620,7 +639,7 @@
       <div class="kicker">Engineering</div>
       <h2>Verification &amp; limits</h2>
       <div class="grid g3">
-        <div class="metric green"><div class="n">73</div><div class="l">Tests passing</div></div>
+        <div class="metric green"><div class="n">77</div><div class="l">Tests passing</div></div>
         <div class="metric"><div class="n">~2 s</div><div class="l">Full suite</div></div>
         <div class="metric"><div class="n">1</div><div class="l">Process to deploy</div></div>
       </div>
@@ -634,7 +653,7 @@
       </p>
       <p>
         Verified from a clean environment on <strong>both Python 3.10 and 3.12</strong>:
-        unzip → install → build catalog → 73 tests pass → frontend builds → artifacts
+        unzip → install → build catalog → 77 tests pass → frontend builds → artifacts
         byte-identical to the committed ones. That last check earned its place — it
         caught CPython 3.12 switching <code>sum()</code> over floats to compensated
         summation, which shifted role-overlap scores in their final bits and flipped

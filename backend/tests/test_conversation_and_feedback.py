@@ -42,13 +42,65 @@ def test_a_single_message_can_fill_every_slot():
 
 def test_ambiguous_goal_asks_instead_of_guessing():
     session = _session()
-    result = respond(session, "get better at cloud and deployment stuff")
+    result = respond(session, "something with data")
     assert result["intent"] == "choose_role"
     assert len(result["options"]) > 1
 
     chosen = result["options"][1]["value"]
     respond(session, result["options"][1]["label"])
     assert session.profile.role_id == chosen
+
+
+def test_disambiguation_accepts_however_people_answer():
+    """A picked role should resolve from a position, a partial word, or the title."""
+    for reply, index in [("the second one", 1), ("1", 0), ("third", 2)]:
+        session = _session()
+        result = respond(session, "something with data")
+        expected = result["options"][index]["value"]
+        respond(session, reply)
+        assert session.profile.role_id == expected, f"{reply!r} did not select option {index}"
+
+
+def test_disambiguation_never_deadlocks():
+    """Regression: answering the 'which do you mean?' question with anything
+    else looped forever, and the goal slot never filled — so the learner was
+    asked the same question on every subsequent turn.
+
+    Termination must hold even when the learner never once answers the
+    question being asked."""
+    session = _session()
+    respond(session, "something with data")
+    for reply in ("complete beginner", "nothing", "6 hours a week", "no idea", "dunno"):
+        result = respond(session, reply)
+    assert session.profile.role_id is not None, "goal never resolved"
+    assert result["intent"] != "choose_role"
+    assert "goal" not in result["missing_slots"]
+
+
+def test_unreadable_goal_offers_real_choices_rather_than_inventing_one():
+    """Regression: character n-grams matched 'zxcv' to 'cv' to Computer Vision,
+    so nonsense produced a confident Computer Vision Engineer path. A weak
+    match must surface concrete options instead of committing."""
+    session = _session()
+    respond(session, "asdkjh qwe zxcv")
+    result = respond(session, "beginner")
+    assert session.profile.role_id != "cv-engineer"
+    if result["intent"] == "choose_role":
+        assert len(result["options"]) >= 3
+
+
+def test_answers_to_prompts_are_not_mined_for_goals():
+    """Regression: 'nothing' and '6 hours a week' returned plausible skills from
+    the embedding tail (algorithms, GraphQL, React) which were accumulated as
+    goals — turning an 'I want to learn AI' request into a JavaScript path."""
+    session = _session()
+    respond(session, "I want to learn AI")
+    before = dict(session.profile.goal_skills)
+    respond(session, "complete beginner")
+    respond(session, "nothing")
+    respond(session, "6 hours a week")
+    assert session.profile.goal_skills == before
+    assert session.profile.role_id == "ml-engineer"
 
 
 def test_stating_a_goal_is_not_recorded_as_completed_history():

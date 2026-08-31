@@ -66,7 +66,7 @@ malformed response all fall back silently to the deterministic path.
 ### Tests
 
 ```bash
-cd backend && pip install -e ".[dev]" && pytest -q      # 73 tests, ~2s
+cd backend && pip install -e ".[dev]" && pytest -q      # 77 tests, ~2s
 ```
 
 Verified on **Python 3.10 and 3.12** (numpy 2.2/2.5, scikit-learn 1.7/1.9).
@@ -179,7 +179,7 @@ backend/
                    planner, explain, feedback, conversation
     api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
     llm.py         optional Claude integration, fails soft everywhere
-  tests/           73 tests
+  tests/           77 tests
 frontend/
   src/components/  Chat, Roadmap, Dashboard, Primitives
 docs/              architecture, demo script
