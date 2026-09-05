@@ -485,7 +485,26 @@
     <!-- 4 -->
     <section class="stop" data-n="4">
       <div class="kicker">Key features &amp; workflows</div>
-      <h2>Four turns to a roadmap</h2>
+      <h2>Everything the brief asked for</h2>
+      <p>
+        The task named six things to build. Each is implemented, and each is
+        exercised by the test suite rather than asserted here.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Required capability</th><th>How it works</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Conversational interface</strong></td><td>Slot-filling dialogue that resolves a plain-language goal to a career target; one sentence can fill four slots at once. Runs with no API key.</td></tr>
+            <tr><td><strong>Learner profiling</strong></td><td>Captures interests, experience level, completed courses and objectives. Mastery is inferred by noisy-OR over completions, discounted by depth, recency and assessment score.</td></tr>
+            <tr><td><strong>Recommendation engine</strong></td><td>Six-signal hybrid ranker over 238 courses, projects and assessments — every external item links out to its provider so a learner can actually go and take it.</td></tr>
+            <tr><td><strong>Path generator</strong></td><td>Greedy submodular coverage closed under a validated prerequisite DAG, topologically ordered, chunked into dated milestones.</td></tr>
+            <tr><td><strong>Explains &amp; answers queries</strong></td><td>Per-item explanations derived from the ranker's own attributions, <em>plus</em> a question answerer covering ordering, duration, skipping, difficulty, progress and next steps.</td></tr>
+            <tr><td><strong>Progress dashboard</strong></td><td>Skill radar against the goal profile, importance-ranked gaps, milestone progress and unlocked next actions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Four turns to a roadmap</h3>
       <p>
         The conversation is slot-filling rather than open-ended, because planning needs
         five specific things. The assistant asks only for what's still missing and

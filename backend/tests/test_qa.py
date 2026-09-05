@@ -121,3 +121,15 @@ def test_stating_new_hours_reschedules_rather_than_answering():
     result = respond(session, "i only have 5 hours a week now")
     assert result["reschedule"] is True
     assert session.profile.hours_per_week == 5
+
+
+def test_unanchored_why_question_answers_about_the_next_item(intermediate):
+    """A learner typing "why is this in my path?" names no item, but they are
+    looking at the one they are about to start. Deflecting to "press the
+    button" is a worse answer than simply answering."""
+    path = generate_path(intermediate)
+    result = qa.answer(intermediate, path, "why is this in my path?")
+    assert result.intent == "answer_why_item"
+    assert "Press 'Why this?' on any item" not in result.text
+    # It should name a real item from the path.
+    assert any(item.title in result.text for item in path.all_items)

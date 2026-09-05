@@ -269,11 +269,19 @@ def _answer_skills(profile, path, items, catalog) -> str:
 
 def _answer_why_item(profile, path, items, catalog) -> str:
     if not items:
-        return (
-            "Press 'Why this?' on any item and I'll show the exact scoring "
-            "components that placed it there — how much of your skill gap it "
-            "closes, how well it fits your level, and what similar learners did."
+        # "why is this in my path?" names nothing, but the learner is almost
+        # certainly looking at the item they are about to start. Answering
+        # about that beats telling them to press a button.
+        completed = profile.completed_ids
+        candidate = next(
+            (i for i in path.all_items
+             if i.item_id not in completed
+             and not missing_prerequisites(i.item_id, completed, catalog)),
+            path.all_items[0] if path.all_items else None,
         )
+        if candidate is None:
+            return "Your path is empty — tell me a goal and I'll build one."
+        items = [candidate.item_id]
     item_id = items[0]
     item = catalog.items[item_id]
     path_item = next((i for i in path.all_items if i.item_id == item_id), None)
