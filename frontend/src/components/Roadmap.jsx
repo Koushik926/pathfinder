@@ -74,6 +74,12 @@ function ItemRow({ item, done, onExplain, onComplete, onReact, busy }) {
             <button className="text-xs text-accent hover:underline" onClick={() => { setOpen(!open); if (!open) onExplain(item.item_id) }}>
               {open ? 'Hide reasoning' : 'Why this?'}
             </button>
+            {item.url && (
+              <a href={item.url} target="_blank" rel="noopener noreferrer"
+                 className="text-xs text-slate-400 hover:text-accent hover:underline">
+                Find on {item.provider} ↗
+              </a>
+            )}
             {!done && (
               <>
                 <button className="text-xs text-slate-500 hover:text-amber" onClick={() => onReact(item.item_id, 'too_hard')}>Too hard</button>

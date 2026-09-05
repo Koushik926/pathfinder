@@ -22,6 +22,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from app.llm import LLM
+from app.ml import qa
 from app.ml.embeddings import SPACE
 from app.ml.profiler import Completion, LearnerProfile
 from app.store import CATALOG, Catalog
@@ -242,6 +243,19 @@ def _apply_extraction(
         session.asked.add("pace")
         filled.append("pace")
 
+    # Interests: topics the learner names for themselves, as distinct from the
+    # skills their chosen role happens to require. Recorded whenever they are
+    # named explicitly (an alias hit, not a weak embedding neighbour), so the
+    # profile reflects what this person is drawn to and not just the job title.
+    if not answering_prompt:
+        for skill_id, weight in SPACE.match_skills(text).items():
+            if weight >= 1.0:
+                name = catalog.skill_name(skill_id)
+                if name not in profile.interests:
+                    profile.interests.append(name)
+                    if "interests" not in filled:
+                        filled.append("interests")
+
     modalities = _extract_modalities(text)
     if modalities:
         profile.preferred_modalities = modalities
@@ -324,6 +338,9 @@ def _level_options() -> list[dict]:
 def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
     """Process one learner message and produce the assistant's reply."""
     session.history.append(Turn("learner", message))
+    # Snapshot before extraction: _apply_extraction may itself update the pace,
+    # which would make a later "did the pace change?" comparison always false.
+    hours_before = session.profile.hours_per_week
 
     # Resolve a pending "which of these did you mean" question first.
     was_disambiguating = bool(session.pending_role_options)
@@ -393,6 +410,28 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
 
     missing = session.missing_slots
     if not missing:
+        # Setup is done. From here the learner is asking about their path, not
+        # filling in slots — route to the question answerer rather than
+        # repeating the same "that's everything I need" line at every message.
+        if session.path is not None:
+            # A pace change is an instruction, not a question; apply it here so
+            # "I only have 5 hours a week now" reschedules instead of being
+            # answered with a description of the old schedule.
+            hours = _extract_hours(message)
+            if hours and hours != hours_before:
+                previous = hours_before
+                session.profile.hours_per_week = max(1.0, min(60.0, hours))
+                weeks = round(session.path.total_hours / session.profile.hours_per_week, 1)
+                reply = _narrate(
+                    f"Updated from {previous:g} to {session.profile.hours_per_week:g} hours "
+                    f"a week — that puts your path at about {weeks} weeks. "
+                    f"Rebuilding the schedule now.",
+                    "Tell the learner their weekly hours changed and the schedule is being rebuilt.",
+                )
+                return _package(session, reply, "pace_changed", reschedule=True)
+
+            result = qa.answer(session.profile, session.path, message, catalog)
+            return _package(session, result.text, result.intent, items=result.item_ids)
         return _package(session, _ready_message(session, catalog), "ready")
 
     slot = missing[0]
@@ -503,13 +542,23 @@ def _narrate(template: str, instruction: str) -> str:
     return LLM.narrate(f"Draft reply: {template}", instruction) or template
 
 
-def _package(session: Session, reply: str, intent: str, options: list[dict] | None = None) -> dict:
+def _package(
+    session: Session,
+    reply: str,
+    intent: str,
+    options: list[dict] | None = None,
+    items: list[str] | None = None,
+    reschedule: bool = False,
+) -> dict:
     session.history.append(Turn("assistant", reply))
     session.last_asked = intent[4:] if intent.startswith("ask_") else ""
     return {
         "reply": reply,
         "intent": intent,
         "options": options or [],
+        # Items the answer refers to, so the interface can highlight them.
+        "items": items or [],
+        "reschedule": reschedule,
         "ready": session.ready,
         "missing_slots": session.missing_slots,
         "profile_preview": {

@@ -66,7 +66,7 @@ malformed response all fall back silently to the deterministic path.
 ### Tests
 
 ```bash
-cd backend && pip install -e ".[dev]" && pytest -q      # 77 tests, ~2s
+cd backend && pip install -e ".[dev]" && pytest -q      # 102 tests, ~2s
 ```
 
 Verified on **Python 3.10 and 3.12** (numpy 2.2/2.5, scikit-learn 1.7/1.9).
@@ -84,7 +84,11 @@ matches a fresh rebuild byte-for-byte on either interpreter.
 | Recommendation engine | `backend/app/ml/recommender.py` — six-signal hybrid ranker |
 | Learning path generator | `backend/app/ml/planner.py` — greedy submodular coverage over a prerequisite DAG |
 | Explanation assistant | `backend/app/ml/explain.py` — explanations derived from ranker attributions |
+| Answers learner queries | `backend/app/ml/qa.py` — ordering, duration, skipping, difficulty, progress, next steps |
 | Progress dashboard | `frontend/src/components/Dashboard.jsx` — skill radar, gaps, milestones, next actions |
+
+Every recommended item also links out to the provider so a learner can actually
+go and take it, and the conversation transcript is restored on reload.
 
 ---
 
@@ -179,7 +183,7 @@ backend/
                    planner, explain, feedback, conversation
     api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
     llm.py         optional Claude integration, fails soft everywhere
-  tests/           77 tests
+  tests/           102 tests
 frontend/
   src/components/  Chat, Roadmap, Dashboard, Primitives
 docs/              architecture, demo script

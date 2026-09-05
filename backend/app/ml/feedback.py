@@ -99,6 +99,11 @@ def apply_reaction(
     elif reaction in ("loved", "more_like_this"):
         for skill_id, weight in item.skills.items():
             profile.goal_skills[skill_id] = max(profile.goal_skills.get(skill_id, 0.0), weight)
+            # Enjoying something is an interest signal, not just a goal signal.
+            if weight >= 0.4:
+                name = catalog.skill_name(skill_id)
+                if name not in profile.interests:
+                    profile.interests.append(name)
         changes.append(f"Weighted your goal toward more work like '{item.title}'.")
 
     else:

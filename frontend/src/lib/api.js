@@ -30,6 +30,7 @@ export const api = {
     request(`/session/${id}/chat`, { method: 'POST', body: JSON.stringify({ message }) }),
   path: (id, refresh = false) => request(`/session/${id}/path${refresh ? '?refresh=true' : ''}`),
   dashboard: (id) => request(`/session/${id}/dashboard`),
+  history: (id) => request(`/session/${id}/history`),
   explain: (id, itemId) => request(`/session/${id}/explain/${itemId}`),
   updateProfile: (id, payload) =>
     request(`/session/${id}/profile`, { method: 'PUT', body: JSON.stringify(payload) }),

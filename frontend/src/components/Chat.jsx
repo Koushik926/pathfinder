@@ -47,7 +47,17 @@ function Bubble({ turn }) {
   )
 }
 
-export default function Chat({ session, turns, options, missing, busy, onSend, llmEnabled }) {
+// Once a path exists the assistant answers questions about it, but nobody
+// discovers that from a blank input box. These are the questions learners
+// actually ask, offered as one tap.
+const STARTER_QUESTIONS = [
+  'What should I do first?',
+  'How long will this take?',
+  'Why is it in this order?',
+  'Can I go faster?',
+]
+
+export default function Chat({ session, turns, options, missing, busy, onSend, llmEnabled, hasPath }) {
   const [draft, setDraft] = useState('')
   const scrollRef = useRef(null)
 
@@ -87,6 +97,19 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
           <div className="pl-1"><Spinner label="Thinking…" /></div>
         )}
       </div>
+
+      {hasPath && options.length === 0 && !busy && (
+        <div className="border-t border-ink-line px-4 py-3">
+          <div className="mb-2 text-xs text-slate-500">Ask me about your path</div>
+          <div className="flex flex-wrap gap-2">
+            {STARTER_QUESTIONS.map((question) => (
+              <button key={question} className="btn-ghost text-xs" onClick={() => onSend(question)}>
+                {question}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {options.length > 0 && !busy && (
         <div className="flex flex-wrap gap-2 border-t border-ink-line px-4 py-3">

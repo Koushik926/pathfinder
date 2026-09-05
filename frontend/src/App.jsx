@@ -48,16 +48,24 @@ export default function App() {
         const existing = fromUrl || storedSession()
         if (existing) {
           try {
-            const [existingPath, existingDashboard] = await Promise.all([
+            const [existingPath, existingDashboard, existingHistory] = await Promise.all([
               api.path(existing),
               api.dashboard(existing),
+              api.history(existing),
             ])
             if (cancelled) return
             setSession(existing)
             setPath(existingPath)
             setDashboard(existingDashboard)
-            setMissing([])
-            setTurns([GREETING, { role: 'assistant', text: 'Welcome back — your path is on the right.' }])
+            setMissing(existingHistory.missing_slots ?? [])
+            // Restore the real conversation rather than greeting them as a
+            // stranger — the transcript is what makes the assistant feel like
+            // it remembers the goal you agreed on.
+            setTurns(
+              existingHistory.turns?.length
+                ? [GREETING, ...existingHistory.turns]
+                : [GREETING, { role: 'assistant', text: 'Welcome back — your path is on the right.' }],
+            )
             return
           } catch {
             clearSession()  // session expired server-side; fall through to a new one
@@ -95,7 +103,8 @@ export default function App() {
       setTurns((current) => [...current, { role: 'assistant', text: result.reply }])
       setOptions(result.options ?? [])
       setMissing(result.missing_slots ?? [])
-      if (result.ready) await refresh(session)
+      // A reschedule means the plan itself changed, not just the reply.
+      if (result.ready || result.reschedule) await refresh(session)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -199,6 +208,7 @@ export default function App() {
             busy={busy}
             onSend={send}
             llmEnabled={meta?.llm.enabled ?? false}
+            hasPath={Boolean(path)}
           />
         </div>
 

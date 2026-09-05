@@ -28,7 +28,7 @@ React SPA ──HTTP──▶ FastAPI (thin routes)
 ```
 
 The route layer contains no reasoning. Every engine is a pure function over a
-profile and the catalog, which is why the 77-test suite can exercise the
+profile and the catalog, which is why the 102-test suite can exercise the
 algorithms directly without HTTP, and why a path is reproducible: the same
 profile always yields the same path.
 

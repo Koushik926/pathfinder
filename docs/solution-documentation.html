@@ -253,7 +253,7 @@
       <span class="tag on">Runs fully offline · no API key required</span>
       <span class="tag">FastAPI + React</span>
       <span class="tag">238 catalog items</span>
-      <span class="tag">77 tests</span>
+      <span class="tag">102 tests</span>
       <span class="tag">Reproducible build</span>
     </div>
   </header>
@@ -512,6 +512,18 @@
       </div>
       <figcaption>Actual output for the four turns above — five milestones, prerequisites pulled in automatically.</figcaption>
 
+      <h3>Answering questions, not just building a plan</h3>
+      <p>
+        A plan is where the conversation starts, not where it ends. The assistant
+        answers questions about the path it built — why an item sits where it does,
+        what breaks if you skip it, how long it takes, whether it is too hard, what
+        to do next, how far along you are. Each answer is computed from the same
+        objects that produced the path: the prerequisite graph, the gap vector, the
+        schedule. Saying "I only have five hours a week now" is understood as an
+        instruction and reschedules the plan rather than being answered with a
+        description of the old one.
+      </p>
+
       <h3>The projects guarantee</h3>
       <p>
         Coverage-per-hour has a blind spot: a 20-hour project consolidating four
@@ -639,7 +651,7 @@
       <div class="kicker">Engineering</div>
       <h2>Verification &amp; limits</h2>
       <div class="grid g3">
-        <div class="metric green"><div class="n">77</div><div class="l">Tests passing</div></div>
+        <div class="metric green"><div class="n">102</div><div class="l">Tests passing</div></div>
         <div class="metric"><div class="n">~2 s</div><div class="l">Full suite</div></div>
         <div class="metric"><div class="n">1</div><div class="l">Process to deploy</div></div>
       </div>
@@ -653,7 +665,7 @@
       </p>
       <p>
         Verified from a clean environment on <strong>both Python 3.10 and 3.12</strong>:
-        unzip → install → build catalog → 77 tests pass → frontend builds → artifacts
+        unzip → install → build catalog → 102 tests pass → frontend builds → artifacts
         byte-identical to the committed ones. That last check earned its place — it
         caught CPython 3.12 switching <code>sum()</code> over floats to compensated
         summation, which shifted role-overlap scores in their final bits and flipped

@@ -50,6 +50,9 @@ class ChatOut(BaseModel):
     reply: str
     intent: str
     options: list[dict[str, Any]]
+    # Catalog items the reply refers to, so the UI can highlight them.
+    items: list[str] = Field(default_factory=list)
+    reschedule: bool = False
     ready: bool
     missing_slots: list[str]
     profile_preview: dict[str, Any]

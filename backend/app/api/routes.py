@@ -131,6 +131,9 @@ def chat(session_id: str, payload: ChatIn) -> ChatOut:
     result = conversation.respond(session, payload.message)
     if result["ready"] and session.path is None:
         _refresh_path(session)
+    elif result.get("reschedule"):
+        # The learner changed their available hours mid-conversation.
+        _refresh_path(session)
     return ChatOut(**result)
 
 
@@ -138,6 +141,22 @@ def chat(session_id: str, payload: ChatIn) -> ChatOut:
 def get_profile(session_id: str) -> dict:
     session = _session_or_404(session_id)
     return profile_to_dict(session.profile)
+
+
+@router.get("/session/{session_id}/history")
+def get_history(session_id: str) -> dict:
+    """The conversation so far.
+
+    The transcript lives on the server, so reopening a session — a reload, a
+    shared link, a different device — restores the conversation instead of
+    presenting a learner with an empty box and no memory of what was agreed.
+    """
+    session = _session_or_404(session_id)
+    return {
+        "turns": [{"role": t.role, "text": t.text} for t in session.history],
+        "ready": session.ready,
+        "missing_slots": session.missing_slots,
+    }
 
 
 @router.put("/session/{session_id}/profile")

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from app.links import resource_url
 from app.ml.explain import explain_path
 from app.ml.planner import LearningPath
 from app.ml.profiler import LearnerProfile
@@ -77,6 +78,7 @@ def item_to_dict(item, catalog: Catalog = CATALOG) -> dict:
         "level": item.level,
         "modality": item.modality,
         "rating": item.rating,
+        "url": resource_url(item.provider, item.title),
         "is_prerequisite_fill": item.is_prerequisite_fill,
         "prereqs": [
             {"item_id": p, "title": catalog.items[p].title}
@@ -107,6 +109,7 @@ def catalog_item_to_dict(item_id: str, catalog: Catalog = CATALOG) -> dict:
         "rating": item.rating,
         "learners": item.learners,
         "depth": item.depth,
+        "url": resource_url(item.provider, item.title),
         "skills": [
             {"id": s, "name": catalog.skill_name(s), "weight": round(w, 3)}
             for s, w in sorted(item.skills.items(), key=lambda kv: -kv[1])
