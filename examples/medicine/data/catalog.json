@@ -1,0 +1,297 @@
+[
+ {
+  "depth": 0,
+  "hours": 30,
+  "id": "med-101",
+  "kind": "course",
+  "learners": 120000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [],
+  "provider": "MedSchool",
+  "rating": 4.7,
+  "skills": {
+   "anatomy": 0.7
+  },
+  "title": "Foundations of Human Anatomy"
+ },
+ {
+  "depth": 1,
+  "hours": 28,
+  "id": "med-102",
+  "kind": "course",
+  "learners": 98000,
+  "level": 1,
+  "modality": "video",
+  "prereqs": [
+   "med-101"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.6,
+  "skills": {
+   "anatomy": 0.2,
+   "physiology": 0.7
+  },
+  "title": "Physiology of Organ Systems"
+ },
+ {
+  "depth": 0,
+  "hours": 24,
+  "id": "med-103",
+  "kind": "course",
+  "learners": 76000,
+  "level": 1,
+  "modality": "reading",
+  "prereqs": [],
+  "provider": "MedSchool",
+  "rating": 4.4,
+  "skills": {
+   "biochem": 0.7
+  },
+  "title": "Medical Biochemistry"
+ },
+ {
+  "depth": 2,
+  "hours": 26,
+  "id": "med-104",
+  "kind": "course",
+  "learners": 64000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "med-103",
+   "med-102"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.6,
+  "skills": {
+   "biochem": 0.25,
+   "pharma": 0.75
+  },
+  "title": "Principles of Pharmacology"
+ },
+ {
+  "depth": 2,
+  "hours": 26,
+  "id": "med-105",
+  "kind": "course",
+  "learners": 58000,
+  "level": 2,
+  "modality": "video",
+  "prereqs": [
+   "med-102"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.5,
+  "skills": {
+   "pathology": 0.75,
+   "physiology": 0.2
+  },
+  "title": "General Pathology"
+ },
+ {
+  "depth": 3,
+  "hours": 20,
+  "id": "med-106",
+  "kind": "course",
+  "learners": 41000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "med-105"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.5,
+  "skills": {
+   "micro": 0.75,
+   "pathology": 0.2
+  },
+  "title": "Clinical Microbiology"
+ },
+ {
+  "depth": 2,
+  "hours": 22,
+  "id": "med-107",
+  "kind": "course",
+  "learners": 52000,
+  "level": 2,
+  "modality": "mixed",
+  "prereqs": [
+   "med-102"
+  ],
+  "provider": "Hospital",
+  "rating": 4.8,
+  "skills": {
+   "diagnosis": 0.75,
+   "patient-comms": 0.3
+  },
+  "title": "Clinical Examination Skills"
+ },
+ {
+  "depth": 3,
+  "hours": 24,
+  "id": "med-108",
+  "kind": "course",
+  "learners": 37000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "med-107",
+   "med-104"
+  ],
+  "provider": "Hospital",
+  "rating": 4.8,
+  "skills": {
+   "diagnosis": 0.35,
+   "emergency": 0.8
+  },
+  "title": "Emergency and Acute Care"
+ },
+ {
+  "depth": 3,
+  "hours": 28,
+  "id": "med-109",
+  "kind": "course",
+  "learners": 29000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "med-107"
+  ],
+  "provider": "Hospital",
+  "rating": 4.7,
+  "skills": {
+   "anatomy": 0.3,
+   "surgery": 0.75
+  },
+  "title": "Introduction to Surgery"
+ },
+ {
+  "depth": 0,
+  "hours": 10,
+  "id": "med-110",
+  "kind": "course",
+  "learners": 88000,
+  "level": 1,
+  "modality": "reading",
+  "prereqs": [],
+  "provider": "MedSchool",
+  "rating": 4.5,
+  "skills": {
+   "ethics": 0.8,
+   "patient-comms": 0.25
+  },
+  "title": "Medical Ethics and Consent"
+ },
+ {
+  "depth": 0,
+  "hours": 12,
+  "id": "med-111",
+  "kind": "course",
+  "learners": 71000,
+  "level": 1,
+  "modality": "mixed",
+  "prereqs": [],
+  "provider": "Hospital",
+  "rating": 4.7,
+  "skills": {
+   "ethics": 0.2,
+   "patient-comms": 0.8
+  },
+  "title": "Communicating with Patients"
+ },
+ {
+  "depth": 3,
+  "hours": 16,
+  "id": "med-112",
+  "kind": "course",
+  "learners": 33000,
+  "level": 2,
+  "modality": "reading",
+  "prereqs": [
+   "med-105"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.4,
+  "skills": {
+   "pathology": 0.2,
+   "research": 0.8
+  },
+  "title": "Evidence-Based Practice"
+ },
+ {
+  "depth": 3,
+  "hours": 30,
+  "id": "med-p01",
+  "kind": "project",
+  "learners": 22000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "med-107"
+  ],
+  "provider": "Hospital",
+  "rating": 4.9,
+  "skills": {
+   "diagnosis": 0.5,
+   "patient-comms": 0.4
+  },
+  "title": "Rotation: Supervised Ward Round"
+ },
+ {
+  "depth": 4,
+  "hours": 32,
+  "id": "med-p02",
+  "kind": "project",
+  "learners": 18000,
+  "level": 3,
+  "modality": "project",
+  "prereqs": [
+   "med-108"
+  ],
+  "provider": "Hospital",
+  "rating": 4.9,
+  "skills": {
+   "diagnosis": 0.35,
+   "emergency": 0.55
+  },
+  "title": "Rotation: Emergency Department"
+ },
+ {
+  "depth": 3,
+  "hours": 4,
+  "id": "med-a01",
+  "kind": "assessment",
+  "learners": 44000,
+  "level": 3,
+  "modality": "mixed",
+  "prereqs": [
+   "med-107"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.6,
+  "skills": {
+   "diagnosis": 0.35,
+   "patient-comms": 0.25
+  },
+  "title": "Assessment: Clinical Skills OSCE"
+ },
+ {
+  "depth": 3,
+  "hours": 3,
+  "id": "med-a02",
+  "kind": "assessment",
+  "learners": 39000,
+  "level": 2,
+  "modality": "interactive",
+  "prereqs": [
+   "med-104"
+  ],
+  "provider": "MedSchool",
+  "rating": 4.5,
+  "skills": {
+   "pharma": 0.35
+  },
+  "title": "Assessment: Pharmacology Exam"
+ }
+]

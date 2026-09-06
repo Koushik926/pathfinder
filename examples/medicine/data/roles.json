@@ -1,0 +1,60 @@
+[
+ {
+  "aliases": [
+   "emergency medicine",
+   "er doctor",
+   "acute care physician",
+   "emergency"
+  ],
+  "family": "Clinical",
+  "id": "emergency-physician",
+  "skills": {
+   "anatomy": 0.6,
+   "diagnosis": 0.9,
+   "emergency": 0.95,
+   "ethics": 0.6,
+   "pathology": 0.5,
+   "patient-comms": 0.7,
+   "pharma": 0.8,
+   "physiology": 0.7
+  },
+  "title": "Emergency Physician"
+ },
+ {
+  "aliases": [
+   "surgery",
+   "surgeon",
+   "operative medicine"
+  ],
+  "family": "Clinical",
+  "id": "surgeon",
+  "skills": {
+   "anatomy": 0.9,
+   "diagnosis": 0.7,
+   "emergency": 0.5,
+   "ethics": 0.6,
+   "pathology": 0.5,
+   "patient-comms": 0.6,
+   "surgery": 0.95
+  },
+  "title": "Surgeon"
+ },
+ {
+  "aliases": [
+   "clinical research",
+   "medical research",
+   "trials"
+  ],
+  "family": "Academic",
+  "id": "clinical-researcher",
+  "skills": {
+   "biochem": 0.6,
+   "ethics": 0.8,
+   "micro": 0.5,
+   "pathology": 0.7,
+   "patient-comms": 0.5,
+   "research": 0.95
+  },
+  "title": "Clinical Researcher"
+ }
+]

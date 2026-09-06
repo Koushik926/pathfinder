@@ -1,0 +1,112 @@
+[
+ {
+  "aliases": [
+   "anatomy",
+   "structure"
+  ],
+  "category": "Foundations",
+  "id": "anatomy",
+  "name": "Human Anatomy"
+ },
+ {
+  "aliases": [
+   "physiology",
+   "function"
+  ],
+  "category": "Foundations",
+  "id": "physiology",
+  "name": "Physiology"
+ },
+ {
+  "aliases": [
+   "biochemistry",
+   "metabolism"
+  ],
+  "category": "Foundations",
+  "id": "biochem",
+  "name": "Biochemistry"
+ },
+ {
+  "aliases": [
+   "pharmacology",
+   "drugs"
+  ],
+  "category": "Clinical Science",
+  "id": "pharma",
+  "name": "Pharmacology"
+ },
+ {
+  "aliases": [
+   "pathology",
+   "disease"
+  ],
+  "category": "Clinical Science",
+  "id": "pathology",
+  "name": "Pathology"
+ },
+ {
+  "aliases": [
+   "microbiology",
+   "infection"
+  ],
+  "category": "Clinical Science",
+  "id": "micro",
+  "name": "Microbiology"
+ },
+ {
+  "aliases": [
+   "diagnosis",
+   "examination"
+  ],
+  "category": "Practice",
+  "id": "diagnosis",
+  "name": "Clinical Diagnosis"
+ },
+ {
+  "aliases": [
+   "emergency",
+   "trauma",
+   "acute care"
+  ],
+  "category": "Practice",
+  "id": "emergency",
+  "name": "Emergency Medicine"
+ },
+ {
+  "aliases": [
+   "surgery",
+   "operative"
+  ],
+  "category": "Practice",
+  "id": "surgery",
+  "name": "Surgical Basics"
+ },
+ {
+  "aliases": [
+   "ethics",
+   "consent"
+  ],
+  "category": "Professional",
+  "id": "ethics",
+  "name": "Medical Ethics"
+ },
+ {
+  "aliases": [
+   "bedside manner",
+   "counselling",
+   "talking to patients"
+  ],
+  "category": "Professional",
+  "id": "patient-comms",
+  "name": "Patient Communication"
+ },
+ {
+  "aliases": [
+   "trials",
+   "evidence based"
+  ],
+  "category": "Professional",
+  "id": "research",
+  "name": "Clinical Research"
+ }
+]

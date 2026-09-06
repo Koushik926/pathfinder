@@ -189,6 +189,25 @@ frontend/
 docs/              architecture, demo script
 ```
 
+## The engine is not about software careers
+
+The reasoning is domain-independent: every engine takes a catalog as an
+argument, and none of them knows what a course is *about*. `examples/medicine/`
+contains a clinical-medicine catalog that shares no skill, role, item id or
+category with the shipped one. The same engine, with no code change, produces a
+coherent clinical curriculum from it — anatomy before physiology before
+pharmacology, ward rotations at the end — and answers "can I skip anatomy?"
+by naming physiology, read from that catalog's own prerequisite graph.
+
+```bash
+python examples/medicine/build_catalog.py
+cp examples/medicine/data/*.json backend/app/data/    # then restart the server
+git checkout backend/app/data                          # restore the software catalog
+```
+
+`backend/tests/test_catalog_agnostic.py` exercises this end to end, so a domain
+assumption leaking into an algorithm fails the build.
+
 ## Deployment
 
 `render.yaml` and `Dockerfile` are included; see
