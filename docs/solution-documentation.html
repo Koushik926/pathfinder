@@ -543,6 +543,25 @@
         description of the old one.
       </p>
 
+      <h3>The engine is not about software careers</h3>
+      <p>
+        Every engine takes a catalog as an argument, and none of them knows what
+        a course is <em>about</em>. That makes the same system usable by a
+        university placement cell, an EdTech platform or a corporate L&amp;D team
+        with a different catalog and no code change — which is the difference
+        between a hackathon project and something an institution could adopt.
+      </p>
+      <p>
+        We tested that rather than claiming it. <code>examples/medicine/</code>
+        holds a clinical-medicine catalog sharing <strong>no skill, role, item id
+        or category</strong> with the shipped one. The same engine produces a
+        coherent clinical curriculum from it — anatomy before physiology before
+        pharmacology, ward rotations at the end — and answers <em>"can I skip
+        anatomy?"</em> by naming physiology, read from that catalog's own
+        prerequisite graph. Eight tests run the full pipeline against it, so a
+        domain assumption leaking into an algorithm fails the build.
+      </p>
+
       <h3>The projects guarantee</h3>
       <p>
         Coverage-per-hour has a blind spot: a 20-hour project consolidating four
