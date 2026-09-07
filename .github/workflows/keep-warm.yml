@@ -1,22 +1,31 @@
-# Render's free tier spins a service down after ~15 minutes of inactivity, and
-# the next request then pays a cold start of roughly a minute while the
-# container is rebuilt and the model is refitted.
+# Render's free tier evicts an idle service, and waking this one takes longer
+# than two minutes — a container boot plus fitting the embedding model. In
+# front of a panel that reads as a dead link.
 #
-# That is fine for casual use and bad for a live demo: a judge opening the link
-# cold sees a blank tab for a minute and assumes it is broken. This workflow
-# pings the health endpoint often enough to keep the instance awake.
+# Two things to know about this workflow, learned the hard way:
 #
-# It is scheduled, not always-on, so it does not burn the free tier's monthly
-# hours outside the window it is needed. Adjust or disable from the Actions tab.
+#   1. GitHub heavily throttles scheduled runs on free runners. A "*/10"
+#      cron was actually firing roughly every two hours, by which time the
+#      service had gone back to sleep. The schedule below is therefore a
+#      best-effort backstop, not a guarantee.
+#   2. The first ping after eviction can exceed 120s, so an impatient timeout
+#      fails while the service is still waking — which is what happened here.
+#
+# The reliable path before a live demo is to run this manually
+# (Actions -> Keep demo warm -> Run workflow) about ten minutes ahead, then
+# open the site yourself and confirm it loads.
 
 name: Keep demo warm
 
 on:
   schedule:
-    # Every 10 minutes. GitHub may delay scheduled runs under load, which is
-    # tolerable here — a missed ping costs one cold start, not correctness.
-    - cron: "*/10 * * * *"
-  workflow_dispatch:        # lets you warm it on demand, right before a demo
+    - cron: "*/20 * * * *"     # best effort; GitHub will run it less often
+  workflow_dispatch:
+
+# Never let two warm-ups overlap and fight each other.
+concurrency:
+  group: keep-warm
+  cancel-in-progress: true
 
 jobs:
   ping:
@@ -25,8 +34,16 @@ jobs:
       - name: Wake the service
         run: |
           URL="https://pathfinder1-vov3.onrender.com/api/health"
-          # A cold start can take ~60s, so allow generously before failing.
-          code=$(curl -s -o /tmp/body -m 120 -w "%{http_code}" "$URL" || echo 000)
-          echo "HTTP $code"
-          cat /tmp/body || true
-          test "$code" = "200"
+          for attempt in 1 2 3; do
+            # 300s: a cold start on the free tier genuinely takes minutes.
+            code=$(curl -s -o /tmp/body -m 300 -w "%{http_code}" "$URL" || true)
+            echo "attempt $attempt -> HTTP ${code:-timeout}"
+            if [ "$code" = "200" ]; then
+              cat /tmp/body; echo; echo "Service is awake."
+              exit 0
+            fi
+            sleep 15
+          done
+          # A failed warm-up is not a broken build — it means the free tier was
+          # slow. Report it without turning the repo red.
+          echo "::warning::Could not wake the demo after three attempts."
