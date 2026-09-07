@@ -66,12 +66,51 @@ malformed response all fall back silently to the deterministic path.
 ### Tests
 
 ```bash
-cd backend && pip install -e ".[dev]" && pytest -q      # 102 tests, ~2s
+cd backend && pip install -e ".[dev]" && pytest -q      # 198 tests, ~5s
 ```
 
 Verified on **Python 3.10 and 3.12** (numpy 2.2/2.5, scikit-learn 1.7/1.9).
 The suite includes a reproducibility check asserting the committed catalog
 matches a fresh rebuild byte-for-byte on either interpreter.
+
+---
+
+## Does it actually recommend well?
+
+A passing test suite proves the system does what it was told. It says nothing
+about whether what it was told is any good, so we measured that separately.
+
+```bash
+cd backend && python -m app.ml.evaluate            # ~20s
+```
+
+60 synthetic learners — every role, all three levels, a third of them cold
+starts with no history — against three alternatives, each held to **the same
+hour budget PathFinder spends**, so the difference comes from what gets picked
+rather than from spending more of the learner's time.
+
+| metric | popularity | embedding-only | no graph | **PathFinder** |
+|---|---|---|---|---|
+| Readiness gain (achievable) | 0.121 | 0.185 | 0.315 | **0.776** |
+| Gain per 100 hours | 0.041 | 0.077 | 0.139 | **0.276** |
+| Prerequisites met when scheduled | 74.6% | 41.7% | 42.6% | **100%** |
+| Items teaching nothing needed | 76.8% | 36.0% | 0.0% | **0.0%** |
+| Cold start, no history | 0.142 | 0.195 | 0.299 | **0.922** |
+
+The usual recommender metrics don't transfer — precision, recall and NDCG score
+you on reproducing a choice the user already made, and a learner who knew which
+courses to pick wouldn't need this. So the harness measures the claim the system
+actually makes: how much goal readiness a learner gains from items they can
+*reach*, per hour spent.
+
+That distinction is the whole story of the third column. Remove the prerequisite
+graph and keep everything else, and it beats PathFinder on paper — 0.834 gain to
+our 0.776. Then only 42.6% of its items are startable when they come up, so it
+delivers 0.315. **62% of what it promises is fiction.** PathFinder loses nothing
+between the two numbers.
+
+Full method, baselines, limitations and the defect this caught on its first
+run: **[docs/EVALUATION.md](docs/EVALUATION.md)**.
 
 ---
 

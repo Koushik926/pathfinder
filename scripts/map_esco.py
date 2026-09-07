@@ -32,25 +32,65 @@ OUT = ROOT / "backend" / "app" / "data" / "skills_esco.json"
 
 # Below this label similarity we record no alignment rather than a bad one.
 # An honest gap is worth more than a confident mismatch.
+# Below this score we record no alignment rather than a bad one. An honest gap
+# is worth far more than a confident mismatch — and the first version of this
+# script proved it, cheerfully aligning "Bash & Shell" to "airport terminal
+# standards" because one alias word appeared inside a longer label.
 ACCEPT = 0.62
+
+# Words that carry no discriminating meaning in an ESCO label. ESCO phrases
+# skills as actions ("manage manufacturing documentation"), so leaving these in
+# lets a shared verb masquerade as a topic match.
+STOPWORDS = {
+    "a", "an", "the", "and", "or", "of", "for", "in", "on", "to", "with",
+    "manage", "prepare", "follow", "use", "using", "develop", "plan", "perform",
+    "apply", "carry", "out", "provide", "ensure", "maintain", "conduct", "create",
+    "work", "process", "processes", "procedures", "standards", "systems", "system",
+    "principles", "methods", "techniques", "tools", "types", "skills",
+}
 
 
 def normalise(text: str) -> str:
-    return " ".join(text.lower().replace("-", " ").replace("/", " ").split())
+    for symbol in ("-", "/", "&", ",", "(", ")", "."):
+        text = text.replace(symbol, " ")
+    return " ".join(text.lower().split())
 
 
-def similarity(a: str, b: str) -> float:
-    a, b = normalise(a), normalise(b)
+def tokens(text: str) -> set[str]:
+    return {word for word in normalise(text).split() if word not in STOPWORDS}
+
+
+def similarity(ours: str, theirs: str) -> float:
+    """How confident are we that these name the same competence?
+
+    Token overlap, not character overlap. Character similarity is what produced
+    the airport-terminal match: "bash shell" and "airport terminal standards"
+    share a lot of letters and nothing else.
+    """
+    a, b = normalise(ours), normalise(theirs)
     if a == b:
         return 1.0
-    ratio = SequenceMatcher(None, a, b).ratio()
-    # Whole-word containment ("python" inside "python programming") is a much
-    # stronger signal than character overlap suggests.
-    aw, bw = set(a.split()), set(b.split())
-    if aw and bw and (aw <= bw or bw <= aw):
-        ratio = max(ratio, 0.80)
-    return ratio
 
+    ours_tokens, theirs_tokens = tokens(ours), tokens(theirs)
+    if not ours_tokens or not theirs_tokens:
+        return 0.0
+
+    overlap = ours_tokens & theirs_tokens
+    if not overlap:
+        return 0.0
+
+    # Jaccard over meaningful tokens: rewards agreement, penalises the extra
+    # words that make a broad ESCO concept a poor fit for a specific skill.
+    jaccard = len(overlap) / len(ours_tokens | theirs_tokens)
+
+    # A multi-word name appearing as a contiguous phrase is strong evidence
+    # ("machine learning" inside "machine learning algorithms"). A single word
+    # inside a longer label is not evidence at all, which is the whole lesson
+    # of the first run.
+    if len(ours_tokens) >= 2 and a in b:
+        jaccard = max(jaccard, 0.85)
+
+    return jaccard
 
 def search(text: str, limit: int = 8) -> list[dict]:
     query = urllib.parse.urlencode(
@@ -87,7 +127,7 @@ def best_match(skill: dict) -> dict | None:
             if not label:
                 continue
             # Score the ESCO label against every name we know this skill by.
-            score = max(similarity(label, candidate) for candidate in queries)
+            score = max(similarity(candidate, label) for candidate in queries)
             if best is None or score > best["similarity"]:
                 best = {
                     "uri": result["uri"],

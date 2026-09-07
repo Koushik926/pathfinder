@@ -135,6 +135,17 @@
   table.qa td:first-child{color:var(--text); font-family:Archivo,sans-serif; font-weight:600; width:38%}
   table.qa td:last-child{color:var(--muted)}
   table.qa tr:last-child td{border-bottom:none}
+  table.ev{border-collapse:collapse; width:100%; font-size:clamp(11px,1.15vw,16px);
+           font-variant-numeric:tabular-nums; font-family:"JetBrains Mono",monospace}
+  table.ev th{font-family:Archivo,sans-serif; font-weight:600; text-align:right; padding:6px 10px;
+              color:var(--muted); font-size:.82em; letter-spacing:.04em; text-transform:uppercase;
+              border-bottom:1px solid var(--rule)}
+  table.ev th:first-child{text-align:left}
+  table.ev td{padding:6px 10px; text-align:right; border-bottom:1px solid var(--rule); color:var(--muted)}
+  table.ev td:first-child{text-align:left; font-family:Archivo,sans-serif; color:var(--text)}
+  table.ev td.us{color:var(--route); font-weight:700}
+  table.ev th.us{color:var(--route)}
+  table.ev tr:last-child td{border-bottom:none}
 
   .demo-steps{display:flex; flex-direction:column; gap:9px}
   .demo-step{display:grid; grid-template-columns:auto 1fr; gap:13px; align-items:baseline}
@@ -435,29 +446,37 @@
   <!-- 9 -->
   <section class="slide" data-speaker="Chethan Kumar H M" data-part="Engineering" data-budget="1:00">
     <div class="eyebrow"><span class="n">9</span> Engineering &amp; results</div>
-    <h2>Built to be checked, not just demoed</h2>
-    <div class="tiles" style="max-width:1000px">
-      <div class="tile g"><div class="n">188</div><div class="l">Tests passing</div></div>
-      <div class="tile"><div class="n">238</div><div class="l">Items · 116 skills · 22 roles</div></div>
-      <div class="tile g"><div class="n">0.37s</div><div class="l">Path generation, live</div></div>
-      <div class="tile a"><div class="n">9</div><div class="l">Max prerequisite depth</div></div>
-    </div>
+    <h2>We measured it against the alternatives</h2>
     <div class="cols" style="flex:1;min-height:0">
-      <ul class="pts">
-        <li>Reasoning lives in <strong>pure functions</strong> — never in the route layer, never in a language model</li>
-        <li>The same profile <strong>always</strong> produces the same path</li>
-        <li>Prerequisite graph <strong>validated acyclic at build time</strong>; the catalog rebuilds byte-identically</li>
-      </ul>
+      <div style="flex:1.35;min-width:0;display:flex;flex-direction:column;gap:10px">
+        <table class="ev">
+          <tr><th>60 synthetic learners</th><th>Popular</th><th>Embed</th><th>No&nbsp;graph</th><th class="us">Ours</th></tr>
+          <tr><td>Readiness gain (achievable)</td><td>0.12</td><td>0.19</td><td>0.32</td><td class="us">0.78</td></tr>
+          <tr><td>Gain per 100 hours</td><td>0.04</td><td>0.08</td><td>0.14</td><td class="us">0.28</td></tr>
+          <tr><td>Prerequisites actually met</td><td>75%</td><td>42%</td><td>43%</td><td class="us">100%</td></tr>
+          <tr><td>Items teaching nothing needed</td><td>77%</td><td>36%</td><td>0%</td><td class="us">0%</td></tr>
+          <tr><td>Cold start (no history)</td><td>0.14</td><td>0.20</td><td>0.30</td><td class="us">0.92</td></tr>
+        </table>
+        <div class="callout">Every baseline is held to <em>our</em> hour budget, so the difference is selection — not spending more of the learner's time.</div>
+      </div>
       <div class="panel">
-        <h3>Three bugs we found by using it</h3>
-        <p class="body" style="font-size:14px;max-width:none">A goal logged as completed history · nonsense producing a confident Computer Vision path · foundations scheduled after what builds on them.</p>
-        <div class="callout">Each has a regression test. We found them by driving the product the way a student would, not by reading the code.</div>
+        <h3>The ablation is the interesting column</h3>
+        <p class="body" style="font-size:14px;max-width:none">Drop the prerequisite graph and keep everything else, and it <em>beats</em> us on paper — 0.83 gain to our 0.78. Then only 43% of its items are reachable when they arrive. It delivers 0.32.</p>
+        <div class="callout"><strong>62% of what it promises is fiction.</strong> That gap is the case for the graph, measured rather than claimed.</div>
       </div>
     </div>
+    <div class="tiles" style="max-width:1000px;margin-top:14px">
+      <div class="tile g"><div class="n">198</div><div class="l">Tests passing</div></div>
+      <div class="tile"><div class="n">0.37s</div><div class="l">Path generation, live</div></div>
+      <div class="tile a"><div class="n">116</div><div class="l">Skills, aligned to ESCO</div></div>
+      <div class="tile g"><div class="n">0</div><div class="l">Courses we can hallucinate</div></div>
+    </div>
     <div hidden class="script">
-      <p class="say">On engineering — the reasoning lives in pure functions over a profile and a catalog. Never in the route layer, never in a language model. That's why the same profile always produces the same path, and why we can cover it with a hundred and eleven tests.</p>
-      <p class="say">The prerequisite graph is validated acyclic at build time, and the catalog rebuilds byte-for-byte identically on any supported Python version.</p>
-      <p class="say">And three of those tests exist because of bugs we found by *using* the product, not reading the code. A learner's goal being silently logged as their completed history. Nonsense input producing a confident Computer Vision career path. Foundations scheduled after the material that builds on them. Each one now has a regression test.</p>
+      <p class="say">We didn't want to stand here and assert this works, so we measured it. Sixty synthetic learners, every role, a third of them with no history at all — against three alternatives, each given the same hour budget we spend, so the only difference is what gets picked.</p>
+      <p class="say">Popularity ranking is what a "top courses" shelf does. Embedding-only is what a pure LLM approach does. And the third is our own system with the prerequisite graph removed.</p>
+      <p class="say">Two and a half times the achievable readiness gain, twice the gain per hour, and three times on cold starts.</p>
+      <p class="say">But look at the third column, because it's the honest one. Without the graph it beats us on paper — nought point eight three to our nought point seven eight. Then you check whether a learner can actually reach those items, and only forty-three percent of them are startable when they come up. It delivers nought point three two. Sixty-two percent of what it promised was fiction. That's the case for the graph, and we can show it rather than say it.</p>
+      <p class="say">The reasoning lives in pure functions, so the same profile always gives the same path — a hundred and ninety-eight tests. And the evaluation earns its keep: on its first run it caught us handing a security analyst a mobile-app project just to fill a hands-on quota. Two items out of five hundred and forty-three. Invisible to every test we had.</p>
     </div>
   </section>
 
@@ -492,11 +511,15 @@
         <tr><td>Isn't this just a ChatGPT wrapper?</td><td>No — and it runs with no API key at all. The ranking, ordering and explanations are deterministic local models. Claude only rewrites wording, and never chooses or orders anything.</td></tr>
         <tr><td>Your interaction data is synthetic — isn't the CF meaningless?</td><td>Fair. It's a real item-item CF model over real co-occurrence structure, but the co-occurrences are simulated from a fixed seed. It carries 14% of the ranking weight; the other 86% uses no simulated data. With real enrolment logs it improves immediately.</td></tr>
         <tr><td>Why LSA and not a neural sentence encoder?</td><td>A deliberate trade. A transformer embeds better but costs a ~500 MB download and version-dependent output. LSA fits in under a second, is byte-reproducible, and runs offline — so any judge can clone and run it. At 238 items it doesn't change the ranking; at 100× the catalog, a neural encoder would win.</td></tr>
-        <tr><td>How do you know the recommendations are actually good?</td><td>We can't A/B test without users, so we test the properties that must hold: never recommends what you've completed, prerequisites always precede dependents, coverage exceeds 70%, readiness rises, hands-on work is guaranteed. 111 tests.</td></tr>
+        <tr><td>How do you know the recommendations are actually good?</td><td>We measured it — slide 9. 60 synthetic learners, four strategies, equal hour budget: 2.5&times; the achievable readiness gain of the best baseline, 100% prerequisite validity against 43%. Run it yourself: <em>python -m app.ml.evaluate</em>.</td></tr>
+        <tr><td>Synthetic learners aren't real learners.</td><td>Correct, and we say so in the report. Gain is simulated with the same mastery model the planner uses, so it measures <em>selection and sequencing</em> under a fixed learning model — it can't tell you the learning model is right. Only a trial with real learners does that. The relative comparison survives, because every strategy is scored by the same instrument.</td></tr>
+        <tr><td>Can it recommend a course that doesn't exist?</td><td>No. It selects from a fixed curated catalog — there is no generative step anywhere in selection, ordering or scheduling. That's the standard failure of LLM-based path generators and it's structurally impossible here.</td></tr>
+        <tr><td>Where do your 116 skills come from?</td><td>Hand-authored, then aligned to ESCO — the EU's public occupational standard, 13,890 skills — with the mapping committed as data. So the taxonomy is a view of a standard one, and ingesting more of it is a data load, not a rewrite.</td></tr>
         <tr><td>How does it scale to 100,000 courses?</td><td>The ranker is vectorised and the graph algorithms are near-linear, so planning holds. Retrieval would need an ANN index instead of a dense scan — that's the one change.</td></tr>
         <tr><td>Where does the catalog come from / would you scrape?</td><td>Curated deliberately: prerequisite edges exist in no public course dataset and they're the backbone here. An institution plugs in its own catalog — we proved that with a medicine catalog and zero code changes.</td></tr>
         <tr><td>Completing a course ≠ learning it.</td><td>Agreed, and that's exactly why assessments are first-class catalog items and why a score modulates the credit. We infer learning; we're explicit that we don't measure it.</td></tr>
-        <tr><td>What would you build next?</td><td>Real enrolment data to learn the ranking weights rather than hand-setting them, and persistence beyond in-memory sessions. Both are one module each.</td></tr>
+        <tr><td>What would you build next?</td><td>Now that the evaluation harness exists, tune the six ranking weights against it instead of hand-setting them — the objective is already defined. Then real enrolment data, and persistence beyond in-memory sessions.</td></tr>
+        <tr><td>Anything you'd have done differently?</td><td>Built the evaluation harness first. We wrote 188 tests before we ever measured whether the output was good, and the harness found a real defect within minutes of existing.</td></tr>
       </table>
     </div>
     <div hidden class="script">
