@@ -1,0 +1,71 @@
+{
+  "catalog": {
+    "items": 238,
+    "roles": 22,
+    "skills": 116
+  },
+  "cohort_size": 60,
+  "seed": 20260907,
+  "strategies": {
+    "coverage_only": {
+      "achievable_gain": 0.3153,
+      "applied_rate": 0.9667,
+      "catalog_coverage": 198,
+      "cold_start_gain": 0.299,
+      "gain_per_100h": 0.1393,
+      "learners": 60,
+      "mean_hours": 263.2833,
+      "per_learner": [],
+      "prerequisite_validity": 0.4265,
+      "readiness_gain": 0.8339,
+      "redundancy": 0.0,
+      "scaffolding": 0.0,
+      "strategy": "coverage_only"
+    },
+    "pathfinder": {
+      "achievable_gain": 0.7763,
+      "applied_rate": 1.0,
+      "catalog_coverage": 179,
+      "cold_start_gain": 0.922,
+      "gain_per_100h": 0.2757,
+      "learners": 60,
+      "mean_hours": 294.1833,
+      "per_learner": [],
+      "prerequisite_validity": 1.0,
+      "readiness_gain": 0.7763,
+      "redundancy": 0.0,
+      "scaffolding": 0.1048,
+      "strategy": "pathfinder"
+    },
+    "popularity": {
+      "achievable_gain": 0.1213,
+      "applied_rate": 0.2667,
+      "catalog_coverage": 35,
+      "cold_start_gain": 0.1422,
+      "gain_per_100h": 0.0405,
+      "learners": 60,
+      "mean_hours": 293.8167,
+      "per_learner": [],
+      "prerequisite_validity": 0.7455,
+      "readiness_gain": 0.1533,
+      "redundancy": 0.7684,
+      "scaffolding": 0.0,
+      "strategy": "popularity"
+    },
+    "semantic": {
+      "achievable_gain": 0.1855,
+      "applied_rate": 1.0,
+      "catalog_coverage": 193,
+      "cold_start_gain": 0.195,
+      "gain_per_100h": 0.0774,
+      "learners": 60,
+      "mean_hours": 293.8667,
+      "per_learner": [],
+      "prerequisite_validity": 0.4171,
+      "readiness_gain": 0.5057,
+      "redundancy": 0.3597,
+      "scaffolding": 0.0,
+      "strategy": "semantic"
+    }
+  }
+}

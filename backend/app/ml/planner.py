@@ -248,6 +248,13 @@ def _ensure_projects(
     scores worse than two 10-hour courses that each introduce a new one. Left
     alone the planner produces a reading list, not a portfolio. We top up to
     MIN_PROJECTS with the best-scoring projects that serve the goal.
+
+    "Serve the goal" is the binding constraint, not a preference. A project
+    that covers none of the outstanding gap is not hands-on practice for this
+    learner, it is a detour — offline evaluation caught a security analyst
+    being handed "Ship a Mobile App to Store" purely to satisfy the quota.
+    Where the catalog offers no on-goal project, the honest move is to leave
+    the path shorter rather than pad it.
     """
     have = sum(1 for i in selected if catalog.items[i].kind == "project")
     if have >= MIN_PROJECTS:
@@ -255,11 +262,17 @@ def _ensure_projects(
 
     project_ids = {i for i, item in catalog.items.items() if item.kind == "project"}
     ranked = recommender.recommend(
-        profile, gaps, level, k=MIN_PROJECTS - have,
+        profile, gaps, level, k=(MIN_PROJECTS - have) * 4,
         exclude=set(selected), candidates=project_ids,
     )
+    added = 0
     for candidate in ranked:
+        if added >= MIN_PROJECTS - have:
+            break
+        if sum(candidate.covers.values()) <= 0:
+            continue
         selected[candidate.item_id] = candidate
+        added += 1
 
 
 def _to_path_item(item_id: str, catalog: Catalog, scored: ScoredItem | None, filler: bool) -> PathItem:
