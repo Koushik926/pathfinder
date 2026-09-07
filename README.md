@@ -259,7 +259,7 @@ backend/
                    planner, explain, feedback, conversation
     api/routes.py  HTTP layer (thin — all reasoning lives in ml/)
     llm.py         optional Claude integration, fails soft everywhere
-  tests/           102 tests
+  tests/           238 tests
 frontend/
   src/components/  Chat, Roadmap, Dashboard, Primitives
 docs/              architecture, demo script

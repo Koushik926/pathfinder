@@ -7,7 +7,7 @@ Deadline: 31 Aug 2026, 11:59 pm IST
 
 ## 1. Source code (ZIP)
 
-Upload: **`PathFinder-CriticalPath.zip`** (712 KB, 79 files)
+Upload: **`PathFinder-CriticalPath.zip`** (952 KB, 112 files)
 
 Built with `./package.sh` from `git archive`, so it contains exactly what is
 committed — no virtual environment, no `node_modules`, no build output, no
@@ -38,8 +38,17 @@ the link.
 
 ## 5. Deployed application URL
 
-Optional. Leave blank, or deploy via `render.yaml` (see `docs/DEPLOYMENT.md`).
-The local setup instructions below satisfy this requirement on their own.
+```
+https://pathfinder1-vov3.onrender.com
+```
+
+Live, auto-deploying from `main` via `render.yaml` (see `docs/DEPLOYMENT.md`).
+
+> **Free tier caveat:** the instance sleeps after inactivity and a cold start
+> has been measured at over two minutes. Warm it before anyone opens the link —
+> run the `keep-warm` workflow manually, or just load the page yourself about
+> fifteen minutes ahead. For a live demo, present from localhost and cite this
+> URL as proof of deployment.
 
 ---
 
@@ -86,7 +95,7 @@ USING IT
 TESTS
   cd backend
   pip install -e ".[dev]"
-  pytest -q            -> 102 tests, ~2 seconds
+  pytest -q            -> 238 tests, ~7 seconds
 
 OPTIONAL — enable Claude
   The application is fully functional offline; this only improves the
@@ -116,6 +125,6 @@ NOTES FOR EVALUATORS
 - [x] Repo public and reachable unauthenticated (HTTP 200)
 - [x] Commit history reflects development process
 - [x] PDF covers all six required documentation areas
-- [x] Clean-room verified: install → build → 102 tests → serve, on Python 3.12
+- [x] Clean-room verified: install → build → 238 tests → serve, on Python 3.12
 - [ ] Demo video recorded and uploaded
 - [ ] Form submitted before 11:59 pm IST
