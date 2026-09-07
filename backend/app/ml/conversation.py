@@ -29,10 +29,34 @@ from app.store import CATALOG, Catalog
 
 # Ordered most-specific first. These must recognise the exact wording of the
 # quick-reply buttons the UI offers, otherwise clicking a button says nothing.
+# Ordered most-specific first. These must recognise the exact wording of the
+# quick-reply buttons the UI offers, and the shorthand people actually type —
+# "total noob", "i know a bit", "done some" are all real answers to "how much
+# ground have you covered?"
 LEVEL_PATTERNS = [
-    (3, r"\b(advanced|expert|senior|experienced|several years|many years|professional|work in it)\b"),
-    (2, r"\b(intermediate|some grounding|some experience|a bit of experience|familiar|comfortable|worked with|course or two|1 year|two years|2 years)\b"),
-    (1, r"\b(beginner|just starting|complete beginner|new to|starting out|no experience|fresher|first year|never|from scratch)\b"),
+    (3, r"\b(advanced|expert|experienced|senior|pro|proficient|several years|many years"
+        r"|professional|work in it|i work with|quite good|very comfortable)\b"),
+    (2, r"\b(intermediate|some grounding|some experience|some knowledge|know a bit|bit of"
+        r"|a little|done some|did some|ive done|i've done|familiar|comfortable|worked with"
+        r"|course or two|medium|average|moderate|okay|ok-ish|1 year|two years|2 years)\b"),
+    (1, r"\b(beginner|just starting|complete beginner|absolute beginner|noob|newbie|novice"
+        r"|new to|starting out|no experience|no idea|nothing|none|zero|fresher|first year"
+        r"|never|from scratch|scratch|basic|basics|not much|hardly)\b"),
+]
+
+# Numbers people write as words when answering "how many hours a week?"
+WORD_NUMBERS = {
+    "zero": 0, "one": 1, "an": 1, "a": 1, "two": 2, "couple": 2, "three": 3, "four": 4,
+    "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11,
+    "twelve": 12, "fifteen": 15, "twenty": 20, "thirty": 30, "forty": 40,
+}
+
+# Vague amounts, mapped to a concrete weekly figure. The learner is told what we
+# assumed and can change it in one sentence, which beats interrogating them.
+VAGUE_HOURS = [
+    (r"\b(as much as (i can|possible)|full time|all day|whenever i can|lots|a lot|plenty)\b", 25.0),
+    (r"\b(quite a bit|decent amount|fair bit|good amount)\b", 12.0),
+    (r"\b(not much|very little|hardly any|barely|little|bit)\b", 3.0),
 ]
 
 # Suffixes are matched explicitly: a bare \bvideo\b misses "videos", and
@@ -60,6 +84,19 @@ FALLBACK_ROLES = [
     "fullstack-dev", "devops-engineer",
 ]
 
+# Asked the second time. Repeating a question word-for-word is what makes an
+# assistant feel broken — it reads as though nothing you said registered. The
+# retry says what it could not read and offers a concrete way through.
+RETRY = {
+    "goal": "I didn't quite catch the goal. A job title works ('data analyst'), "
+            "so does a topic ('machine learning') or something you want to build.",
+    "level": "Sorry, I missed that — tap one of these, or just say beginner, "
+             "intermediate or advanced.",
+    "history": "I couldn't match that to anything. Tap any you've done, name a "
+               "technology you already know, or say 'none'.",
+    "pace": "I need a number of hours — tap one below, or type something like '5'.",
+}
+
 ASK = {
     "goal": "What do you want to be able to do? Describe it however feels natural — a job title, a project you want to build, or just a topic you're curious about.",
     "level": "How much ground have you already covered in this area?",
@@ -84,6 +121,9 @@ class Session:
     asked: set[str] = field(default_factory=set)
     pending_role_options: list[str] = field(default_factory=list)
     role_prompts: int = 0
+    # How many times each slot has been asked. A slot that cannot be filled
+    # must not be able to trap the learner in a loop.
+    slot_attempts: dict[str, int] = field(default_factory=dict)
     last_asked: str = ""
     path: Any = None
     # Items completed while following the path, in the order they were done.
@@ -118,14 +158,49 @@ def _extract_level(text: str) -> int | None:
     return None
 
 
-def _extract_hours(text: str) -> float | None:
-    lowered = text.lower()
-    match = re.search(r"(\d+(?:\.\d+)?)\s*(?:\+)?\s*(?:hours?|hrs?|h)\b", lowered)
+def _extract_hours(text: str, expecting: bool = False) -> float | None:
+    """Hours per week from a free-text answer.
+
+    ``expecting`` means we have just asked the pace question, so a bare number
+    is unambiguously the answer. Without that context "3" could be anything;
+    with it, refusing to read it and asking again is the single most annoying
+    thing this assistant can do — and it did exactly that.
+    """
+    lowered = text.lower().strip()
+
+    # "5-6 hours", "2-3" — take the midpoint; people quote a range they can hit.
+    span = re.search(r"\b(\d+(?:\.\d+)?)\s*(?:-|to|–)\s*(\d+(?:\.\d+)?)\b", lowered)
+    if span:
+        low, high = float(span.group(1)), float(span.group(2))
+        if 0 < low <= high:
+            return round((low + high) / 2, 1)
+
+    # An explicit unit anywhere: "about 8 hours a week", "15h", "10 hrs".
+    match = re.search(r"(\d+(?:\.\d+)?)\s*\+?\s*(?:hours?|hrs?|h)\b", lowered)
     if match:
         return float(match.group(1))
-    match = re.search(r"\b(\d+(?:\.\d+)?)\s*(?:per|a|each)\s*week\b", lowered)
+
+    match = re.search(r"\b(\d+(?:\.\d+)?)\s*(?:per|a|each|/)\s*(?:week|wk)\b", lowered)
     if match:
         return float(match.group(1))
+
+    # Words: "a couple of hours", "two", "ten hours".
+    for word, value in WORD_NUMBERS.items():
+        if re.search(rf"\b{word}\b\s*(?:of\s+)?(?:hours?|hrs?)?\b", lowered) and value > 0:
+            if re.search(rf"\b{word}\b\s*(?:of\s+)?(?:hours?|hrs?)", lowered):
+                return float(value)
+            if expecting and re.fullmatch(rf"(?:about|around|maybe|roughly|approx\.?)?\s*{word}\s*", lowered):
+                return float(value)
+
+    if expecting:
+        # A bare or hedged number: "3", "about 5", "maybe 4", "i can do 6".
+        match = re.search(r"(\d+(?:\.\d+)?)", lowered)
+        if match:
+            return float(match.group(1))
+        for pattern, value in VAGUE_HOURS:
+            if re.search(pattern, lowered):
+                return value
+
     return None
 
 
@@ -231,7 +306,11 @@ def _apply_extraction(
             session.asked.add("history")
 
     level = level if level is not None else _extract_level(text)
-    hours = hours if hours is not None else _extract_hours(text)
+    # Tell the parser whether we just asked for the pace, so a bare "3" reads
+    # as three hours rather than as noise.
+    hours = hours if hours is not None else _extract_hours(
+        text, expecting=(session.last_asked == "pace")
+    )
 
     if level is not None:
         profile.experience_level = level
@@ -275,6 +354,20 @@ def _apply_extraction(
     if re.search(r"\b(nothing|none|from scratch|no experience|starting fresh|absolute beginner)\b", text.lower()):
         session.asked.add("history")
         filled.append("history")
+
+    # Answering "what have you done?" with a technology rather than a course
+    # title is the normal case — people say "python", "React and JavaScript",
+    # not "Python for Everybody: Getting Started". Treat a confident skill
+    # match as declared knowledge so the answer counts and the slot closes.
+    if session.last_asked == "history" and "history" not in filled:
+        named = {k: v for k, v in SPACE.match_skills(text).items() if v >= 1.0}
+        if named:
+            for skill_id in named:
+                profile.declared_skills[skill_id] = max(
+                    profile.declared_skills.get(skill_id, 0.0), 0.55
+                )
+            session.asked.add("history")
+            filled.append("history")
 
     # Goal resolution, if the goal slot is still open and this message is
     # actually a statement of intent rather than an answer to a prompt.
@@ -324,6 +417,56 @@ def _history_suggestions(session: Session, catalog: Catalog, limit: int = 6) -> 
     return [
         {"item_id": item.id, "title": item.title, "provider": item.provider}
         for _, item in scored[:limit]
+    ]
+
+
+def _options_for(slot: str, session: Session, catalog: Catalog) -> list[dict]:
+    """Quick replies for a slot, so answering never requires typing."""
+    if slot == "level":
+        return _level_options()
+    if slot == "history":
+        return _history_suggestions(session, catalog)
+    if slot == "pace":
+        return _pace_options()
+    return []
+
+
+def _assume_default(session: Session, slot: str, catalog: Catalog) -> str:
+    """Fill a slot the learner could not answer, and say what was assumed.
+
+    Everything here is recoverable in one sentence later — they can change
+    their pace, mark something 'Too easy', or restate the goal — so assuming
+    and moving on costs far less than a question that will not let go.
+    """
+    profile = session.profile
+    if slot == "level":
+        profile.experience_level = 1
+        return "I'll assume you're starting fresh — you can tell me otherwise any time."
+    if slot == "history":
+        return "I'll assume you're starting from scratch for now."
+    if slot == "pace":
+        profile.hours_per_week = 5.0
+        return "I'll plan for about 5 hours a week; say the word and I'll rescale it."
+    if slot == "goal":
+        fallback = next((r for r in FALLBACK_ROLES if r in catalog.roles), None)
+        if fallback:
+            profile.role_id = fallback
+            return f"I'll start you on {catalog.roles[fallback].title} — you can change that."
+    return ""
+
+
+def _pace_options() -> list[dict]:
+    """Concrete weekly budgets to tap instead of type.
+
+    Typing is where this conversation loses people — a bare "3" used to be
+    unreadable, and even now a tap is faster and unambiguous. The labels carry
+    the unit so the answer is self-describing when it appears in the transcript.
+    """
+    return [
+        {"value": 3, "label": "3 hours a week", "detail": "Around 30 minutes a day"},
+        {"value": 6, "label": "6 hours a week", "detail": "An hour most days"},
+        {"value": 10, "label": "10 hours a week", "detail": "Steady pace"},
+        {"value": 20, "label": "20 hours a week", "detail": "Going hard"},
     ]
 
 
@@ -401,8 +544,17 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
             {"value": rid, "label": catalog.roles[rid].title, "detail": catalog.roles[rid].family}
             for rid in session.pending_role_options
         ]
+        # Vary the second ask. Repeating the same sentence reads as though the
+        # learner's answer never registered — the same reason the slot
+        # questions have a distinct retry.
+        prompt = (
+            "I can read that a few ways. Which is closest to what you're after?"
+            if session.role_prompts <= 1 else
+            "Still not sure I've got it — just tap whichever of these is nearest, "
+            "or describe the work you want to be doing."
+        )
         reply = _narrate(
-            "I can read that a few ways. Which is closest to what you're after?",
+            prompt,
             f"The learner said: {message!r}. Ask which of these goals they mean: "
             + ", ".join(o["label"] for o in options),
         )
@@ -435,20 +587,37 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
         return _package(session, _ready_message(session, catalog), "ready")
 
     slot = missing[0]
+    attempts = session.slot_attempts.get(slot, 0)
+
+    if attempts >= 2:
+        # Two tries is enough. Assume a safe default, say so plainly, and move
+        # on — a question the learner cannot answer must never be able to trap
+        # them, which is exactly what this used to do.
+        assumed = _assume_default(session, slot, catalog)
+        session.asked.add(slot)
+        session.slot_attempts[slot] = 0
+        remaining = session.missing_slots
+        if remaining:
+            nxt = remaining[0]
+            session.slot_attempts[nxt] = session.slot_attempts.get(nxt, 0) + 1
+            reply = _narrate(
+                f"{assumed} {ASK[nxt]}",
+                f"Tell the learner what you assumed, then ask: {ASK[nxt]}",
+            )
+            return _package(session, reply, f"ask_{nxt}",
+                            options=_options_for(nxt, session, catalog))
+        return _package(session, _ready_message(session, catalog), "ready")
+
+    session.slot_attempts[slot] = attempts + 1
     session_ack = _acknowledge(session, filled, catalog)
-    question = ASK[slot]
+    question = ASK[slot] if attempts == 0 else RETRY[slot]
     reply = _narrate(
         f"{session_ack}{question}".strip(),
         f"Acknowledge what the learner just told you, then ask: {question}",
     )
 
-    options: list[dict] = []
-    if slot == "level":
-        options = _level_options()
-    elif slot == "history":
-        options = _history_suggestions(session, catalog)
-
-    return _package(session, reply, f"ask_{slot}", options=options)
+    return _package(session, reply, f"ask_{slot}",
+                    options=_options_for(slot, session, catalog))
 
 
 def _resolve_role_choice(message: str, options: list[str], catalog: Catalog) -> str | None:
@@ -513,8 +682,13 @@ def _acknowledge(session: Session, filled: list[str], catalog: Catalog) -> str:
             return f"Got it — focusing on {' and '.join(names)}. "
     if "history" in filled:
         count = len(profile.completed)
-        noun = "item" if count == 1 else "items"
-        return f"Noted, that's {count} {noun} already behind you. "
+        if count:
+            noun = "item" if count == 1 else "items"
+            return f"Noted, that's {count} {noun} already behind you. "
+        if profile.declared_skills:
+            names = [catalog.skill_name(s) for s in list(profile.declared_skills)[:2]]
+            return f"Good — I'll credit you for {' and '.join(names)}. "
+        return "Starting from scratch then. "
     if "level" in filled:
         return "Thanks. "
     if "pace" in filled:
