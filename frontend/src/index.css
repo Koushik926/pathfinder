@@ -11,6 +11,18 @@
       radial-gradient(50rem 30rem at 90% 0%, rgba(93,219,166,0.07), transparent 55%);
     background-attachment: fixed;
   }
+  /* Every interactive element gets a visible focus ring. Tailwind's reset
+     removes the UA outline, and nothing had replaced it — the whole product
+     was unusable by keyboard without being able to see where you were. */
+  :focus-visible {
+    /* colors.accent is an object with a DEFAULT key; asking for the object
+       makes Tailwind drop this rule silently, with only a vague build warning.
+       The built CSS had no focus ring at all until this was spelled out. */
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { @apply bg-ink-line rounded-full; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -29,3 +41,36 @@
 
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .animate-rise { animation: rise .35s ease-out both; }
+
+/* Text for screen readers only: visually gone, still announced. Used where a
+   glyph carries meaning a screen reader cannot infer — a tick that means
+   "answered", a bubble whose side of the transcript means "who said it". */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* A keyboard user should not have to tab through the entire transcript to
+   reach the roadmap. */
+.skip-link {
+  @apply absolute left-3 top-3 z-50 -translate-y-16 rounded-lg bg-accent px-4 py-2
+         text-sm font-medium text-white transition-transform;
+}
+.skip-link:focus { transform: none; }
+
+/* Motion is decoration here, never information, so it is safe to remove
+   entirely for anyone who has asked the OS not to animate things. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-rise { animation: none; }
+}

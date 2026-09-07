@@ -25,6 +25,7 @@ from app.schemas import (
 from app.serializers import catalog_item_to_dict, path_to_dict, profile_to_dict
 from app.sessions import STORE
 from app.store import CATALOG
+from app import taxonomy
 
 router = APIRouter(prefix="/api")
 
@@ -62,6 +63,7 @@ def meta() -> dict:
             "roles": len(CATALOG.roles),
             "max_prereq_depth": max(i.depth for i in CATALOG.items.values()),
         },
+        "taxonomy": taxonomy.summary(len(CATALOG.skills)),
         "model": {
             "embedding_dims": SPACE.n_components,
             "tfidf_features": SPACE.n_features,

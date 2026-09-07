@@ -167,6 +167,9 @@ export default function App() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col px-4 py-5 lg:px-8">
+      {/* First stop for a keyboard user, so reaching the roadmap does not mean
+          tabbing through the whole conversation. Invisible until focused. */}
+      <a href="#roadmap" className="skip-link">Skip to your learning path</a>
       <header className="mb-5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-baseline gap-3">
           <h1 className="text-xl font-bold tracking-tight text-slate-50">
@@ -198,7 +201,7 @@ export default function App() {
         <div className="mb-4"><ErrorNote error={error} onRetry={() => setError(null)} /></div>
       )}
 
-      <main className="grid flex-1 gap-5 lg:grid-cols-[minmax(340px,420px)_1fr]">
+      <main id="roadmap" className="grid flex-1 gap-5 lg:grid-cols-[minmax(340px,420px)_1fr]">
         <div className="h-[calc(100vh-9rem)] lg:sticky lg:top-5">
           <Chat
             session={session}

@@ -11,22 +11,30 @@ const SLOT_LABEL = {
 /** The four things PathFinder needs before it can plan. */
 function SlotProgress({ missing }) {
   const slots = ['goal', 'level', 'history', 'pace']
+  const answered = slots.filter((slot) => !missing.includes(slot)).length
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <ul
+      className="flex flex-wrap gap-1.5"
+      aria-label={`Profile questions answered: ${answered} of ${slots.length}`}
+    >
       {slots.map((slot) => {
         const done = !missing.includes(slot)
         return (
-          <span
+          <li
             key={slot}
             className={`chip ${done
               ? 'border-mint/40 text-mint bg-mint/10'
               : 'border-ink-line text-slate-500'}`}
           >
-            {done ? '✓' : '○'} {SLOT_LABEL[slot]}
-          </span>
+            {/* The glyph carries the state visually; the text carries it
+                for anyone who cannot see the glyph. */}
+            <span aria-hidden="true">{done ? '✓' : '○'}</span>
+            {SLOT_LABEL[slot]}
+            <span className="sr-only">{done ? ' — answered' : ' — still needed'}</span>
+          </li>
         )
       })}
-    </div>
+    </ul>
   )
 }
 
@@ -34,6 +42,9 @@ function Bubble({ turn }) {
   const isLearner = turn.role === 'learner'
   return (
     <div className={`flex ${isLearner ? 'justify-end' : 'justify-start'} animate-rise`}>
+      {/* Which side of the transcript a bubble sits on is the only thing
+          identifying the speaker, and that is invisible to a screen reader. */}
+      <span className="sr-only">{isLearner ? 'You said: ' : 'PathFinder said: '}</span>
       <div
         className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
           isLearner
@@ -68,7 +79,8 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
   useEffect(() => {
     const box = scrollRef.current
     if (!box) return
-    box.scrollTo({ top: box.scrollHeight, behavior: 'smooth' })
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    box.scrollTo({ top: box.scrollHeight, behavior: reduced ? 'auto' : 'smooth' })
   }, [turns, busy])
 
   function submit(event) {
@@ -91,7 +103,18 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
         <SlotProgress missing={missing} />
       </header>
 
-      <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+      {/* role="log" with a polite live region means new replies are announced
+          as they arrive, without interrupting whatever is being read.
+          tabIndex makes the scrollable transcript reachable by keyboard. */}
+      <div
+        ref={scrollRef}
+        role="log"
+        aria-live="polite"
+        aria-label="Conversation"
+        aria-busy={busy}
+        tabIndex={0}
+        className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+      >
         {turns.map((turn, index) => <Bubble key={index} turn={turn} />)}
         {busy && (
           <div className="pl-1"><Spinner label="Thinking…" /></div>
@@ -100,8 +123,8 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
 
       {hasPath && options.length === 0 && !busy && (
         <div className="border-t border-ink-line px-4 py-3">
-          <div className="mb-2 text-xs text-slate-500">Ask me about your path</div>
-          <div className="flex flex-wrap gap-2">
+          <div id="starter-label" className="mb-2 text-xs text-slate-500">Ask me about your path</div>
+          <div className="flex flex-wrap gap-2" role="group" aria-labelledby="starter-label">
             {STARTER_QUESTIONS.map((question) => (
               <button key={question} className="btn-ghost text-xs" onClick={() => onSend(question)}>
                 {question}
@@ -112,7 +135,11 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
       )}
 
       {options.length > 0 && !busy && (
-        <div className="flex flex-wrap gap-2 border-t border-ink-line px-4 py-3">
+        <div
+          className="flex flex-wrap gap-2 border-t border-ink-line px-4 py-3"
+          role="group"
+          aria-label="Suggested answers"
+        >
           {options.map((option) => {
             const label = option.label ?? option.title
             return (
@@ -130,7 +157,9 @@ export default function Chat({ session, turns, options, missing, busy, onSend, l
       )}
 
       <form onSubmit={submit} className="flex gap-2 border-t border-ink-line p-3">
+        <label htmlFor="chat-input" className="sr-only">Your message to PathFinder</label>
         <input
+          id="chat-input"
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           placeholder={session ? 'Type your answer…' : 'Starting…'}

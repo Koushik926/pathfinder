@@ -34,13 +34,17 @@ function ItemRow({ item, done, onExplain, onComplete, onReact, busy }) {
           onClick={() => !done && onComplete(item.item_id)}
           disabled={done || busy}
           title={done ? 'Completed' : 'Mark complete'}
+          /* An icon-only control announces as "button" and nothing else
+             unless it is told what it does and what it is. */
+          aria-label={done ? `Completed: ${item.title}` : `Mark ${item.title} complete`}
+          aria-pressed={done}
           className={`mt-0.5 h-5 w-5 shrink-0 rounded border text-xs leading-none transition ${
             done
               ? 'border-mint bg-mint text-ink'
               : 'border-slate-600 hover:border-mint hover:text-mint'
           }`}
         >
-          {done ? '✓' : ''}
+          <span aria-hidden="true">{done ? '✓' : ''}</span>
         </button>
 
         <div className="min-w-0 flex-1">

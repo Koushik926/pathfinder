@@ -29,6 +29,11 @@ API = "https://ec.europa.eu/esco/api/search"
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "backend" / "app" / "data" / "skills.json"
 OUT = ROOT / "backend" / "app" / "data" / "skills_esco.json"
+# Raw ESCO responses, kept so the scoring rule can be retuned offline. The
+# first pass of this script shipped nonsense matches; being able to re-score
+# without re-querying is what made fixing that cheap.
+CACHE = ROOT / "scripts" / ".esco-cache.json"
+_cache: dict[str, list[dict]] = {}
 
 # Below this label similarity we record no alignment rather than a bad one.
 # An honest gap is worth more than a confident mismatch.
@@ -79,6 +84,14 @@ def similarity(ours: str, theirs: str) -> float:
     if not overlap:
         return 0.0
 
+    # One shared word is not a match. "reinforcement learning" and "insert
+    # reinforcement in mould" share a token; "computer vision" and "computer
+    # programming" share a token; "cloud security" and "Parrot Security OS"
+    # share a token. None of them share a meaning. Where either side is a
+    # single concept word, only exact agreement counts.
+    if len(ours_tokens) == 1 or len(theirs_tokens) == 1:
+        return 1.0 if ours_tokens == theirs_tokens else 0.0
+
     # Jaccard over meaningful tokens: rewards agreement, penalises the extra
     # words that make a broad ESCO concept a poor fit for a specific skill.
     jaccard = len(overlap) / len(ours_tokens | theirs_tokens)
@@ -86,13 +99,20 @@ def similarity(ours: str, theirs: str) -> float:
     # A multi-word name appearing as a contiguous phrase is strong evidence
     # ("machine learning" inside "machine learning algorithms"). A single word
     # inside a longer label is not evidence at all, which is the whole lesson
-    # of the first run.
-    if len(ours_tokens) >= 2 and a in b:
+    # of the first two runs.
+    if a in b:
         jaccard = max(jaccard, 0.85)
+
+    # Two words in common out of three is still only one distinguishing word.
+    # Require the overlap to carry most of *our* meaning, not just some of it.
+    if len(overlap) / len(ours_tokens) < 0.5:
+        return 0.0
 
     return jaccard
 
 def search(text: str, limit: int = 8) -> list[dict]:
+    if text in _cache:
+        return _cache[text]
     query = urllib.parse.urlencode(
         {"text": text, "language": "en", "type": "skill", "limit": limit, "full": "false"}
     )
@@ -101,7 +121,12 @@ def search(text: str, limit: int = 8) -> list[dict]:
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         payload = json.load(response)
-    return payload.get("_embedded", {}).get("results", [])
+    results = payload.get("_embedded", {}).get("results", [])
+    _cache[text] = [
+        {"uri": r["uri"], "title": r.get("title", ""), "preferredLabel": r.get("preferredLabel")}
+        for r in results
+    ]
+    return _cache[text]
 
 
 def english(label) -> str:
@@ -135,13 +160,18 @@ def best_match(skill: dict) -> dict | None:
                     "similarity": round(score, 4),
                     "matched_on": query,
                 }
-        time.sleep(0.15)                        # be a good citizen
+        if query not in _cache:
+            time.sleep(0.15)                    # be a good citizen
         if best and best["similarity"] >= 0.95:
             break                               # exact hit; stop asking
     return best
 
 
 def main() -> int:
+    global _cache
+    if CACHE.exists():
+        _cache = json.loads(CACHE.read_text())
+        print(f"re-scoring {len(_cache)} cached ESCO queries — no network needed\n")
     skills = json.loads(SKILLS.read_text())
     aligned: dict[str, dict] = {}
     unmapped: list[str] = []
@@ -167,6 +197,7 @@ def main() -> int:
         "mapping": dict(sorted(aligned.items())),
     }
     OUT.write_text(json.dumps(document, indent=2, sort_keys=True) + "\n")
+    CACHE.write_text(json.dumps(_cache, indent=0, sort_keys=True))
     print(f"\n{len(aligned)}/{len(skills)} aligned -> {OUT.relative_to(ROOT)}")
     return 0
 
