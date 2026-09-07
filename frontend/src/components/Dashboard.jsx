@@ -50,7 +50,7 @@ function SkillRadar({ categories }) {
         return (
           <text key={axis.category} x={x} y={y} textAnchor={anchor} dominantBaseline="middle"
                 fontSize="8" fill="#7c8798">
-            {axis.category.length > 15 ? `${axis.category.slice(0, 14)}…` : axis.category}
+            {axis.category.length > 16 ? `${axis.category.slice(0, 15)}…` : axis.category}
           </text>
         )
       })}
@@ -170,13 +170,20 @@ export default function Dashboard({ data, onComplete, busy }) {
           </div>
 
           <h4 className="mt-5 text-sm font-medium text-slate-300">Strongest skills</h4>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {skills.strongest.slice(0, 8).map((skill) => (
-              <Chip key={skill.skill_id} className="border-mint/30 text-mint bg-mint/5">
-                {skill.name} {pct(skill.mastery)}
-              </Chip>
-            ))}
-          </div>
+          {skills.strongest.length > 0 ? (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {skills.strongest.slice(0, 8).map((skill) => (
+                <Chip key={skill.skill_id} className="border-mint/30 text-mint bg-mint/5">
+                  {skill.name} {pct(skill.mastery)}
+                </Chip>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-2 text-xs text-slate-500">
+              Nothing recorded yet — tell me what you have already done, or tick items
+              off as you finish them, and your strongest skills appear here.
+            </p>
+          )}
         </section>
       </div>
     </div>
