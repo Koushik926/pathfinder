@@ -75,6 +75,12 @@ def test_a_missing_mapping_file_does_not_break_the_service():
         ("Android Development", "engage composers"),
         ("Technical Writing", "manage manufacturing documentation"),
         ("Interview Preparation", "outplacement"),
+        # These three scored a perfect 1.0 under the stopword-stripping rule:
+        # removing filler words shrank the ESCO label until a short generic
+        # alias matched it exactly.
+        ("BI Tools", "follow reporting procedures"),
+        ("UX Research", "perform interviews"),
+        ("CI / CD", "types of pipelines"),
     ],
 )
 def test_a_shared_word_is_not_a_match(ours, theirs):
@@ -87,14 +93,40 @@ def test_a_shared_word_is_not_a_match(ours, theirs):
     [
         ("Robotics", "robotics"),
         ("Natural Language Processing", "natural language processing"),
-        ("Machine Learning", "machine learning algorithms"),
-        ("Functional Programming", "use functional programming"),
         ("Cyber Security", "cyber security"),
+        ("SQL", "SQL"),
+        ("C++", "C++"),
+        ("TypeScript", "typescript"),
     ],
 )
 def test_real_matches_still_pass(ours, theirs):
     """Strictness that rejects everything would be worthless."""
     assert map_esco.similarity(ours, theirs) >= map_esco.ACCEPT
+
+
+@pytest.mark.parametrize(
+    "ours,theirs",
+    [
+        ("Machine Learning", "machine learning algorithms"),
+        ("Functional Programming", "use functional programming"),
+        ("Web Accessibility", "ICT accessibility standards"),
+    ],
+)
+def test_near_misses_are_given_up_deliberately(ours, theirs):
+    """These are plausibly the right concept, and we still decline them.
+
+    Any rule loose enough to accept "machine learning algorithms" for "Machine
+    Learning" also accepts "computer programming" for "Computer Vision". The
+    coverage we lose here is the price of every remaining match being one we
+    can defend, and it is recorded rather than hidden.
+    """
+    assert map_esco.similarity(ours, theirs) < map_esco.ACCEPT
+
+
+def test_aliases_must_be_specific_enough_to_stand_alone():
+    """A one-word alias is a nickname here and a different concept in ESCO."""
+    skill = {"name": "Observability", "aliases": ["logging", "distributed tracing"]}
+    assert map_esco.candidate_names(skill) == ["Observability", "distributed tracing"]
 
 
 def test_the_mapping_file_is_valid_json_with_the_fields_we_publish():

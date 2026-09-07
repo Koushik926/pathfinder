@@ -468,7 +468,7 @@
     <div class="tiles" style="max-width:1000px;margin-top:14px">
       <div class="tile g"><div class="n">198</div><div class="l">Tests passing</div></div>
       <div class="tile"><div class="n">0.37s</div><div class="l">Path generation, live</div></div>
-      <div class="tile a"><div class="n">116</div><div class="l">Skills, aligned to ESCO</div></div>
+      <div class="tile a"><div class="n">238</div><div class="l">Items · 116 skills · 22 roles</div></div>
       <div class="tile g"><div class="n">0</div><div class="l">Courses we can hallucinate</div></div>
     </div>
     <div hidden class="script">
@@ -514,7 +514,8 @@
         <tr><td>How do you know the recommendations are actually good?</td><td>We measured it — slide 9. 60 synthetic learners, four strategies, equal hour budget: 2.5&times; the achievable readiness gain of the best baseline, 100% prerequisite validity against 43%. Run it yourself: <em>python -m app.ml.evaluate</em>.</td></tr>
         <tr><td>Synthetic learners aren't real learners.</td><td>Correct, and we say so in the report. Gain is simulated with the same mastery model the planner uses, so it measures <em>selection and sequencing</em> under a fixed learning model — it can't tell you the learning model is right. Only a trial with real learners does that. The relative comparison survives, because every strategy is scored by the same instrument.</td></tr>
         <tr><td>Can it recommend a course that doesn't exist?</td><td>No. It selects from a fixed curated catalog — there is no generative step anywhere in selection, ordering or scheduling. That's the standard failure of LLM-based path generators and it's structurally impossible here.</td></tr>
-        <tr><td>Where do your 116 skills come from?</td><td>Hand-authored, then aligned to ESCO — the EU's public occupational standard, 13,890 skills — with the mapping committed as data. So the taxonomy is a view of a standard one, and ingesting more of it is a data load, not a rewrite.</td></tr>
+        <tr><td>Where do your 116 skills come from?</td><td>Hand-authored — and we checked them against ESCO, the EU's public occupational standard, to find out how much of our space a standard actually covers. <strong>10 of 116 have an unambiguous ESCO concept.</strong> ESCO classifies occupational competences and has none for PyTorch, RAG, Kubernetes or React. That is the real state of public skill taxonomies for fast-moving technical work, and it is why the prerequisite edges had to be authored: they exist in no public dataset.</td></tr>
+        <tr><td>Only 10? That sounds like the mapping failed.</td><td>The permissive versions "succeeded" — 93 of 116 — by matching "Bash &amp; Shell" to <em>airport terminal standards</em> and "UX Research" to <em>perform interviews</em>. We kept tightening until every surviving match was one we'd defend out loud, which meant requiring the two names to be the same name. A small correct answer beats a large plausible one.</td></tr>
         <tr><td>How does it scale to 100,000 courses?</td><td>The ranker is vectorised and the graph algorithms are near-linear, so planning holds. Retrieval would need an ANN index instead of a dense scan — that's the one change.</td></tr>
         <tr><td>Where does the catalog come from / would you scrape?</td><td>Curated deliberately: prerequisite edges exist in no public course dataset and they're the backbone here. An institution plugs in its own catalog — we proved that with a medicine catalog and zero code changes.</td></tr>
         <tr><td>Completing a course ≠ learning it.</td><td>Agreed, and that's exactly why assessments are first-class catalog items and why a score modulates the credit. We infer learning; we're explicit that we don't measure it.</td></tr>

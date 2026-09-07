@@ -5,19 +5,25 @@ indefensible answer to "where did these come from?". ESCO — the European
 Skills, Competences, Qualifications and Occupations classification — is the
 EU's public standard, with a stable URI per concept.
 
-Aligning to it turns our taxonomy from an invention into a *view* of a
-standard one, and makes ingesting more of ESCO a data load rather than a
-rewrite.
+So we checked ours against it, and the honest result is that **10 of 116
+skills have an unambiguous ESCO concept**. ESCO classifies occupational
+competences: it has entries for statistics, natural language processing and
+cyber security, and none at all for PyTorch, RAG, Kubernetes, React or
+Next.js.
 
-The alignment is computed offline by ``scripts/map_esco.py`` and committed as
-data. Nothing here touches the network: the service keeps working, the build
-stays byte-reproducible, and the demo never waits on Brussels.
+That is the finding, not a failure of the mapping. It is the coverage boundary
+of a public standard against fast-moving technical skills, and it is also why
+this project had to author its own prerequisite edges — no public dataset
+carries them either.
 
-The gaps are as informative as the matches. ESCO classifies occupational
-competences, so it has concepts for statistics, natural language processing
-and cyber security — and none at all for Next.js, RAG or diffusion models.
-That is the standard's coverage boundary, not a defect in either taxonomy, and
-it is the honest answer to how far a public standard gets you.
+Getting to an honest 10 took discarding three scoring rules that each produced
+confident nonsense; ``scripts/map_esco.py`` records what they were and why
+they failed. The rule that survived claims an alignment only when the two
+names are the same name.
+
+The alignment is computed offline and committed as data. Nothing here touches
+the network: the service keeps working, the build stays byte-reproducible, and
+the demo never waits on Brussels.
 """
 
 from __future__ import annotations

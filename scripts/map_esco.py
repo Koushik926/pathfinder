@@ -37,22 +37,27 @@ _cache: dict[str, list[dict]] = {}
 
 # Below this label similarity we record no alignment rather than a bad one.
 # An honest gap is worth more than a confident mismatch.
-# Below this score we record no alignment rather than a bad one. An honest gap
-# is worth far more than a confident mismatch — and the first version of this
-# script proved it, cheerfully aligning "Bash & Shell" to "airport terminal
-# standards" because one alias word appeared inside a longer label.
-ACCEPT = 0.62
-
-# Words that carry no discriminating meaning in an ESCO label. ESCO phrases
-# skills as actions ("manage manufacturing documentation"), so leaving these in
-# lets a shared verb masquerade as a topic match.
-STOPWORDS = {
-    "a", "an", "the", "and", "or", "of", "for", "in", "on", "to", "with",
-    "manage", "prepare", "follow", "use", "using", "develop", "plan", "perform",
-    "apply", "carry", "out", "provide", "ensure", "maintain", "conduct", "create",
-    "work", "process", "processes", "procedures", "standards", "systems", "system",
-    "principles", "methods", "techniques", "tools", "types", "skills",
-}
+# Only exact agreement counts. Nothing else survived contact with the data.
+#
+# Three progressively cleverer scoring rules were tried here, and each one
+# produced a fresh crop of confident nonsense:
+#
+#   character similarity      "Bash & Shell"      -> "airport terminal standards"
+#   token overlap             "Computer Vision"   -> "computer programming"
+#   overlap after stopwords   "BI Tools"          -> "follow reporting procedures"
+#                             "UX Research"       -> "perform interviews"
+#
+# The last is the most instructive. Stripping filler words from an ESCO label
+# shrinks "follow reporting procedures" to "reporting", at which point a short
+# generic alias matches it exactly and scores 1.0. Every rule that tried to
+# recognise *approximate* meaning through string overlap ended up recognising
+# coincidence instead.
+#
+# So this does the one thing string comparison can actually justify: it claims
+# an alignment only when the two names are the same name. That yields far fewer
+# matches, and every one of them survives being read aloud to a skeptic — which
+# is the only property that matters for a credibility claim.
+ACCEPT = 1.0
 
 
 def normalise(text: str) -> str:
@@ -61,54 +66,23 @@ def normalise(text: str) -> str:
     return " ".join(text.lower().split())
 
 
-def tokens(text: str) -> set[str]:
-    return {word for word in normalise(text).split() if word not in STOPWORDS}
-
-
 def similarity(ours: str, theirs: str) -> float:
-    """How confident are we that these name the same competence?
+    return 1.0 if normalise(ours) == normalise(theirs) else 0.0
 
-    Token overlap, not character overlap. Character similarity is what produced
-    the airport-terminal match: "bash shell" and "airport terminal standards"
-    share a lot of letters and nothing else.
+
+def candidate_names(skill: dict) -> list[str]:
+    """The names we are willing to claim an alignment on.
+
+    The skill's own name, plus any alias specific enough to stand alone. A
+    one-word alias like "logic", "reporting" or "interviews" is a nickname in
+    our catalog and a whole different concept in ESCO's, so aliases must carry
+    at least two words to be trusted. The skill's own name is exempt, because
+    "SQL", "C++" and "JavaScript" are unambiguous.
     """
-    a, b = normalise(ours), normalise(theirs)
-    if a == b:
-        return 1.0
+    names = [skill["name"]]
+    names += [alias for alias in skill.get("aliases", []) if len(normalise(alias).split()) >= 2]
+    return names
 
-    ours_tokens, theirs_tokens = tokens(ours), tokens(theirs)
-    if not ours_tokens or not theirs_tokens:
-        return 0.0
-
-    overlap = ours_tokens & theirs_tokens
-    if not overlap:
-        return 0.0
-
-    # One shared word is not a match. "reinforcement learning" and "insert
-    # reinforcement in mould" share a token; "computer vision" and "computer
-    # programming" share a token; "cloud security" and "Parrot Security OS"
-    # share a token. None of them share a meaning. Where either side is a
-    # single concept word, only exact agreement counts.
-    if len(ours_tokens) == 1 or len(theirs_tokens) == 1:
-        return 1.0 if ours_tokens == theirs_tokens else 0.0
-
-    # Jaccard over meaningful tokens: rewards agreement, penalises the extra
-    # words that make a broad ESCO concept a poor fit for a specific skill.
-    jaccard = len(overlap) / len(ours_tokens | theirs_tokens)
-
-    # A multi-word name appearing as a contiguous phrase is strong evidence
-    # ("machine learning" inside "machine learning algorithms"). A single word
-    # inside a longer label is not evidence at all, which is the whole lesson
-    # of the first two runs.
-    if a in b:
-        jaccard = max(jaccard, 0.85)
-
-    # Two words in common out of three is still only one distinguishing word.
-    # Require the overlap to carry most of *our* meaning, not just some of it.
-    if len(overlap) / len(ours_tokens) < 0.5:
-        return 0.0
-
-    return jaccard
 
 def search(text: str, limit: int = 8) -> list[dict]:
     if text in _cache:
@@ -137,8 +111,8 @@ def english(label) -> str:
 
 
 def best_match(skill: dict) -> dict | None:
-    """Try the skill name, then each alias, and keep the strongest hit."""
-    queries = [skill["name"], *skill.get("aliases", [])]
+    """Try each name we are willing to claim on, and keep the strongest hit."""
+    queries = candidate_names(skill)
     best: dict | None = None
 
     for query in queries:

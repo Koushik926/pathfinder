@@ -187,6 +187,43 @@ Hugging Face, AWS, and others); items authored for this project are marked
 `PathFinder Labs`. Rebuild with `python -m app.seed.build` — the build fails
 loudly on a dangling prerequisite, an unknown skill, a duplicate id or a cycle.
 
+### How much of this does a public standard already cover?
+
+Hand-authoring 116 skills invites a fair question: where did they come from,
+and does that scale? So we checked them against **ESCO**, the EU's public
+occupational classification (13,890 level-4 skills, one stable URI each).
+
+```bash
+python scripts/map_esco.py     # offline, cached, committed as data
+```
+
+**10 of 116 have an unambiguous ESCO concept.** ESCO has entries for
+statistics, natural language processing, cyber security, SQL, JavaScript and
+C++ — and none at all for PyTorch, RAG, Kubernetes, React, Next.js or
+diffusion models.
+
+That gap is the finding, not a bug in the mapping. It is the coverage boundary
+of a public standard against fast-moving technical skills, and it is the same
+reason the prerequisite edges had to be authored: no public dataset carries
+those either.
+
+Getting to an honest 10 meant throwing away three scoring rules, each of which
+"succeeded" more impressively than the last:
+
+| rule | claimed | what it actually matched |
+|---|---|---|
+| character similarity | 93/116 | Bash & Shell → *airport terminal standards* |
+| token overlap | 93/116 | Computer Vision → *computer programming* |
+| overlap after stopwords | 35/116 | BI Tools → *follow reporting procedures* |
+| **names must be the same name** | **10/116** | — |
+
+The surviving rule gives up real matches too — "Machine Learning" against
+ESCO's *machine learning algorithms* is declined — and those refusals are
+recorded in the tests rather than hidden. A small correct answer is worth more
+than a large plausible one, particularly for a credibility claim.
+
+Live at `GET /api/meta` under `taxonomy`, gaps included.
+
 > **On the interaction log:** we have no real enrolment data, so the
 > collaborative-filtering component is fitted on a *simulated* one, generated
 > from a fixed seed. It is a genuine item-item CF model over genuine

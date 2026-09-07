@@ -1,108 +1,12 @@
 {
-  "accept_threshold": 0.62,
-  "aligned": 93,
+  "accept_threshold": 1.0,
+  "aligned": 10,
   "mapping": {
-    "accessibility": {
-      "esco_label": "ICT accessibility standards",
-      "matched_on": "Web Accessibility",
-      "similarity": 0.6364,
-      "uri": "http://data.europa.eu/esco/skill/3e23db60-0c3d-498a-a6ac-ffbed0ecb033"
-    },
     "algorithms": {
       "esco_label": "algorithms",
       "matched_on": "Algorithms",
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/54924a2c-daca-40d3-9716-4b38ceb04f38"
-    },
-    "android-dev": {
-      "esco_label": "engage composers",
-      "matched_on": "jetpack compose",
-      "similarity": 0.6452,
-      "uri": "http://data.europa.eu/esco/skill/3e46974a-0f75-48d7-97c0-ff316f4862f6"
-    },
-    "auth-security": {
-      "esco_label": "prepare exercise session",
-      "matched_on": "session",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/108ac398-6a84-454a-b56c-8bb0dee1bbf2"
-    },
-    "bash-shell": {
-      "esco_label": "airport terminal standards",
-      "matched_on": "terminal",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/1bc46d79-d290-4d2e-bf79-a634ea10e584"
-    },
-    "bi-tools": {
-      "esco_label": "follow reporting procedures",
-      "matched_on": "reporting",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/9bcfccac-8920-4024-9aef-a06f8c035063"
-    },
-    "big-data": {
-      "esco_label": "SPARK",
-      "matched_on": "spark",
-      "similarity": 1.0,
-      "uri": "http://data.europa.eu/esco/skill/af7ae54f-4649-4c16-87c7-59ba41d4d57f"
-    },
-    "c-lang": {
-      "esco_label": "web programming",
-      "matched_on": "C Programming",
-      "similarity": 0.8571,
-      "uri": "http://data.europa.eu/esco/skill/69bbd53f-fbb0-4476-b4b2-ef7844464e28"
-    },
-    "calculus": {
-      "esco_label": "ICT system integration",
-      "matched_on": "integration",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/6fa1c2c0-a012-4ca0-9642-e01569ba322c"
-    },
-    "ci-cd": {
-      "esco_label": "Jenkins (tools for software configuration management)",
-      "matched_on": "CI/CD",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/f47a1998-0beb-43be-9f46-380aa4d183da"
-    },
-    "classification": {
-      "esco_label": "develop occupational classification systems",
-      "matched_on": "Classification",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/98f14bc9-4eb6-4628-92d2-ed79a649d5c8"
-    },
-    "cloud-architecture": {
-      "esco_label": "historic architecture",
-      "matched_on": "Cloud Architecture",
-      "similarity": 0.7179,
-      "uri": "http://data.europa.eu/esco/skill/77a9c736-154e-4a19-8476-4246ed25fd54"
-    },
-    "cloud-security": {
-      "esco_label": "Parrot Security OS",
-      "matched_on": "Cloud Security",
-      "similarity": 0.625,
-      "uri": "http://data.europa.eu/esco/skill/afd63e8c-a4e7-42d3-86c9-3b2dd549a353"
-    },
-    "cnn": {
-      "esco_label": "medication classification",
-      "matched_on": "image classification",
-      "similarity": 0.7556,
-      "uri": "http://data.europa.eu/esco/skill/4262ddf4-4985-4d23-ba82-f82a226b2bde"
-    },
-    "communication": {
-      "esco_label": "prepare presentation material",
-      "matched_on": "presentation",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/1ba59ce0-7fec-434b-8d5c-9b275250a26c"
-    },
-    "compilers": {
-      "esco_label": "interpreting modes",
-      "matched_on": "interpreter",
-      "similarity": 0.6897,
-      "uri": "http://data.europa.eu/esco/skill/12d1d724-b832-4193-823f-c6ff0deedec1"
-    },
-    "computer-vision": {
-      "esco_label": "computer programming",
-      "matched_on": "opencv",
-      "similarity": 0.6286,
-      "uri": "http://data.europa.eu/esco/skill/21d2f96d-35f7-4e3f-9745-c533d2dd6e97"
     },
     "cpp": {
       "esco_label": "C++",
@@ -110,161 +14,11 @@
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/b633eb55-8f1f-4ae6-ab4c-2022ffe2cb7f"
     },
-    "cryptography": {
-      "esco_label": "ICT encryption",
-      "matched_on": "pki",
-      "similarity": 0.8333,
-      "uri": "http://data.europa.eu/esco/skill/d32db06e-bd06-4415-a7ab-1b0ee68caa9a"
-    },
-    "data-analysis": {
-      "esco_label": "analyse test data",
-      "matched_on": "analyze data",
-      "similarity": 0.8276,
-      "uri": "http://data.europa.eu/esco/skill/81a2db2c-7e55-44d0-9cd9-74c25147d7cd"
-    },
-    "data-cleaning": {
-      "esco_label": "oversee equipment cleaning",
-      "matched_on": "cleaning",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/a2249281-9c3b-4a1a-95ef-23090fc5608e"
-    },
     "data-engineering": {
       "esco_label": "data warehouse",
       "matched_on": "Data Engineering",
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/3ec2e4d6-7000-4905-bf1a-c5b1679416de"
-    },
-    "data-viz": {
-      "esco_label": "loading charts for transportation of goods",
-      "matched_on": "charts",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/db8b59b2-5e51-4944-bd2e-2c5f4b1ebabd"
-    },
-    "db-design": {
-      "esco_label": "design database scheme",
-      "matched_on": "Database Design",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/6c08403c-a5bb-4868-b8c2-b7d039c0e511"
-    },
-    "dbt-modeling": {
-      "esco_label": "data models",
-      "matched_on": "data modeling",
-      "similarity": 0.8333,
-      "uri": "http://data.europa.eu/esco/skill/fecf8a0d-62c4-4e71-9b03-0f4fc2ad7bf5"
-    },
-    "debugging": {
-      "esco_label": "troubleshoot",
-      "matched_on": "troubleshooting",
-      "similarity": 0.8889,
-      "uri": "http://data.europa.eu/esco/skill/334e3e49-fb02-4051-809a-f06adfdc1c40"
-    },
-    "deep-learning": {
-      "esco_label": "principles of artificial intelligence",
-      "matched_on": "neural networks",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/e465a154-93f7-4973-9ce1-31659fe16dd2"
-    },
-    "discrete-math": {
-      "esco_label": "logic",
-      "matched_on": "logic",
-      "similarity": 1.0,
-      "uri": "http://data.europa.eu/esco/skill/294cf13e-4fdf-4cb8-bb6b-31b9da7f4819"
-    },
-    "distributed-systems": {
-      "esco_label": "fuel distribution systems",
-      "matched_on": "Distributed Systems",
-      "similarity": 0.7727,
-      "uri": "http://data.europa.eu/esco/skill/6c4b5031-2eaf-449e-af88-8304a66e4eb5"
-    },
-    "docker": {
-      "esco_label": "compose music",
-      "matched_on": "compose",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/c109d892-3665-4743-877b-2ba23834e9e0"
-    },
-    "dsa-advanced": {
-      "esco_label": "climb trees",
-      "matched_on": "trees",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/f3805809-9882-4bc5-bce1-b44040758b64"
-    },
-    "dsa-basics": {
-      "esco_label": "field-programmable gate arrays",
-      "matched_on": "arrays",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/fb601189-afa9-4a7b-8430-21a906483072"
-    },
-    "excel-sheets": {
-      "esco_label": "news analytics",
-      "matched_on": "Spreadsheet Analytics",
-      "similarity": 0.6857,
-      "uri": "http://data.europa.eu/esco/skill/d523d7bf-cb3d-4310-9bf3-5670659c9b83"
-    },
-    "feature-eng": {
-      "esco_label": "precision engineering",
-      "matched_on": "Feature Engineering",
-      "similarity": 0.7,
-      "uri": "http://data.europa.eu/esco/skill/25c4cb91-d64b-48d1-a350-3527334a360d"
-    },
-    "forensics": {
-      "esco_label": "landscape analysis",
-      "matched_on": "malware analysis",
-      "similarity": 0.7059,
-      "uri": "http://data.europa.eu/esco/skill/fdeabe51-1d92-4770-acfe-eff9769b3d4f"
-    },
-    "freelancing": {
-      "esco_label": "maintain an artistic portfolio",
-      "matched_on": "Freelancing & Portfolio",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/473c68ee-1ab3-4bcf-b286-f7a8df0acec6"
-    },
-    "functional-prog": {
-      "esco_label": "use functional programming",
-      "matched_on": "Functional Programming",
-      "similarity": 0.9167,
-      "uri": "http://data.europa.eu/esco/skill/d31fab87-2a7d-485c-b699-2901ca294b15"
-    },
-    "game-dev": {
-      "esco_label": "video-games trends",
-      "matched_on": "Game Development",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/44a117a9-4443-43a4-b037-23c716af671e"
-    },
-    "html-css": {
-      "esco_label": "manage website",
-      "matched_on": "build websites",
-      "similarity": 0.8148,
-      "uri": "http://data.europa.eu/esco/skill/d04ee340-5378-4601-8181-19da6d5cbfe0"
-    },
-    "iac": {
-      "esco_label": "Ansible",
-      "matched_on": "ansible",
-      "similarity": 1.0,
-      "uri": "http://data.europa.eu/esco/skill/6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed"
-    },
-    "interview-prep": {
-      "esco_label": "outplacement",
-      "matched_on": "placement",
-      "similarity": 0.8571,
-      "uri": "http://data.europa.eu/esco/skill/57c3021c-defc-4a39-b60b-95db8af25c3a"
-    },
-    "ios-dev": {
-      "esco_label": "Xcode",
-      "matched_on": "xcode",
-      "similarity": 1.0,
-      "uri": "http://data.europa.eu/esco/skill/449d119b-2d66-43a9-9230-7d27f16afbb6"
-    },
-    "iot-embedded": {
-      "esco_label": "embedded systems",
-      "matched_on": "IoT & Embedded Systems",
-      "similarity": 0.8421,
-      "uri": "http://data.europa.eu/esco/skill/2180bd8c-86de-4889-8165-adac902eee9d"
-    },
-    "java": {
-      "esco_label": "Java (computer programming)",
-      "matched_on": "Java",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/19a8293b-8e95-4de3-983f-77484079c389"
     },
     "javascript": {
       "esco_label": "JavaScript",
@@ -272,203 +26,17 @@
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/3cd569a2-4f88-4c1e-9995-8dce8c5e51a7"
     },
-    "kubernetes": {
-      "esco_label": "steer ship in compliance with helm orders",
-      "matched_on": "helm",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/7570fb73-bfd1-4fd1-8a3b-1e2344dd71a7"
-    },
-    "linear-algebra": {
-      "esco_label": "algebra",
-      "matched_on": "Linear Algebra",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/55e910e4-736d-44cf-bfa9-b15adc5d91d2"
-    },
-    "linux-admin": {
-      "esco_label": "receive appropriate permissions for use of recorded audiovisual examples",
-      "matched_on": "permissions",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/8360f128-ef04-41f6-8fd0-203f41dc05dc"
-    },
-    "llm-evaluation": {
-      "esco_label": "assist judge",
-      "matched_on": "llm as judge",
-      "similarity": 0.6667,
-      "uri": "http://data.europa.eu/esco/skill/8dc71fcf-2f4e-4877-92da-73d58547f2c0"
-    },
-    "llm-foundations": {
-      "esco_label": "make foundations for derricks",
-      "matched_on": "LLM Foundations",
-      "similarity": 0.6522,
-      "uri": "http://data.europa.eu/esco/skill/87ff8271-61e6-45a0-8d86-8eee4ab7ce87"
-    },
-    "ml-foundations": {
-      "esco_label": "ML (computer programming)",
-      "matched_on": "ML Foundations",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/a4d336a6-9ffd-402a-91cc-f359716ba4e0"
-    },
-    "mlops": {
-      "esco_label": "solution deployment",
-      "matched_on": "model deployment",
-      "similarity": 0.7429,
-      "uri": "http://data.europa.eu/esco/skill/1d86f05e-e9cc-40ce-99d8-2b21cc71b16b"
-    },
-    "network-security": {
-      "esco_label": "implement a firewall",
-      "matched_on": "Network Security",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/e5b5053e-0ef6-4c4e-a3f2-42f955f4322c"
-    },
-    "networking": {
-      "esco_label": "design computer network",
-      "matched_on": "Computer Networks",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/2164e860-7f20-48bc-b98c-5d9f8a561550"
-    },
     "nlp": {
       "esco_label": "natural language processing",
       "matched_on": "Natural Language Processing",
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/fff0e2cd-d0bd-4b02-9daf-158b79d9688a"
     },
-    "node-backend": {
-      "esco_label": "express yourself physically",
-      "matched_on": "express",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/638313e7-2bb6-49b7-a510-22a0ccc4c341"
-    },
-    "observability": {
-      "esco_label": "logging",
-      "matched_on": "logging",
-      "similarity": 1.0,
-      "uri": "http://data.europa.eu/esco/skill/e8488824-3865-4d2a-97e9-fe4647d6add3"
-    },
-    "oop": {
-      "esco_label": "object-oriented modelling",
-      "matched_on": "Object-Oriented Design",
-      "similarity": 0.8511,
-      "uri": "http://data.europa.eu/esco/skill/5be3d306-6cf1-4b49-aa1d-01651dd4ba4c"
-    },
-    "optimization": {
-      "esco_label": "periodisation",
-      "matched_on": "Optimization",
-      "similarity": 0.64,
-      "uri": "http://data.europa.eu/esco/skill/d47b9f28-8131-4efd-8801-53f226955f21"
-    },
-    "os-concepts": {
-      "esco_label": "mobile operating systems",
-      "matched_on": "Operating Systems",
-      "similarity": 0.8293,
-      "uri": "http://data.europa.eu/esco/skill/976455eb-5bbe-4493-ae64-ed16c3b009ea"
-    },
-    "pentesting": {
-      "esco_label": "penetration testing tool",
-      "matched_on": "hacker",
-      "similarity": 0.8837,
-      "uri": "http://data.europa.eu/esco/skill/de586dcf-d7e5-4340-bf5b-d59026f1b436"
-    },
-    "probability": {
-      "esco_label": "probability theory",
-      "matched_on": "Probability",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/b758675a-b03b-4e4b-897c-57ca14b1a3d0"
-    },
-    "product-thinking": {
-      "esco_label": "plan product management",
-      "matched_on": "Product Management",
-      "similarity": 0.878,
-      "uri": "http://data.europa.eu/esco/skill/29fb886c-6be0-4e93-9ea1-232881f2092a"
-    },
-    "prompt-engineering": {
-      "esco_label": "precision engineering",
-      "matched_on": "Prompt Engineering",
-      "similarity": 0.7692,
-      "uri": "http://data.europa.eu/esco/skill/25c4cb91-d64b-48d1-a350-3527334a360d"
-    },
-    "python-advanced": {
-      "esco_label": "set up generators",
-      "matched_on": "generators",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/942edf03-a450-4261-b65c-9b447fdddc51"
-    },
-    "python-basics": {
-      "esco_label": "Python (computer programming)",
-      "matched_on": "Python Fundamentals",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/ccd0a1d9-afda-43d9-b901-96344886e14d"
-    },
-    "pytorch": {
-      "esco_label": "operate plasma cutting torch",
-      "matched_on": "torch",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/f1e122e5-24a8-44c0-bf3f-90044e72370c"
-    },
-    "quantum-computing": {
-      "esco_label": "quantum optics",
-      "matched_on": "Quantum Computing",
-      "similarity": 0.7742,
-      "uri": "http://data.europa.eu/esco/skill/6400e5a5-5534-4465-b456-3632af0c5cf1"
-    },
-    "react": {
-      "esco_label": "react to emergency situations in a live performance environment",
-      "matched_on": "React",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/ca49f512-4434-49c1-8f49-9a078b60d2fe"
-    },
-    "recsys": {
-      "esco_label": "build recommender systems",
-      "matched_on": "recommendation",
-      "similarity": 0.8636,
-      "uri": "http://data.europa.eu/esco/skill/505e4ef3-7ce4-437d-b7b4-5c608f71c258"
-    },
-    "regression": {
-      "esco_label": "create set models",
-      "matched_on": "Regression Models",
-      "similarity": 0.6471,
-      "uri": "http://data.europa.eu/esco/skill/c3e39e8c-30ed-4c75-a351-e8221f5ee939"
-    },
-    "reinforcement-learn": {
-      "esco_label": "insert reinforcement in mould",
-      "matched_on": "Reinforcement Learning",
-      "similarity": 0.6275,
-      "uri": "http://data.europa.eu/esco/skill/c32a99c4-34c1-464a-9de1-b471f6a3084e"
-    },
-    "responsible-ai": {
-      "esco_label": "responsible gambling",
-      "matched_on": "Responsible AI",
-      "similarity": 0.8235,
-      "uri": "http://data.europa.eu/esco/skill/8f15b22d-930e-4842-80dc-5cab28ac71fc"
-    },
-    "responsive-design": {
-      "esco_label": "maintain responsive design",
-      "matched_on": "Responsive Design",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/6ad40ca3-dc34-4442-b23f-0b1b28936f56"
-    },
-    "rest-api": {
-      "esco_label": "graphic design",
-      "matched_on": "api design",
-      "similarity": 0.8333,
-      "uri": "http://data.europa.eu/esco/skill/7fb699d9-182a-430e-b7a0-6d8ed05c284b"
-    },
-    "rnn-seq": {
-      "esco_label": "sequence explosions",
-      "matched_on": "Sequence Models",
-      "similarity": 0.7059,
-      "uri": "http://data.europa.eu/esco/skill/b18aa3d0-4f04-4b25-b983-21bf9ffb6ef6"
-    },
     "robotics": {
       "esco_label": "robotics",
       "matched_on": "Robotics",
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/e87ec79a-c9ff-46f5-84fa-7a0f394cdf40"
-    },
-    "rust": {
-      "esco_label": "remove rust from motor vehicles",
-      "matched_on": "Rust",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/9227266e-36c5-4e34-99da-caba3bd44d02"
     },
     "security-basics": {
       "esco_label": "cyber security",
@@ -488,105 +56,122 @@
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833"
     },
-    "streaming-data": {
-      "esco_label": "real-time computing",
-      "matched_on": "real time pipeline",
-      "similarity": 0.7027,
-      "uri": "http://data.europa.eu/esco/skill/bf6c5ed4-84af-440f-abcc-7fa5ba19c738"
-    },
-    "system-design": {
-      "esco_label": "architectural theory",
-      "matched_on": "architecture interview",
-      "similarity": 0.7143,
-      "uri": "http://data.europa.eu/esco/skill/9f5e899e-a53f-4b7a-a137-aade7fb18b86"
-    },
-    "tech-writing": {
-      "esco_label": "manage manufacturing documentation",
-      "matched_on": "Technical Writing",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/dd6f8901-b20a-48e9-94ac-b1829dc2cfec"
-    },
-    "testing": {
-      "esco_label": "plan software testing",
-      "matched_on": "Software Testing",
-      "similarity": 0.8649,
-      "uri": "http://data.europa.eu/esco/skill/5d74614d-32c8-4ca4-9818-6980e52424b1"
-    },
-    "time-series": {
-      "esco_label": "use sales forecasting softwares",
-      "matched_on": "Time Series Forecasting",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/ae57a9c3-f761-4b03-be2b-99a781704c73"
-    },
-    "transformers": {
-      "esco_label": "capture people's attention",
-      "matched_on": "Transformers & Attention",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/d6a58927-b8e0-4863-b4e0-de0e63cf7661"
-    },
     "typescript": {
       "esco_label": "TypeScript",
       "matched_on": "TypeScript",
       "similarity": 1.0,
       "uri": "http://data.europa.eu/esco/skill/867137fb-ff1b-4ca3-99f3-cb6969aa2c68"
-    },
-    "ui-design": {
-      "esco_label": "software UI design patterns",
-      "matched_on": "UI Design",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/1019423b-3368-4f83-b24f-19e5fa23e816"
-    },
-    "ux-research": {
-      "esco_label": "execute ICT user research activities",
-      "matched_on": "user research",
-      "similarity": 0.8,
-      "uri": "http://data.europa.eu/esco/skill/a4c2aa71-086f-4a46-b481-2619673c9dfe"
-    },
-    "vector-databases": {
-      "esco_label": "search databases",
-      "matched_on": "Vector Databases",
-      "similarity": 0.75,
-      "uri": "http://data.europa.eu/esco/skill/a1388163-462a-4b76-8649-67470ea858a1"
-    },
-    "web-performance": {
-      "esco_label": "judge performances",
-      "matched_on": "Web Performance",
-      "similarity": 0.7879,
-      "uri": "http://data.europa.eu/esco/skill/58b98338-b26c-4ee5-af76-08ebea960e79"
-    },
-    "web-security": {
-      "esco_label": "web application security threats",
-      "matched_on": "owasp",
-      "similarity": 0.8571,
-      "uri": "http://data.europa.eu/esco/skill/902fb91c-3113-4004-9b4f-79aa86b638b7"
     }
   },
   "source": "https://ec.europa.eu/esco/api",
   "taxonomy": "ESCO v1.2",
   "total_skills": 116,
   "unmapped": [
+    "python-basics",
+    "python-advanced",
+    "java",
+    "c-lang",
     "go-lang",
+    "rust",
+    "bash-shell",
     "git",
+    "oop",
+    "functional-prog",
     "clean-code",
+    "testing",
+    "debugging",
+    "dsa-basics",
+    "dsa-advanced",
+    "os-concepts",
+    "networking",
+    "db-design",
+    "compilers",
+    "distributed-systems",
+    "system-design",
+    "linear-algebra",
+    "calculus",
+    "probability",
+    "optimization",
+    "discrete-math",
+    "data-analysis",
+    "data-viz",
+    "data-cleaning",
+    "feature-eng",
+    "bi-tools",
+    "excel-sheets",
+    "big-data",
+    "streaming-data",
+    "dbt-modeling",
+    "ml-foundations",
+    "regression",
+    "classification",
     "ensemble-methods",
     "clustering",
     "model-eval",
+    "recsys",
+    "time-series",
+    "deep-learning",
+    "pytorch",
     "tensorflow",
+    "cnn",
+    "rnn-seq",
+    "transformers",
+    "computer-vision",
+    "reinforcement-learn",
+    "mlops",
+    "responsible-ai",
+    "llm-foundations",
+    "prompt-engineering",
     "rag",
+    "vector-databases",
     "agents",
     "finetuning",
+    "llm-evaluation",
     "diffusion-models",
+    "html-css",
+    "responsive-design",
+    "react",
     "nextjs",
     "vue-svelte",
     "state-management",
+    "web-performance",
+    "accessibility",
+    "node-backend",
     "fastapi-backend",
+    "rest-api",
     "graphql",
+    "auth-security",
     "websockets",
+    "android-dev",
+    "ios-dev",
     "react-native",
+    "linux-admin",
+    "docker",
+    "kubernetes",
+    "ci-cd",
+    "iac",
     "aws",
     "azure-gcp",
+    "observability",
+    "cloud-architecture",
+    "cryptography",
+    "web-security",
+    "pentesting",
+    "network-security",
+    "cloud-security",
+    "forensics",
+    "ux-research",
+    "ui-design",
+    "product-thinking",
     "agile-scrum",
+    "tech-writing",
+    "communication",
+    "interview-prep",
+    "freelancing",
     "blockchain",
+    "iot-embedded",
+    "quantum-computing",
+    "game-dev",
     "ar-vr"
   ]
 }
