@@ -118,3 +118,79 @@ def test_every_slot_question_offers_something_to_tap():
             seen += 1
         result = respond(session, "k")
     assert seen >= 1, "slot questions should offer quick replies"
+
+
+# -- greetings --------------------------------------------------------------
+
+def test_a_greeting_is_not_a_career():
+    """Reported: saying "hello" offered DevOps Engineer, Penetration Tester and
+    Security Analyst. The embedding scored "hello" at 0.31 against DevOps —
+    character-n-gram noise, presented to the learner as a considered guess."""
+    session = _session()
+    result = respond(session, "hello")
+    assert result["intent"] == "ask_goal"
+    assert not result["options"], "a greeting must not produce role suggestions"
+    assert session.profile.role_id is None
+
+
+@pytest.mark.parametrize("greeting", ["hi", "hii", "hey", "good morning", "thanks", "ok"])
+def test_pleasantries_are_answered_not_matched(greeting):
+    session = _session()
+    assert respond(session, greeting)["intent"] == "ask_goal"
+
+
+def test_a_greeting_with_a_goal_in_it_is_still_a_goal():
+    session = _session()
+    respond(session, "hi, I want to learn Python")
+    assert session.profile.role_id or session.profile.goal_skills
+
+
+def test_restating_the_goal_beats_the_options_on_offer():
+    """Reported: mid-disambiguation the learner typed "dsa" — which resolves
+    perfectly — and was shown the same three unrelated roles again, because the
+    match was rejected for not being one of the options offered."""
+    session = _session()
+    respond(session, "hello")
+    respond(session, "something with data")     # forces a disambiguation
+    respond(session, "dsa")
+    assert session.profile.role_id == "sde-placement"
+
+
+def test_small_talk_cannot_loop_forever():
+    """The greeting path is bounded like every other question."""
+    session = _session()
+    for turn in range(15):
+        if respond(session, "ok")["ready"]:
+            return
+    pytest.fail("answering 'ok' forever never produced a plan")
+
+
+def test_switching_careers_targets_the_destination():
+    """"switch from web dev to ML" names two roles and means the second.
+    Longest-alias-wins has no sense of direction and answered with the one
+    they were leaving."""
+    from app.ml.embeddings import SPACE
+
+    assert SPACE.rank_roles("i want to switch from web dev to ML", 1)[0][0] == "ml-engineer"
+    assert SPACE.rank_roles("moving from testing into data science", 1)[0][0] == "data-scientist"
+    assert SPACE.rank_roles("switch from frontend to devops", 1)[0][0] == "devops-engineer"
+    # A plain goal with no direction still resolves normally.
+    assert SPACE.rank_roles("web development", 1)[0][0] == "frontend-dev"
+
+
+def test_noise_is_never_accepted_as_a_named_skill():
+    """"asdf qwer" scored 0.80 against BI tools on character n-grams alone."""
+    session = _session()
+    respond(session, "asdf qwer")
+    assert not session.profile.goal_skills
+
+
+def test_a_skill_only_goal_still_gets_a_titled_path():
+    from app.ml.planner import generate_path
+
+    session = _session()
+    for message in ("hi, I want to learn Python", "beginner", "nothing", "6"):
+        respond(session, message)
+    path = generate_path(session.profile)
+    assert path.role_title, "a path with no career role still needs a name"
+    assert path.all_items

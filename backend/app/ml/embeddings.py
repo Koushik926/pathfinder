@@ -184,14 +184,23 @@ class SemanticSpace:
         An exact alias hit short-circuits both and pins the score to 1.0.
         """
         canon = self._canon(text)
-        best_alias, best_len = None, 0
-        for alias, role_id in self._role_aliases.items():
-            if alias and alias in canon and len(alias) > best_len:
-                best_alias, best_len = role_id, len(alias)
-        if best_alias:
-            # An exact hit is unambiguous: return it alone rather than padding
-            # the list with zero-scored roles a disambiguation UI would show.
-            return [(best_alias, 1.0)]
+
+        # "switch from web dev to machine learning" names two roles and means
+        # the second. Longest-alias-wins has no notion of direction and would
+        # answer with the one they are leaving, so when the sentence has that
+        # shape we look at the destination clause first.
+        destination = re.split(r"\b(?:from .{0,40}?\bto|into|towards?)\b", canon, maxsplit=1)
+        clauses = [destination[-1], canon] if len(destination) > 1 else [canon]
+
+        for clause in clauses:
+            best_alias, best_len = None, 0
+            for alias, role_id in self._role_aliases.items():
+                if alias and alias in clause and len(alias) > best_len:
+                    best_alias, best_len = role_id, len(alias)
+            if best_alias:
+                # An exact hit is unambiguous: return it alone rather than
+                # padding with zero-scored roles a disambiguation UI would show.
+                return [(best_alias, 1.0)]
 
         vector = self.encode(text)
         if self.is_empty(vector):

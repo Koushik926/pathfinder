@@ -27,8 +27,42 @@ from app.ml.embeddings import SPACE
 from app.ml.profiler import Completion, LearnerProfile
 from app.store import CATALOG, Catalog
 
+# A message that is nothing but a greeting or an acknowledgement. Matched whole,
+# not by keyword: "hi" is small talk, "hi, I want to learn Python" is a goal.
+# Without this the embedding treats "hello" as a career description and scores
+# it 0.31 against DevOps Engineer — noise from character n-grams, offered to
+# the learner as though it were a considered suggestion.
+SMALL_TALK = re.compile(
+    r"^\s*(?:"
+    r"h+e+l+o+|h+i+|h+e+y+|yo|hola|namaste|greetings?"
+    r"|good\s+(?:morning|afternoon|evening|day)"
+    r"|how\s+are\s+(?:you|u)\b.*|what'?s\s+up|sup"
+    r"|thanks?(?:\s+you)?|thank\s+you|ty|thx|cheers"
+    r"|ok(?:ay)?|k|sure|yes|yeah|yep|no|nope|cool|nice|great|alright"
+    r"|test(?:ing)?|hmm+|lol"
+    r")[\s!.,?]*$",
+    re.IGNORECASE,
+)
+
 # Ordered most-specific first. These must recognise the exact wording of the
 # quick-reply buttons the UI offers, otherwise clicking a button says nothing.
+# A message that is nothing but a greeting or an acknowledgement. Matched whole,
+# not by keyword: "hi" is small talk, "hi, I want to learn Python" is a goal.
+# Without this the embedding treats "hello" as a career description and scores
+# it 0.31 against DevOps Engineer — noise from character n-grams, offered to
+# the learner as though it were a considered suggestion.
+SMALL_TALK = re.compile(
+    r"^\s*(?:"
+    r"h+e+l+o+|h+i+|h+e+y+|yo|hola|namaste|greetings?"
+    r"|good\s+(?:morning|afternoon|evening|day)"
+    r"|how\s+are\s+(?:you|u)\b.*|what'?s\s+up|sup"
+    r"|thanks?(?:\s+you)?|thank\s+you|ty|thx|cheers"
+    r"|ok(?:ay)?|k|sure|yes|yeah|yep|no|nope|cool|nice|great|alright"
+    r"|test(?:ing)?|hmm+|lol"
+    r")[\s!.,?]*$",
+    re.IGNORECASE,
+)
+
 # Ordered most-specific first. These must recognise the exact wording of the
 # quick-reply buttons the UI offers, and the shorthand people actually type —
 # "total noob", "i know a bit", "done some" are all real answers to "how much
@@ -378,8 +412,26 @@ def _apply_extraction(
         ranked = SPACE.rank_roles(goal_source, top_k=3)
         skills = SPACE.match_skills(text)
 
+        # Require that the learner used vocabulary the catalog recognises.
+        # Character n-grams let pure noise score highly — "asdf qwer" reaches
+        # 0.80 against BI tools — so a high score with no real word behind it
+        # is not evidence of anything.
+        confident = (
+            {k: v for k, v in skills.items() if v >= 0.75}
+            if SPACE.lexical_signal(text) > 0 else {}
+        )
+
         if ranked and ranked[0][1] >= 0.55:
             profile.role_id = ranked[0][0]
+            profile.goal_text = profile.goal_text or text
+            session.pending_role_options = []
+            filled.append("goal")
+        elif confident:
+            # The learner named a technology outright. That is stronger evidence
+            # than a role the embedding is only half sure about, so plan against
+            # the named skills rather than asking them to pick a career they did
+            # not mention.
+            profile.goal_skills.update(confident)
             profile.goal_text = profile.goal_text or text
             session.pending_role_options = []
             filled.append("goal")
@@ -387,15 +439,6 @@ def _apply_extraction(
             # Plausible but not certain — ask rather than guess.
             session.pending_role_options = [rid for rid, _ in ranked]
             profile.goal_text = profile.goal_text or text
-        else:
-            # No role matched. Fall back to skills only when the learner clearly
-            # named them — an explicit alias hit (1.0) or a strong match. The
-            # weak tail of the embedding is noise, not intent.
-            confident = {k: v for k, v in skills.items() if v >= 0.75}
-            if confident:
-                profile.goal_skills.update(confident)
-                profile.goal_text = profile.goal_text or text
-                filled.append("goal")
 
     return filled
 
@@ -481,6 +524,27 @@ def _level_options() -> list[dict]:
 def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
     """Process one learner message and produce the assistant's reply."""
     session.history.append(Turn("learner", message))
+
+    # Pleasantries before a goal exists are not goals. Answer them like a person
+    # and re-ask, rather than running them through the matcher.
+    # Bounded like every other question: after two pleasantries with no goal we
+    # fall through to the normal flow, which assumes a default and moves on.
+    # Without that bound, "ok" repeated forever loops here instead.
+    if (
+        SMALL_TALK.match(message)
+        and not session.profile.role_id
+        and not session.profile.goal_skills
+        and session.slot_attempts.get("goal", 0) < 2
+    ):
+        session.pending_role_options = []
+        reply = _narrate(
+            "Hello. " + ASK["goal"] if session.slot_attempts.get("goal", 0) == 0
+            else "No problem — " + RETRY["goal"],
+            "Greet the learner briefly and ask what they want to be able to do.",
+        )
+        session.slot_attempts["goal"] = session.slot_attempts.get("goal", 0) + 1
+        return _package(session, reply, "ask_goal")
+
     # Snapshot before extraction: _apply_extraction may itself update the pace,
     # which would make a later "did the pace change?" comparison always false.
     hours_before = session.profile.hours_per_week
@@ -661,10 +725,12 @@ def _resolve_role_choice(message: str, options: list[str], catalog: Catalog) -> 
         if 0 <= index < len(options):
             return options[index]
 
-    # They may have restated the goal instead of picking; re-rank and accept a
-    # clear winner that is one of the options on offer.
+    # They may have answered by restating the goal rather than picking from the
+    # list — "dsa" instead of tapping one of three security roles. A confident
+    # match wins even when it is not among the options offered: the learner has
+    # told us something better than the guess we were asking them to confirm.
     ranked = SPACE.rank_roles(message, top_k=1)
-    if ranked and ranked[0][1] >= 0.55 and ranked[0][0] in options:
+    if ranked and ranked[0][1] >= 0.55:
         return ranked[0][0]
     return None
 

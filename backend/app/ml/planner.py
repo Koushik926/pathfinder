@@ -391,12 +391,24 @@ def generate_path(
     readiness_after = readiness(profile, projected, catalog)
 
     role = catalog.roles.get(profile.role_id) if profile.role_id else None
+    if role is not None:
+        title = role.title
+    elif profile.goal_skills:
+        # No career role, but they named skills — title the path after them so
+        # the header reads as a goal rather than as a blank.
+        named = [
+            catalog.skill_name(s)
+            for s, _ in sorted(profile.goal_skills.items(), key=lambda kv: -kv[1])[:2]
+        ]
+        title = " & ".join(named)
+    else:
+        title = None
 
     return LearningPath(
         profile_id=profile.id,
         goal_text=profile.goal_text,
         role_id=profile.role_id,
-        role_title=role.title if role else None,
+        role_title=title,
         milestones=milestones,
         total_hours=total_hours,
         total_weeks=round(total_hours / max(1.0, profile.hours_per_week), 1),
