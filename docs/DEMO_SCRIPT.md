@@ -3,6 +3,13 @@
 Record at 1920×1080. Run `uvicorn app.main:app --port 8000` and open
 `http://localhost:8000` — one window, no terminal switching mid-demo.
 
+> **Present from localhost, not the deployed URL.** Render's free tier evicts an
+> idle service and takes **over two minutes** to wake — measured, not estimated.
+> Cite `pathfinder1-vov3.onrender.com` as evidence the project is deployed, but
+> drive the demo locally: it is instant and immune to venue wifi. If you must
+> demo live, trigger the "Keep demo warm" workflow 15 minutes ahead and keep a
+> tab open; GitHub throttles its schedule, so do not rely on it firing by itself.
+
 **Before recording:** click *Start over* so the chat is clean, and have a second
 browser tab on `/docs` ready for the API shot.
 
