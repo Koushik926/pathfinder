@@ -1871,7 +1871,7 @@
   "id": "nlp-102",
   "kind": "course",
   "learners": 210000,
-  "level": 1,
+  "level": 2,
   "modality": "interactive",
   "prereqs": [
    "py-104"

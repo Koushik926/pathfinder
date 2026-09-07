@@ -47,6 +47,9 @@ def path_to_dict(path: LearningPath, catalog: Catalog = CATALOG) -> dict:
         "gap_count": path.gap_count,
         "readiness_before": path.readiness_before,
         "readiness_after": path.readiness_after,
+        "skills_total": path.skills_total,
+        "skills_below_target": path.skills_below_target,
+        "skills_short": path.skills_short,
         "generated_on": path.generated_on,
         "gap_summary": path.gap_summary,
         "narrative": explain_path(path, catalog),
@@ -80,6 +83,7 @@ def item_to_dict(item, catalog: Catalog = CATALOG) -> dict:
         "rating": item.rating,
         "url": resource_url(item.provider, item.title),
         "is_prerequisite_fill": item.is_prerequisite_fill,
+        "required_for": item.required_for,
         "prereqs": [
             {"item_id": p, "title": catalog.items[p].title}
             for p in item.prereqs if p in catalog.items

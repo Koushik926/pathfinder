@@ -167,6 +167,16 @@ learners does that.
 courses, skills from work that no catalog item represents, and self-reports
 that are wrong in both directions.
 
+**The cohort only ever types its goal.** `build_cohort` gives every synthetic
+learner `goal_text = role.title`, so the harness exercises the typed path and
+never the button path. That blind spot is why it did not catch a bug in which
+learners who chose a role from a button had their goal text left empty and the
+semantic component zeroed for every candidate — 18% of the ranking weight, on
+the most common route through the product. An audit found it; the harness did
+not. The regression is now covered by `tests/test_personalization_matrix.py`
+rather than by changing the cohort, so the numbers above stay comparable with
+the ones published before the fix.
+
 **The catalog is 238 items.** Coverage and diversity numbers would move on a
 catalog of 50,000.
 

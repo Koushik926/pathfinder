@@ -58,6 +58,13 @@ function ItemRow({ item, done, onExplain, onComplete, onReact, busy }) {
             )}
           </div>
 
+          {item.is_prerequisite_fill && item.required_for?.length > 0 && (
+            <div className="mt-1 text-xs text-amber/80">
+              Required before {item.required_for.slice(0, 2).join(' and ')}
+              {item.required_for.length > 2 && ` +${item.required_for.length - 2} more`}
+            </div>
+          )}
+
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
             <span>{item.provider}</span>
             <span>{item.hours} h</span>
@@ -164,6 +171,18 @@ export default function Roadmap({ path, completedIds, explanation, ...handlers }
               {pct(path.readiness_before)} <span className="text-slate-600">→</span>{' '}
               <span className="text-mint">{pct(path.readiness_after)}</span>
             </div>
+            {/* Readiness is importance-weighted, so it can read high while
+                individual skills are still short. Showing the count beside it
+                keeps the headline number from overstating the finish line. */}
+            {path.skills_total > 0 && (
+              <div className="mt-0.5 text-xs text-slate-500" title={
+                path.skills_short?.map((s) => s.name).join(', ') || 'All target skills reach their level'
+              }>
+                {path.skills_below_target === 0
+                  ? `all ${path.skills_total} target skills reached`
+                  : `${path.skills_below_target} of ${path.skills_total} skills still below target`}
+              </div>
+            )}
           </div>
         </div>
 

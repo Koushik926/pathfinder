@@ -160,6 +160,33 @@ class Recommender:
         peak = float(raw.max())
         return raw / peak if peak > 0 else raw
 
+    def _goal_vector(self, profile: LearnerProfile) -> np.ndarray | None:
+        """How the learner's goal is represented for semantic matching.
+
+        Free text wins whenever it exists and means something to the catalog:
+        it carries intent the role label cannot ("switching from web dev", "for
+        research, not industry"). Only when there is no usable text do we fall
+        back to the chosen role's own vector.
+
+        That fallback is not cosmetic. A learner who selects a role from a
+        button leaves `goal_text` empty, and the previous code read that as
+        "no goal", zeroing the semantic component for every candidate — 0.18 of
+        the ranking weight silently discarded on what is the most common route
+        through the product. The role is a perfectly good statement of intent;
+        it just arrives as an id instead of a sentence.
+
+        Deliberately not done: writing the role title into `profile.goal_text`.
+        That would duplicate state, and would make the profile claim the
+        learner said something they never typed.
+        """
+        if profile.goal_text:
+            vector = self.space.encode(profile.goal_text)
+            if not self.space.is_empty(vector):
+                return vector
+        if profile.role_id:
+            return self.space.role_vector(profile.role_id)
+        return None
+
     def _coverage_score(self, item_skills: dict[str, float], gaps: dict[str, float]) -> tuple[float, dict[str, float]]:
         """How much of the outstanding weighted gap this item addresses."""
         covers = {
@@ -183,7 +210,7 @@ class Recommender:
         exclude = (exclude or set()) | profile.completed_ids
         completed = profile.completed_ids
 
-        goal_vector = self.space.encode(profile.goal_text) if profile.goal_text else None
+        goal_vector = self._goal_vector(profile)
         semantic = (
             self.space.similar_items(goal_vector)
             if goal_vector is not None and not self.space.is_empty(goal_vector)

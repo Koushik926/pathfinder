@@ -49,7 +49,7 @@ dl-107   | Attention & Transformers from Scratch      | Karpathy        | course
 dl-a01   | Assessment: Deep Learning Concepts         | PathFinder Labs | assessment | 3 |  2 | interactive | deep-learning:0.3,cnn:0.2,rnn-seq:0.2                     | dl-101           | 4.7 | 71000
 
 nlp-101  | Natural Language Processing Specialization | DeepLearning.AI | course     | 2 | 40 | video       | nlp:0.75,rnn-seq:0.35,transformers:0.3                    | dl-101           | 4.7 | 320000
-nlp-102  | NLP with spaCy & Classical Methods         | spaCy           | course     | 1 | 10 | interactive | nlp:0.5,data-cleaning:0.2                                 | py-104           | 4.6 | 210000
+nlp-102  | NLP with spaCy & Classical Methods         | spaCy           | course     | 2 | 10 | interactive | nlp:0.5,data-cleaning:0.2                                 | py-104           | 4.6 | 210000
 nlp-103  | Hugging Face Transformers Course           | Hugging Face    | course     | 2 | 20 | interactive | transformers:0.65,nlp:0.45,pytorch:0.3                    | dl-103           | 4.8 | 450000
 cv-101   | Computer Vision with OpenCV                | PyImageSearch   | course     | 2 | 18 | mixed       | computer-vision:0.7,python-advanced:0.2                    | py-104           | 4.6 | 230000
 cv-102   | Object Detection & Segmentation            | Coursera        | course     | 3 | 22 | video       | computer-vision:0.6,cnn:0.45,deep-learning:0.25           | dl-105           | 4.7 | 170000

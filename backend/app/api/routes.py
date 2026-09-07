@@ -237,7 +237,18 @@ def explain(session_id: str, item_id: str) -> dict:
             detail="That item is already complete or not scoreable for this profile.",
         )
 
-    explanation = explain_item(scored[0], mastery=mastery)
+    # If this item sits in the learner's current path as groundwork, the graph
+    # already knows what depends on it — that is the honest answer to "why is
+    # this here?", and it is not something the ranker can supply.
+    required_for: list[str] = []
+    if session.path is not None:
+        required_for = next(
+            (i.required_for for i in session.path.all_items if i.item_id == item_id), []
+        )
+
+    explanation = explain_item(
+        scored[0], mastery=mastery, required_for=required_for, profile=profile
+    )
     narrated = LLM.narrate(
         explanation.as_text(),
         "Rewrite this recommendation rationale for the learner in a warm, direct voice.",
@@ -250,6 +261,7 @@ def explain(session_id: str, item_id: str) -> dict:
         "covers": explanation.covers,
         "prerequisites": explanation.prerequisites,
         "unlocks": explanation.unlocks,
+        "required_for": explanation.required_for,
         "evidence": explanation.evidence,
         "source": "claude" if narrated else "template",
     }

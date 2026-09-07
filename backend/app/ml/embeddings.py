@@ -158,6 +158,22 @@ class SemanticSpace:
         word_view = dict(self.vectorizer.transformer_list)["word"]
         return int(word_view.transform([text.lower()]).nnz)
 
+    def role_vector(self, role_id: str) -> np.ndarray | None:
+        """The canonical vector for a career role, in the same space as items.
+
+        A learner who picks a role from a button has told us their goal just as
+        clearly as one who typed it — they simply left no free text behind. The
+        role already has a document in this space (title, family, aliases and
+        its weighted skill names, built by ``_role_text``), so the goal can be
+        represented without inventing text or writing a synthetic sentence back
+        into the learner's profile.
+        """
+        try:
+            index = self.role_ids.index(role_id)
+        except ValueError:
+            return None
+        return self.role_vectors[index]
+
     def similar_items(self, vector: np.ndarray) -> np.ndarray:
         """Cosine similarity of a query vector against every catalog item."""
         if self.is_empty(vector):

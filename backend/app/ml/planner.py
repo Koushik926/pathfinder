@@ -23,7 +23,7 @@ import math
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
-from app.ml.gap import analyse_gaps, gap_vector, readiness
+from app.ml.gap import MET_RATIO, analyse_gaps, build_target, gap_vector, readiness
 from app.ml.graph import prerequisite_closure, topological_order
 from app.ml.profiler import LearnerProfile, compute_mastery, implied_level
 from app.ml.recommender import RECOMMENDER, Recommender, ScoredItem
@@ -63,6 +63,9 @@ class PathItem:
     reason_components: dict[str, float] = field(default_factory=dict)
     covers: dict[str, float] = field(default_factory=dict)
     is_prerequisite_fill: bool = False
+    # Titles of items in this same path that depend on this one. Populated for
+    # prerequisite fills so the UI can say why groundwork is there.
+    required_for: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -94,6 +97,13 @@ class LearningPath:
     gap_count: int           # total unmet skills, before gap_summary truncation
     readiness_before: float
     readiness_after: float
+    # Readiness is importance-weighted and can sit high while individual skills
+    # remain under target — 0.91 with six of seventeen skills short is honest
+    # arithmetic and a misleading headline on its own. These report the second
+    # half of the picture rather than adjusting the first.
+    skills_total: int
+    skills_below_target: int
+    skills_short: list[dict]
     gap_summary: list[dict]
     generated_on: str
 
@@ -275,7 +285,13 @@ def _ensure_projects(
         added += 1
 
 
-def _to_path_item(item_id: str, catalog: Catalog, scored: ScoredItem | None, filler: bool) -> PathItem:
+def _to_path_item(
+    item_id: str,
+    catalog: Catalog,
+    scored: ScoredItem | None,
+    filler: bool,
+    required_for: list[str] | None = None,
+) -> PathItem:
     item = catalog.items[item_id]
     return PathItem(
         item_id=item.id,
@@ -291,6 +307,7 @@ def _to_path_item(item_id: str, catalog: Catalog, scored: ScoredItem | None, fil
         reason_components=scored.contributions if scored else {},
         covers=scored.covers if scored else {},
         is_prerequisite_fill=filler,
+        required_for=list(required_for or []),
     )
 
 
@@ -389,8 +406,21 @@ def generate_path(
         everything, priority, catalog, sort_key=_learning_order(priority, catalog)
     )
 
+    # Which in-path items each item unlocks. Read straight off the graph, so a
+    # prerequisite can explain itself by naming what actually depends on it.
+    dependents_in_path: dict[str, list[str]] = {}
+    for dependent_id in ordered_ids:
+        for prereq in catalog.items[dependent_id].prereqs:
+            if prereq in everything:
+                dependents_in_path.setdefault(prereq, []).append(
+                    catalog.items[dependent_id].title
+                )
+
     ordered = [
-        _to_path_item(item_id, catalog, selected.get(item_id), item_id in fillers)
+        _to_path_item(
+            item_id, catalog, selected.get(item_id), item_id in fillers,
+            required_for=dependents_in_path.get(item_id, []),
+        )
         for item_id in ordered_ids
     ]
 
@@ -402,6 +432,20 @@ def generate_path(
     for item in ordered:
         _simulate_gain(projected, item.skills, item.level)
     readiness_after = readiness(profile, projected, catalog)
+
+    # Which required skills the finished path still leaves under target. Uses
+    # the same MET_RATIO the gap engine uses, so "met" means one thing only.
+    full_target = build_target(profile, catalog)
+    short = [
+        {
+            "skill_id": skill_id,
+            "name": catalog.skill_name(skill_id),
+            "target": round(required, 4),
+            "projected": round(projected.get(skill_id, 0.0), 4),
+        }
+        for skill_id, required in sorted(full_target.items(), key=lambda kv: -kv[1])
+        if projected.get(skill_id, 0.0) < required * MET_RATIO
+    ]
 
     role = catalog.roles.get(profile.role_id) if profile.role_id else None
     if role is not None:
@@ -429,6 +473,9 @@ def generate_path(
         gap_count=len(gaps),
         readiness_before=readiness_before,
         readiness_after=readiness_after,
+        skills_total=len(full_target),
+        skills_below_target=len(short),
+        skills_short=short,
         gap_summary=[
             {
                 "skill_id": g.skill_id,

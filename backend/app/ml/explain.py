@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from app.ml.profiler import LearnerProfile
 from app.ml.recommender import WEIGHTS, ScoredItem
 from app.store import CATALOG, Catalog
 
@@ -28,6 +29,26 @@ COMPONENT_PHRASES = {
 }
 
 
+# Components that only mean something when the learner actually supplied the
+# evidence behind them. `modality` scores 1.0 for every item when no format
+# preference was stated, and `collab` is 0 for a learner with no history — in
+# both cases the number is real but says nothing about *this* learner, and a
+# sentence like "it is in the learning format you prefer" would be a claim of
+# personalisation that did not happen.
+CONDITIONAL_COMPONENTS = {"modality": "preferred_modalities", "collab": "completed"}
+
+
+def _informative_components(profile: LearnerProfile | None) -> set[str]:
+    """Which component phrases we are entitled to say out loud."""
+    live = set(WEIGHTS)
+    if profile is None:
+        return live
+    for component, field_name in CONDITIONAL_COMPONENTS.items():
+        if not getattr(profile, field_name, None):
+            live.discard(component)
+    return live
+
+
 @dataclass
 class Explanation:
     item_id: str
@@ -37,6 +58,12 @@ class Explanation:
     prerequisites: list[dict]
     unlocks: list[str]
     evidence: dict[str, float]
+    # Items in this learner's path that depend on this one, from the graph.
+    required_for: list[str] = None  # type: ignore[assignment]
+
+    def __post_init__(self) -> None:
+        if self.required_for is None:
+            self.required_for = []
 
     def as_text(self) -> str:
         lines = [self.headline, *(f"- {r}" for r in self.reasons)]
@@ -60,24 +87,55 @@ def explain_item(
     catalog: Catalog = CATALOG,
     mastery: dict[str, float] | None = None,
     position: int | None = None,
+    required_for: list[str] | None = None,
+    profile: LearnerProfile | None = None,
 ) -> Explanation:
-    """Build a faithful explanation for one recommended item."""
+    """Build a faithful explanation for one recommended item.
+
+    ``required_for`` names the items *in this learner's path* that depend on
+    this one. It is read from the prerequisite graph, never inferred. An item
+    pulled in purely as groundwork closes no gap of its own, and without this
+    it fell through to "consolidates what you have already started" — which is
+    plainly false for a learner with no history, and tells them nothing about
+    why a linear algebra course appeared in a data science path.
+    """
     mastery = mastery or {}
+    required_for = required_for or []
+    informative = _informative_components(profile)
     item = catalog.items[scored.item_id]
 
     covered = _describe_skills(scored.covers, catalog)
     if covered:
         headline = f"{item.title} — because you still need {_join(covered)}."
+    elif required_for:
+        headline = f"{item.title} — required before {_join(required_for)}."
     else:
         headline = f"{item.title} — it consolidates what you have already started."
 
     reasons: list[str] = []
+
+    # Groundwork earns its place from the graph, not from the ranker, so say so
+    # first — it is the whole answer to "why is this here?".
+    if required_for:
+        reasons.append(
+            f"{_join(required_for)} {'depend' if len(required_for) > 1 else 'depends'} "
+            f"on this, so it comes first."
+        )
+        if not covered:
+            taught = [catalog.skill_name(s) for s in sorted(item.skills, key=lambda k: -item.skills[k])[:3]]
+            reasons.append(
+                f"It is not on your goal's skill list itself — it teaches "
+                f"{_join(taught)}, which the items above build on."
+            )
 
     # Lead with the component that actually drove the ranking.
     ordered = sorted(scored.contributions.items(), key=lambda kv: -kv[1])
     for name, contribution in ordered[:3]:
         share = contribution / scored.score if scored.score else 0.0
         if share < 0.10:
+            continue
+        if name not in informative:
+            # The number is real; the claim about the learner would not be.
             continue
         phrase = COMPONENT_PHRASES.get(name)
         if phrase:
@@ -127,6 +185,7 @@ def explain_item(
             for p in item.prereqs
         ],
         unlocks=unlocks,
+        required_for=required_for,
         evidence={
             "score": scored.score,
             "weights": WEIGHTS,
