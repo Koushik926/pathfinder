@@ -32,6 +32,21 @@ from app.store import CATALOG, Catalog
 # Without this the embedding treats "hello" as a career description and scores
 # it 0.31 against DevOps Engineer — noise from character n-grams, offered to
 # the learner as though it were a considered suggestion.
+# "I don't know" is not a goal, it is a request for help choosing. Answering it
+# with whatever the embedding happened to score highest is worse than useless —
+# it looks like a considered suggestion and it is noise.
+UNCERTAIN = re.compile(
+    r"^\s*(?:"
+    r"(?:i\s+)?(?:really\s+)?(?:do\s?n[o']?t|dont|don'?t)\s+know(?:\s+.*)?"
+    r"|dunno|idk|no\s+idea|not\s+sure|unsure|confused|lost"
+    r"|any(?:thing)?|whatever|you\s+(?:decide|choose|pick|tell\s+me)"
+    r"|help(?:\s+me)?(?:\s+(?:choose|decide|pick))?"
+    r"|what\s+(?:should|do)\s+i\s+(?:learn|do|pick|choose).*"
+    r"|suggest(?:\s+.*)?|recommend(?:\s+.*)?|options?|show\s+me.*"
+    r")[\s!.,?]*$",
+    re.IGNORECASE,
+)
+
 SMALL_TALK = re.compile(
     r"^\s*(?:"
     r"h+e+l+o+|h+i+|h+e+y+|yo|hola|namaste|greetings?"
@@ -51,6 +66,21 @@ SMALL_TALK = re.compile(
 # Without this the embedding treats "hello" as a career description and scores
 # it 0.31 against DevOps Engineer — noise from character n-grams, offered to
 # the learner as though it were a considered suggestion.
+# "I don't know" is not a goal, it is a request for help choosing. Answering it
+# with whatever the embedding happened to score highest is worse than useless —
+# it looks like a considered suggestion and it is noise.
+UNCERTAIN = re.compile(
+    r"^\s*(?:"
+    r"(?:i\s+)?(?:really\s+)?(?:do\s?n[o']?t|dont|don'?t)\s+know(?:\s+.*)?"
+    r"|dunno|idk|no\s+idea|not\s+sure|unsure|confused|lost"
+    r"|any(?:thing)?|whatever|you\s+(?:decide|choose|pick|tell\s+me)"
+    r"|help(?:\s+me)?(?:\s+(?:choose|decide|pick))?"
+    r"|what\s+(?:should|do)\s+i\s+(?:learn|do|pick|choose).*"
+    r"|suggest(?:\s+.*)?|recommend(?:\s+.*)?|options?|show\s+me.*"
+    r")[\s!.,?]*$",
+    re.IGNORECASE,
+)
+
 SMALL_TALK = re.compile(
     r"^\s*(?:"
     r"h+e+l+o+|h+i+|h+e+y+|yo|hola|namaste|greetings?"
@@ -621,6 +651,28 @@ def respond(session: Session, message: str, catalog: Catalog = CATALOG) -> dict:
             prompt,
             f"The learner said: {message!r}. Ask which of these goals they mean: "
             + ", ".join(o["label"] for o in options),
+        )
+        return _package(session, reply, "choose_role", options=options)
+
+    # An honest "I don't know" deserves real choices, not the highest-scoring
+    # noise. Offer the goals people most often start from.
+    if (
+        UNCERTAIN.match(message)
+        and not session.profile.role_id
+        and not session.profile.goal_skills
+    ):
+        options = [
+            {"value": rid, "label": catalog.roles[rid].title,
+             "detail": catalog.roles[rid].family}
+            for rid in FALLBACK_ROLES if rid in catalog.roles
+        ]
+        session.pending_role_options = [o["value"] for o in options]
+        reply = _narrate(
+            "That's completely fine — most people don't. Here are the goals "
+            "learners most often start from. Tap whichever sounds closest, or "
+            "tell me a subject you've enjoyed and I'll work from that.",
+            "Reassure the learner that not knowing is normal and invite them to "
+            "pick from the list or name a subject they enjoy.",
         )
         return _package(session, reply, "choose_role", options=options)
 

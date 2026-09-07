@@ -194,3 +194,52 @@ def test_a_skill_only_goal_still_gets_a_titled_path():
     path = generate_path(session.profile)
     assert path.role_title, "a path with no career role still needs a name"
     assert path.all_items
+
+
+# -- "I don't know" ---------------------------------------------------------
+
+@pytest.mark.parametrize("said", [
+    "don't know", "dont know", "no idea", "not sure", "dunno", "idk",
+    "anything", "you decide", "help me choose", "confused",
+    "suggest something", "what should i learn",
+])
+def test_uncertainty_gets_real_choices_not_noise(said):
+    """Reported: "don't know" offered MLOps Engineer, ML Engineer and DevOps
+    Engineer. None of those came from anything the learner said — every one of
+    these phrases contains zero words the catalog recognises, and the scores
+    were character-n-gram artefacts presented as considered suggestions."""
+    session = _session()
+    result = respond(session, said)
+    assert result["intent"] == "choose_role"
+    assert len(result["options"]) >= 4, "not knowing deserves real options"
+    assert session.profile.role_id is None
+
+
+def test_a_score_with_no_real_word_behind_it_is_not_a_match():
+    """"dunno" scored 0.56 against Embedded Engineer — above the threshold at
+    which we commit without asking. It would have picked a career silently."""
+    from app.ml.embeddings import SPACE
+
+    for noise in ("dunno", "don't know", "asdf qwer", "zzz", "idk"):
+        assert SPACE.lexical_signal(noise) == 0
+        assert SPACE.rank_roles(noise, 3) == [], f"{noise!r} produced a role match"
+
+
+@pytest.mark.parametrize("goal,expected", [
+    ("dsa", "sde-placement"), ("ml", "ml-engineer"),
+    ("data science", "data-scientist"), ("web development", "frontend-dev"),
+    ("cyber security", "pentester"), ("i want to make apps", "mobile-dev"),
+])
+def test_real_goals_still_resolve(goal, expected):
+    """The vocabulary gate must not cost us any genuine match."""
+    session = _session()
+    respond(session, goal)
+    assert session.profile.role_id == expected
+
+
+def test_unseen_word_forms_survive_the_vocabulary_gate():
+    """"designing beautiful websites" uses no catalog word verbatim but does
+    share vocabulary — it must still reach a goal."""
+    session = _session()
+    respond(session, "designing beautiful websites")
+    assert session.profile.role_id or session.profile.goal_skills

@@ -202,6 +202,16 @@ class SemanticSpace:
                 # padding with zero-scored roles a disambiguation UI would show.
                 return [(best_alias, 1.0)]
 
+        # No alias matched. Before trusting the embedding, check the learner
+        # used at least one word this catalog recognises. Character n-grams make
+        # unseen word forms work, but they also score pure noise: "dunno" hits
+        # 0.56 against Embedded Engineer — above the auto-commit threshold — and
+        # "don't know" offers MLOps, ML and DevOps as though they were
+        # considered suggestions. A score with no real word behind it is not
+        # evidence, and must not reach the learner as a recommendation.
+        if self.lexical_signal(text) == 0:
+            return []
+
         vector = self.encode(text)
         if self.is_empty(vector):
             return []

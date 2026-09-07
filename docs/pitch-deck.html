@@ -1,0 +1,611 @@
+<title>PathFinder Pitch Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  :root{
+    --ink:#0d1117; --surface:#161b22; --raised:#1b212a; --rule:#232b36;
+    --text:#e8e6e0; --muted:#a4aab3; --faint:#767c85;
+    --route:#5cb6cf; --route-soft:#5cb6cf1f;
+    --amber:#e0973f; --amber-soft:#e0973f1a;
+    --green:#63b487; --green-soft:#63b4871a;
+    --rose:#d8757f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ink); color:var(--text);
+    font-family:"Source Serif 4",Georgia,serif;
+    -webkit-font-smoothing:antialiased; overflow:hidden;
+  }
+  .deck{position:relative; width:100vw; height:100vh}
+
+  /* ---------- slide ---------- */
+  .slide{
+    position:absolute; inset:0; display:none;
+    padding:clamp(28px,4.5vh,56px) clamp(32px,5vw,88px) 88px;
+    flex-direction:column; gap:clamp(12px,2vh,22px);
+  }
+  .slide.on{display:flex}
+
+  .eyebrow{
+    font-family:Archivo,system-ui,sans-serif; font-size:clamp(10px,1.15vw,13px);
+    font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--route);
+    display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow .n{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; border:1.5px solid var(--route);
+    font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:0;
+  }
+  h1{
+    font-family:Archivo,system-ui,sans-serif; font-weight:800;
+    font-size:clamp(32px,5.2vw,74px); line-height:1.02; letter-spacing:-.03em;
+    margin:0; text-wrap:balance;
+  }
+  h2{
+    font-family:Archivo,system-ui,sans-serif; font-weight:700;
+    font-size:clamp(26px,3.6vw,50px); line-height:1.05; letter-spacing:-.025em;
+    margin:0; text-wrap:balance;
+  }
+  .lede{
+    font-size:clamp(16px,1.9vw,27px); line-height:1.45; color:var(--muted);
+    max-width:34ch; margin:0;
+  }
+  .body{font-size:clamp(14px,1.35vw,20px); line-height:1.5; color:var(--muted); max-width:52ch; margin:0}
+  strong{color:var(--text); font-weight:600}
+  em{color:var(--route); font-style:italic}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,52px); align-items:start; flex:1; min-height:0}
+  .cols.wide-left{grid-template-columns:1.15fr .85fr}
+
+  ul.pts{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:clamp(8px,1.5vh,16px)}
+  ul.pts li{
+    position:relative; padding-left:26px; font-size:clamp(14px,1.45vw,22px);
+    line-height:1.4; color:var(--muted); max-width:46ch;
+  }
+  ul.pts li::before{
+    content:""; position:absolute; left:4px; top:.62em;
+    width:7px; height:7px; border-radius:50%; background:var(--route);
+  }
+  ul.pts li strong{color:var(--text)}
+
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px}
+  .tile{
+    background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+    padding:clamp(12px,1.6vw,20px); border-top:3px solid var(--route);
+  }
+  .tile.g{border-top-color:var(--green)} .tile.a{border-top-color:var(--amber)}
+  .tile .n{
+    font-family:Archivo,system-ui,sans-serif; font-weight:800;
+    font-size:clamp(24px,3vw,42px); line-height:1; letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;
+  }
+  .tile.g .n{color:var(--green)} .tile.a .n{color:var(--amber)}
+  .tile .l{
+    font-family:Archivo,system-ui,sans-serif; font-size:clamp(9px,.85vw,12px);
+    font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+    color:var(--faint); margin-top:7px;
+  }
+
+  .panel{
+    background:var(--surface); border:1px solid var(--rule); border-radius:6px;
+    padding:clamp(14px,2vw,26px); display:flex; flex-direction:column; gap:12px;
+  }
+  .panel h3{
+    font-family:Archivo,system-ui,sans-serif; font-weight:600;
+    font-size:clamp(12px,1.15vw,16px); letter-spacing:.02em; margin:0; color:var(--text);
+  }
+
+  /* weight bars */
+  .wrow{display:grid; grid-template-columns:minmax(88px,auto) 1fr auto; gap:12px; align-items:center;
+        font-size:clamp(11px,1.1vw,16px)}
+  .wrow .k{font-family:Archivo,sans-serif; font-weight:500; color:var(--muted)}
+  .wrow .bar{height:9px; background:var(--rule); border-radius:2px; overflow:hidden}
+  .wrow .bar i{display:block; height:100%; background:var(--route); border-radius:2px}
+  .wrow .v{font-family:"JetBrains Mono",monospace; font-size:clamp(10px,.95vw,13px);
+           color:var(--faint); font-variant-numeric:tabular-nums}
+
+  .flow{display:flex; flex-direction:column; gap:7px}
+  .step{
+    display:flex; align-items:center; gap:11px; background:var(--raised);
+    border:1px solid var(--rule); border-radius:4px; padding:9px 13px;
+    font-size:clamp(11px,1.1vw,16px);
+  }
+  .step .idx{
+    font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--route);
+    border:1px solid var(--route); border-radius:3px; padding:1px 6px; flex-shrink:0;
+  }
+  .step .what{font-family:Archivo,sans-serif; font-weight:600; color:var(--text)}
+  .step .how{color:var(--faint); font-size:.86em; margin-left:auto; text-align:right}
+
+  .quote{
+    border-left:3px solid var(--route); padding:4px 0 4px 20px;
+    font-size:clamp(15px,1.7vw,25px); line-height:1.4; color:var(--text); max-width:40ch;
+  }
+  .callout{
+    background:var(--green-soft); border-left:3px solid var(--green);
+    padding:13px 18px; border-radius:0 4px 4px 0;
+    font-size:clamp(12px,1.2vw,18px); color:var(--text); line-height:1.45;
+  }
+  .callout.a{background:var(--amber-soft); border-left-color:var(--amber)}
+
+  table.qa{border-collapse:collapse; width:100%; font-size:clamp(11px,1.05vw,15px)}
+  table.qa td{padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.4}
+  table.qa td:first-child{color:var(--text); font-family:Archivo,sans-serif; font-weight:600; width:38%}
+  table.qa td:last-child{color:var(--muted)}
+  table.qa tr:last-child td{border-bottom:none}
+
+  .demo-steps{display:flex; flex-direction:column; gap:9px}
+  .demo-step{display:grid; grid-template-columns:auto 1fr; gap:13px; align-items:baseline}
+  .demo-step .t{
+    font-family:"JetBrains Mono",monospace; font-size:clamp(10px,.95vw,13px);
+    color:var(--amber); font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  .demo-step .d{font-size:clamp(12px,1.2vw,18px); color:var(--muted); line-height:1.4}
+  .demo-step .d b{color:var(--text); font-weight:600}
+  .type-in{
+    font-family:"JetBrains Mono",monospace; font-size:.92em; color:var(--route);
+    background:var(--route-soft); padding:1px 7px; border-radius:3px;
+  }
+
+  /* ---------- chrome ---------- */
+  .rail{
+    position:fixed; left:0; right:0; bottom:0; height:60px;
+    display:flex; align-items:center; gap:18px;
+    padding:0 clamp(18px,3vw,40px); background:var(--surface);
+    border-top:1px solid var(--rule); font-family:Archivo,system-ui,sans-serif;
+    font-size:12px; z-index:20;
+  }
+  .rail .who{display:flex; align-items:center; gap:9px; min-width:0}
+  .rail .dot{width:8px; height:8px; border-radius:50%; background:var(--route); flex-shrink:0}
+  .rail .name{font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .rail .part{color:var(--faint); white-space:nowrap}
+  .rail .spacer{flex:1}
+  .rail .budget{
+    font-family:"JetBrains Mono",monospace; color:var(--amber);
+    font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  .rail .clock{
+    font-family:"JetBrains Mono",monospace; font-size:15px; color:var(--text);
+    font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  .rail .clock.over{color:var(--rose)}
+  .rail .count{font-family:"JetBrains Mono",monospace; color:var(--faint); white-space:nowrap}
+  .rail button{
+    font:inherit; font-size:11px; font-weight:600; letter-spacing:.04em;
+    background:transparent; color:var(--muted); border:1px solid var(--rule);
+    border-radius:4px; padding:6px 11px; cursor:pointer;
+  }
+  .rail button:hover{border-color:var(--route); color:var(--route)}
+  .rail button:focus-visible{outline:2px solid var(--route); outline-offset:2px}
+
+  .progress{position:fixed; left:0; bottom:60px; height:2px; background:var(--route); z-index:21; transition:width .3s ease}
+
+  .notes{
+    position:fixed; right:0; top:0; bottom:60px; width:min(430px,42vw);
+    background:var(--raised); border-left:1px solid var(--rule);
+    padding:26px 26px 40px; overflow-y:auto; z-index:19;
+    transform:translateX(100%); transition:transform .25s ease;
+  }
+  .notes.open{transform:none}
+  .notes h4{
+    font-family:Archivo,sans-serif; font-size:11px; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--route); margin:0 0 12px;
+  }
+  .notes p{font-size:15px; line-height:1.6; color:var(--muted); margin:0 0 13px}
+  .notes p.say{color:var(--text)}
+  .notes p.say::before{content:"“"} .notes p.say::after{content:"”"}
+  .notes .cue{
+    font-family:Archivo,sans-serif; font-size:11px; font-weight:600; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--amber); margin:16px 0 7px;
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide on" data-speaker="R Koushik" data-part="Opening" data-budget="0:30">
+    <div class="eyebrow"><span class="n">1</span> HCLTech AMPlified · Round 3 · Team Critical Path</div>
+    <h1>Path<span style="color:var(--route)">Finder</span></h1>
+    <p class="lede">Every platform tells you which courses are relevant.<br>
+      None tells you which to take <em>first</em>.</p>
+    <div class="spacer" style="flex:1"></div>
+    <div class="tiles" style="max-width:840px">
+      <div class="tile"><div class="n">238</div><div class="l">Catalog items</div></div>
+      <div class="tile"><div class="n">188</div><div class="l">Tests passing</div></div>
+      <div class="tile g"><div class="n">0.37s</div><div class="l">Path generation</div></div>
+      <div class="tile a"><div class="n">0</div><div class="l">API keys required</div></div>
+    </div>
+    <p class="body" style="font-size:14px">R Koushik · Chethan H S · Khushi Katwe · Sandeep N · Chethan Kumar H M — REVA University</p>
+    <div hidden class="script">
+      <p class="say">Good morning. We're Critical Path from REVA University, and this is PathFinder.</p>
+      <p class="say">Every learning platform can tell you which courses are relevant. Not one of them tells you which to take first. That's the gap we built for.</p>
+      <p><b>Cue:</b> don't read the tiles — they're there to be noticed, not narrated. Move on in 30 seconds.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-speaker="R Koushik" data-part="The problem" data-budget="1:00">
+    <div class="eyebrow"><span class="n">2</span> The problem</div>
+    <h2>Relevance is solved.<br>Sequence isn't.</h2>
+    <div class="cols wide-left">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <p class="lede" style="max-width:38ch">A second-year student searches “machine learning” and gets thousands of results. Every one is relevant. That's the trap.</p>
+        <ul class="pts">
+          <li>The problem was never <strong>scarcity of content</strong> — it's abundance with no order</li>
+          <li>What they can't answer: <strong>what first, what to skip, what I'm not ready for</strong></li>
+          <li>So they follow a random roadmap, or start three courses and finish none</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>What a recommender can't give you</h3>
+        <div class="flow">
+          <div class="step"><span class="idx">1</span><span class="what">A model of what you know</span></div>
+          <div class="step"><span class="idx">2</span><span class="what">A model of what the goal needs</span></div>
+          <div class="step"><span class="idx">3</span><span class="what">Ordering</span></div>
+          <div class="step"><span class="idx">4</span><span class="what">Explanations you trust</span></div>
+        </div>
+        <p class="body" style="font-size:13px;max-width:none">Those four are our architecture.</p>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">A second-year student searches "machine learning" and gets thousands of results. Every single one is relevant. That's the trap — the problem was never scarcity of content, it's abundance with no sequence.</p>
+      <p class="say">What they genuinely cannot answer is: what do I do first? What can I skip because I already know it? What am I not ready for? So they follow a random YouTube roadmap, or they start three courses and finish none.</p>
+      <p class="say">Answering that needs four things similarity search can't give you — and those four became our architecture.</p>
+      <p><b>Cue:</b> hand to Chethan H S. Have the demo already open and warm.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-speaker="Chethan H S" data-part="What we built" data-budget="0:45">
+    <div class="eyebrow"><span class="n">3</span> What we built</div>
+    <h2>Four questions in, an ordered and dated plan</h2>
+    <div class="cols">
+      <ul class="pts">
+        <li><strong>Conversational</strong> — describe a goal in plain words; one sentence can answer four questions at once</li>
+        <li><strong>Profiles you</strong> — interests, level, what you've already completed</li>
+        <li><strong>Sequenced</strong> — courses, projects and assessments in prerequisite order, with dates</li>
+        <li><strong>Answers back</strong> — why this, why now, what if I skip it</li>
+      </ul>
+      <div class="panel">
+        <h3>Live, right now</h3>
+        <p class="body" style="font-size:14px;max-width:none">
+          <span class="type-in">pathfinder1-vov3.onrender.com</span>
+        </p>
+        <div class="callout">Runs with <strong>no API key, no GPU, no database</strong> and no network calls at runtime. The demo cannot die on a network request.</div>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">PathFinder takes a goal in plain language and turns it into an ordered, dated plan that starts from what you already know.</p>
+      <p class="say">It profiles you, sequences courses, projects and assessments in prerequisite order, and then answers questions about the plan it gave you.</p>
+      <p class="say">It's deployed and live — and it runs with no API key, no GPU and no database. Let me just show you.</p>
+      <p><b>Cue:</b> switch to the browser NOW. Don't linger on this slide.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-speaker="Chethan H S" data-part="Live demo" data-budget="2:15">
+    <div class="eyebrow"><span class="n">4</span> Live demo — switch to the browser</div>
+    <h2>Watch it build a plan</h2>
+    <div class="cols wide-left">
+      <div class="demo-steps">
+        <div class="demo-step"><span class="t">0:00</span><span class="d">Type <span class="type-in">I want to become a generative AI engineer</span> — say “it resolves that to a career profile, 14 weighted target skills”</span></div>
+        <div class="demo-step"><span class="t">0:25</span><span class="d">Answer <span class="type-in">some grounding</span>, then <span class="type-in">I did Python for Everybody and Prompt Engineering for Developers</span> — <b>point at the four chips turning green</b></span></div>
+        <div class="demo-step"><span class="t">0:55</span><span class="d">Answer <span class="type-in">15 hours a week</span>. Plan renders. Call the number: <b>10% ready today, 89% at the end</b></span></div>
+        <div class="demo-step"><span class="t">1:15</span><span class="d">Scroll the milestones. Point at an <b>amber Prerequisite badge</b> — “it pulled that in because I was missing it”</span></div>
+        <div class="demo-step"><span class="t">1:35</span><span class="d">Click <b>Why this?</b> — the component bars. <span style="color:var(--green)">This is the moment that wins the round.</span></span></div>
+        <div class="demo-step"><span class="t">1:55</span><span class="d">Type <span class="type-in">can I skip Python?</span> — it names the exact items that break</span></div>
+        <div class="demo-step"><span class="t">2:05</span><span class="d">Open <b>Progress</b> tab — radar, gaps, next actions. Hand over.</span></div>
+      </div>
+      <div class="panel">
+        <h3>Before you present</h3>
+        <ul class="pts" style="gap:9px">
+          <li style="font-size:15px">Demo from <strong>localhost</strong> — instant, and immune to venue wifi</li>
+          <li style="font-size:15px">Warm the live URL <strong>15 minutes early</strong> and leave a tab open</li>
+          <li style="font-size:15px">Press <strong>Start over</strong>; zoom browser to <strong>110–125%</strong></li>
+          <li style="font-size:15px">Keep a <strong>second tab on a finished plan</strong> as fallback</li>
+        </ul>
+        <div class="callout a">The free tier sleeps and takes <strong>over two minutes</strong> to wake. Cite the live URL as proof it's deployed — but present from localhost.</div>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="cue">This is 2:15 of the 10 minutes. Rehearse it until it's muscle memory.</p>
+      <p class="say">I'll type a real goal — "I want to become a generative AI engineer". It resolves that to a career profile with fourteen weighted target skills.</p>
+      <p class="say">It asks only what it still needs. Watch these four chips fill as I answer — goal, experience, what I know, time.</p>
+      <p class="say">And there's the plan. Note what it's claiming: I'm 10% ready today, 89% when I finish. That's measured against the role's weighted skill profile, not a guess.</p>
+      <p class="say">These amber badges are prerequisites I was missing — it added them automatically.</p>
+      <p class="say">Now the part I'd point at. "Why this?" — these bars aren't a story written afterwards. They're the actual scoring components that placed this course here.</p>
+      <p class="say">And I can argue with it. "Can I skip Python?" — it names the specific items that would break, because it reads the prerequisite graph rather than guessing.</p>
+      <p><b>Cue:</b> hand to Khushi. Leave the browser open on the roadmap.</p>
+      <p class="cue">Cold-start warning</p>
+      <p>Render's free tier evicts the service when idle and takes <b>over two minutes</b> to wake. Present from <b>localhost</b> (<code>uvicorn app.main:app --port 8000</code>) and mention the live URL as evidence of deployment. If you must demo live, open it 15 minutes early and keep the tab active.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-speaker="Khushi Katwe" data-part="How it works" data-budget="1:15">
+    <div class="eyebrow"><span class="n">5</span> How it works</div>
+    <h2>A pipeline, not a search box</h2>
+    <div class="flow" style="max-width:900px">
+      <div class="step"><span class="idx">1</span><span class="what">Goal text</span><span class="how">word + character TF-IDF → SVD, 128 dimensions</span></div>
+      <div class="step"><span class="idx">2</span><span class="what">Profiler</span><span class="how">noisy-OR mastery × recency decay</span></div>
+      <div class="step"><span class="idx">3</span><span class="what">Gap engine</span><span class="how">target − mastery, weighted by importance</span></div>
+      <div class="step"><span class="idx">4</span><span class="what">Hybrid ranker</span><span class="how">six signals, attribution retained</span></div>
+      <div class="step"><span class="idx">5</span><span class="what">Planner</span><span class="how">greedy submodular → topological sort → milestones</span></div>
+    </div>
+    <div class="cols" style="flex:0">
+      <div class="callout"><strong>Mastery saturates.</strong> Two courses each teaching Python at 0.5 don't make an expert — they overlap. Noisy-OR gives diminishing returns and can't exceed 1.0.</div>
+      <div class="callout"><strong>Knowledge decays.</strong> A course finished three years ago counts for less than one finished last month — but never for nothing.</div>
+    </div>
+    <div hidden class="script">
+      <p class="say">Under that conversation is a pipeline, not a search box.</p>
+      <p class="say">The goal text, the courses, the skills and the career roles all get embedded into one shared space, so any two can be compared directly.</p>
+      <p class="say">Your history becomes a mastery vector. And the modelling choice that matters is that mastery saturates — it combines by noisy-OR, so two courses each teaching Python at 0.5 don't make you an expert, because they overlap. That's what stops it recommending Python once you clearly know Python.</p>
+      <p class="say">Subtract mastery from what the goal requires, weight by importance, and "personalised" stops being a slogan — it's arithmetic you can inspect.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-speaker="Khushi Katwe" data-part="AI / ML" data-budget="1:15">
+    <div class="eyebrow"><span class="n">6</span> AI / ML implementation</div>
+    <h2>Six signals, because each one fails alone</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3>Ranking weights</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="wrow"><span class="k">Gap coverage</span><span class="bar"><i style="width:100%"></i></span><span class="v">0.38</span></div>
+          <div class="wrow"><span class="k">Semantic</span><span class="bar"><i style="width:47%"></i></span><span class="v">0.18</span></div>
+          <div class="wrow"><span class="k">Item-item CF</span><span class="bar"><i style="width:37%"></i></span><span class="v">0.14</span></div>
+          <div class="wrow"><span class="k">Level fit</span><span class="bar"><i style="width:32%"></i></span><span class="v">0.12</span></div>
+          <div class="wrow"><span class="k">Quality prior</span><span class="bar"><i style="width:26%"></i></span><span class="v">0.10</span></div>
+          <div class="wrow"><span class="k">Modality</span><span class="bar"><i style="width:21%"></i></span><span class="v">0.08</span></div>
+        </div>
+      </div>
+      <ul class="pts">
+        <li>Coverage ignores quality · semantics ignore what you know · <strong>collaborative filtering cold-starts</strong> · level-fit ignores the goal</li>
+        <li>Path selection is <strong>budgeted maximum coverage</strong>, and the objective is submodular — greedy carries the <strong>(1 − 1/e)</strong> guarantee</li>
+        <li>After every pick it <strong>simulates the mastery you'd gain</strong> and recomputes the gap — which is what stops four overlapping intro-ML courses</li>
+      </ul>
+    </div>
+    <div hidden class="script">
+      <p class="say">The ranker combines six independent signals, because every one of them fails on its own. Coverage ignores quality. Semantics ignore what you already know. Collaborative filtering cold-starts and just echoes what's popular. Level-fit ignores the goal entirely.</p>
+      <p class="say">Choosing the path itself is a budgeted maximum-coverage problem, and the objective is submodular — each extra course on a topic adds less than the last. So greedy selection carries the standard one-minus-one-over-e approximation guarantee and runs in milliseconds.</p>
+      <p class="say">After each pick we simulate the mastery you'd actually gain and recompute the remaining gap. That's the thing that stops it handing you four overlapping intro-to-ML courses.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" data-speaker="Sandeep N" data-part="Explainability" data-budget="1:00">
+    <div class="eyebrow"><span class="n">7</span> Innovation — the differentiator</div>
+    <h2>The explanation <em>is</em> the ranking</h2>
+    <div class="cols wide-left">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <p class="quote">A roadmap you don't trust is a roadmap you abandon in week two.</p>
+        <ul class="pts">
+          <li>Explanations are <strong>computed from the same numbers that produced the ranking</strong> — never written alongside it</li>
+          <li>A system that ranks with one model and explains with another produces <strong>fluent, confident, wrong</strong> justifications</li>
+          <li>Ours <strong>cannot drift</strong>, because the explanation is the arithmetic</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>“Can I skip Python?”</h3>
+        <p class="body" style="font-size:14px;max-width:none">It names the exact items that would break — read from the prerequisite graph, not guessed.</p>
+        <div class="callout a"><strong>Claude is optional.</strong> With a key it rewrites wording. It is never asked to choose or order recommendations — that stays deterministic and reproducible.</div>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">This is the part I'd ask you to weigh most. A roadmap you don't trust is a roadmap you abandon in week two.</p>
+      <p class="say">So our explanations are computed from the same numbers that produced the ranking — they're not written alongside it. That's an architectural constraint, not a style choice: a system that ranks with one model and explains with another can produce a fluent, confident, completely wrong justification. Ours can't drift, because the explanation *is* the arithmetic.</p>
+      <p class="say">And one thing worth stating plainly — Claude is optional in our system. With a key it improves the wording. It is never asked to choose or order a recommendation. That stays deterministic, so the same profile always produces the same path.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide" data-speaker="Sandeep N" data-part="Generality" data-budget="0:45">
+    <div class="eyebrow"><span class="n">8</span> It isn't about software careers</div>
+    <h2>Swap the catalog, keep the engine</h2>
+    <div class="cols">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <p class="body">We tested this rather than claiming it. A clinical-medicine catalog sharing <strong>no skill, role, item id or category</strong> with ours — and <strong>zero code changes</strong>.</p>
+        <div class="flow">
+          <div class="step"><span class="idx">M1</span><span class="what">Anatomy · Ethics · Biochemistry</span></div>
+          <div class="step"><span class="idx">M2</span><span class="what">Physiology → Pharmacology</span></div>
+          <div class="step"><span class="idx">M3</span><span class="what">Clinical Examination · Pathology</span></div>
+          <div class="step"><span class="idx">M5</span><span class="what">Emergency Department rotation</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Asked “can I skip anatomy?”</h3>
+        <p class="quote" style="font-size:clamp(13px,1.3vw,19px);max-width:none">“You can, but Physiology of Organ Systems builds on it.”</p>
+        <p class="body" style="font-size:14px;max-width:none">Read from <em>that</em> catalog's graph. <strong>8 tests</strong> run the full pipeline against it, so a domain assumption leaking into an algorithm fails the build.</p>
+        <div class="callout">This is what makes it adoptable — by a placement cell, an EdTech platform, or HCLTech's own L&amp;D.</div>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">One more thing, and it's the reason this is more than a hackathon project. None of our engines know what a course is *about* — the catalog is an argument.</p>
+      <p class="say">We tested that instead of claiming it. We built a clinical medicine catalog that shares no skill, no role, no item id and no category with ours, and pointed the same engine at it with zero code changes.</p>
+      <p class="say">It produced a coherent clinical curriculum — anatomy before physiology before pharmacology, ward rotations at the end. And asked "can I skip anatomy?", it answered by naming physiology, read from that catalog's own prerequisite graph.</p>
+      <p class="say">Eight tests run the full pipeline against it, so if a domain assumption ever leaks into an algorithm, the build fails. That's what makes this adoptable by a placement cell, an EdTech platform, or your own L&amp;D team.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" data-speaker="Chethan Kumar H M" data-part="Engineering" data-budget="1:00">
+    <div class="eyebrow"><span class="n">9</span> Engineering &amp; results</div>
+    <h2>Built to be checked, not just demoed</h2>
+    <div class="tiles" style="max-width:1000px">
+      <div class="tile g"><div class="n">188</div><div class="l">Tests passing</div></div>
+      <div class="tile"><div class="n">238</div><div class="l">Items · 116 skills · 22 roles</div></div>
+      <div class="tile g"><div class="n">0.37s</div><div class="l">Path generation, live</div></div>
+      <div class="tile a"><div class="n">9</div><div class="l">Max prerequisite depth</div></div>
+    </div>
+    <div class="cols" style="flex:1;min-height:0">
+      <ul class="pts">
+        <li>Reasoning lives in <strong>pure functions</strong> — never in the route layer, never in a language model</li>
+        <li>The same profile <strong>always</strong> produces the same path</li>
+        <li>Prerequisite graph <strong>validated acyclic at build time</strong>; the catalog rebuilds byte-identically</li>
+      </ul>
+      <div class="panel">
+        <h3>Three bugs we found by using it</h3>
+        <p class="body" style="font-size:14px;max-width:none">A goal logged as completed history · nonsense producing a confident Computer Vision path · foundations scheduled after what builds on them.</p>
+        <div class="callout">Each has a regression test. We found them by driving the product the way a student would, not by reading the code.</div>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">On engineering — the reasoning lives in pure functions over a profile and a catalog. Never in the route layer, never in a language model. That's why the same profile always produces the same path, and why we can cover it with a hundred and eleven tests.</p>
+      <p class="say">The prerequisite graph is validated acyclic at build time, and the catalog rebuilds byte-for-byte identically on any supported Python version.</p>
+      <p class="say">And three of those tests exist because of bugs we found by *using* the product, not reading the code. A learner's goal being silently logged as their completed history. Nonsense input producing a confident Computer Vision career path. Foundations scheduled after the material that builds on them. Each one now has a regression test.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide" data-speaker="Chethan Kumar H M" data-part="Close" data-budget="0:15">
+    <div class="eyebrow"><span class="n">10</span> Thank you</div>
+    <h2 style="font-size:clamp(28px,4.2vw,60px)">Every platform tells you what's relevant.<br>PathFinder tells you what's <em>next</em> — and shows its work.</h2>
+    <div class="spacer" style="flex:1"></div>
+    <div class="cols">
+      <div class="panel">
+        <h3>Try it yourself</h3>
+        <p class="body" style="font-size:16px;max-width:none"><span class="type-in">pathfinder1-vov3.onrender.com</span></p>
+        <p class="body" style="font-size:14px;max-width:none">github.com/Koushik926/pathfinder</p>
+      </div>
+      <div class="panel">
+        <h3>Team Critical Path</h3>
+        <p class="body" style="font-size:14px;max-width:none">R Koushik · Chethan H S · Khushi Katwe · Sandeep N · Chethan Kumar H M — REVA University</p>
+      </div>
+    </div>
+    <div hidden class="script">
+      <p class="say">Every platform can tell you what's relevant. PathFinder tells you what's next — and shows its work. Thank you. We'd love your questions.</p>
+      <p><b>Cue:</b> stop talking. Let the panel ask. Next slide is your Q&amp;A prep — don't project it, just know it.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide" data-speaker="All five" data-part="Q&amp;A prep — do not project" data-budget="5:00">
+    <div class="eyebrow"><span class="n">Q</span> Anticipated questions · keep this one to yourselves</div>
+    <h2 style="font-size:clamp(22px,2.8vw,38px)">What they'll probe, and the honest answer</h2>
+    <div style="overflow-y:auto;flex:1;min-height:0">
+      <table class="qa">
+        <tr><td>Isn't this just a ChatGPT wrapper?</td><td>No — and it runs with no API key at all. The ranking, ordering and explanations are deterministic local models. Claude only rewrites wording, and never chooses or orders anything.</td></tr>
+        <tr><td>Your interaction data is synthetic — isn't the CF meaningless?</td><td>Fair. It's a real item-item CF model over real co-occurrence structure, but the co-occurrences are simulated from a fixed seed. It carries 14% of the ranking weight; the other 86% uses no simulated data. With real enrolment logs it improves immediately.</td></tr>
+        <tr><td>Why LSA and not a neural sentence encoder?</td><td>A deliberate trade. A transformer embeds better but costs a ~500 MB download and version-dependent output. LSA fits in under a second, is byte-reproducible, and runs offline — so any judge can clone and run it. At 238 items it doesn't change the ranking; at 100× the catalog, a neural encoder would win.</td></tr>
+        <tr><td>How do you know the recommendations are actually good?</td><td>We can't A/B test without users, so we test the properties that must hold: never recommends what you've completed, prerequisites always precede dependents, coverage exceeds 70%, readiness rises, hands-on work is guaranteed. 111 tests.</td></tr>
+        <tr><td>How does it scale to 100,000 courses?</td><td>The ranker is vectorised and the graph algorithms are near-linear, so planning holds. Retrieval would need an ANN index instead of a dense scan — that's the one change.</td></tr>
+        <tr><td>Where does the catalog come from / would you scrape?</td><td>Curated deliberately: prerequisite edges exist in no public course dataset and they're the backbone here. An institution plugs in its own catalog — we proved that with a medicine catalog and zero code changes.</td></tr>
+        <tr><td>Completing a course ≠ learning it.</td><td>Agreed, and that's exactly why assessments are first-class catalog items and why a score modulates the credit. We infer learning; we're explicit that we don't measure it.</td></tr>
+        <tr><td>What would you build next?</td><td>Real enrolment data to learn the ranking weights rather than hand-setting them, and persistence beyond in-memory sessions. Both are one module each.</td></tr>
+      </table>
+    </div>
+    <div hidden class="script">
+      <p class="cue">Assign owners before you present</p>
+      <p><b>Khushi</b> takes anything on models or maths. <b>Sandeep</b> takes explainability and generality. <b>Chethan Kumar</b> takes engineering, testing and scale. <b>Chethan H S</b> takes the product and demo. <b>Koushik</b> takes problem framing, impact and anything unassigned.</p>
+      <p class="cue">If you don't know</p>
+      <p>Say so, then say what you'd do to find out. A panel forgives "we haven't measured that — here's how we would." It does not forgive a confident invention.</p>
+    </div>
+  </section>
+</div>
+
+<div class="progress" id="progress" style="width:0"></div>
+
+<aside class="notes" id="notes" aria-live="polite">
+  <h4 id="notesTitle">Script</h4>
+  <div id="notesBody"></div>
+</aside>
+
+<nav class="rail">
+  <span class="who"><span class="dot"></span><span class="name" id="speaker">R Koushik</span><span class="part" id="part">— Opening</span></span>
+  <span class="budget" id="budget">0:30</span>
+  <span class="spacer"></span>
+  <span class="clock" id="clock">00:00</span>
+  <span class="count" id="count">1 / 11</span>
+  <button id="btnNotes" aria-pressed="false">Script&nbsp;·&nbsp;N</button>
+  <button id="btnTimer">Start&nbsp;·&nbsp;T</button>
+  <button id="btnReset">Reset</button>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, running = false, started = 0, elapsed = 0, tick = null;
+  var TARGET = 600; // 10 minutes of presentation, excluding Q&A
+
+  var elSpeaker = document.getElementById('speaker'),
+      elPart    = document.getElementById('part'),
+      elBudget  = document.getElementById('budget'),
+      elCount   = document.getElementById('count'),
+      elClock   = document.getElementById('clock'),
+      elProg    = document.getElementById('progress'),
+      notes     = document.getElementById('notes'),
+      notesBody = document.getElementById('notesBody'),
+      notesTtl  = document.getElementById('notesTitle'),
+      btnNotes  = document.getElementById('btnNotes');
+
+  function fmt(s) {
+    var m = Math.floor(s / 60), r = Math.floor(s % 60);
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  function render() {
+    slides.forEach(function (s, n) { s.classList.toggle('on', n === i); });
+    var s = slides[i];
+    elSpeaker.textContent = s.dataset.speaker;
+    elPart.textContent = '— ' + s.dataset.part;
+    elBudget.textContent = s.dataset.budget;
+    elCount.textContent = (i + 1) + ' / ' + slides.length;
+    elProg.style.width = ((i + 1) / slides.length * 100) + '%';
+    var script = s.querySelector('.script');
+    notesBody.innerHTML = script ? script.innerHTML : '<p>No script for this slide.</p>';
+    notesTtl.textContent = s.dataset.speaker + ' · ' + s.dataset.budget;
+  }
+
+  function go(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    render();
+  }
+
+  function paint() {
+    var total = elapsed + (running ? (Date.now() - started) / 1000 : 0);
+    elClock.textContent = fmt(total);
+    elClock.classList.toggle('over', total > TARGET);
+  }
+
+  function toggleTimer() {
+    if (running) { elapsed += (Date.now() - started) / 1000; running = false; clearInterval(tick); }
+    else { started = Date.now(); running = true; tick = setInterval(paint, 250); }
+    document.getElementById('btnTimer').textContent = (running ? 'Pause' : 'Start') + ' · T';
+    paint();
+  }
+
+  document.getElementById('btnTimer').addEventListener('click', toggleTimer);
+  document.getElementById('btnReset').addEventListener('click', function () {
+    running = false; clearInterval(tick); elapsed = 0;
+    document.getElementById('btnTimer').textContent = 'Start · T';
+    paint();
+  });
+  btnNotes.addEventListener('click', function () {
+    var open = notes.classList.toggle('open');
+    btnNotes.setAttribute('aria-pressed', String(open));
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { go(0); }
+    else if (k === 'End') { go(slides.length - 1); }
+    else if (k === 'n' || k === 'N') { btnNotes.click(); }
+    else if (k === 't' || k === 'T') { toggleTimer(); }
+    else if (k === 'f' || k === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+    }
+  });
+
+  render();
+  paint();
+})();
+</script>
